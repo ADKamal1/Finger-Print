@@ -10,14 +10,15 @@ class DrawCheckContainer extends StatelessWidget {
       width: 145,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.grey.shade400,
+        color: Color.fromRGBO(227, 227, 227, 1),
       ),
       child: Center(
         child: Text(
           text,
           style: TextStyle(
-              color: Colors.black54
-          ),
+              color: Color.fromRGBO(103, 103, 103, 1),
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );

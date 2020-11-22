@@ -44,7 +44,7 @@ class _MyPageState extends State<MyPage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Color.fromRGBO(40, 40, 40, 0.9),
+        backgroundColor: Color.fromRGBO(40, 40, 40, 0.9),
         items: [
           BottomNavigationBarItem(
             title: Text(
@@ -104,10 +104,11 @@ class _MyPageState extends State<MyPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        backgroundColor: Colors.grey.shade700,
+        // backgroundColor: Colors.grey.shade700,
         //selectedItemColor: Colors.white,
         //unselectedItemColor: Colors.grey,
         onTap: _onTapped,
+
         //fixedColor: Colors.grey,
       ),
     );
