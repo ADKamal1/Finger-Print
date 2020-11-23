@@ -9,9 +9,6 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
@@ -35,81 +32,90 @@ class _MyPageState extends State<MyPage> {
     });
   }
 
+  final _selectedItemColor = Colors.black;
+  final _unselectedItemColor = Colors.black;
+  final _selectedBgColor = Colors.white;
+  final _unselectedBgColor = Color.fromRGBO(243, 243, 243, 1);
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  Color _getBgColor(int index) =>
+      _selectedIndex == index ? _selectedBgColor : _unselectedBgColor;
+
+  Color _getItemColor(int index) =>
+      _selectedIndex == index ? _selectedItemColor : _unselectedItemColor;
+  Widget _buildIcon(IconData iconData, String text, int index) => Container(
+        width: double.infinity,
+        height: kBottomNavigationBarHeight + 15,
+        child: Material(
+          color: _getBgColor(index),
+          child: InkWell(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  iconData,
+                  size: 50,
+                ),
+                (_selectedIndex != index)
+                    ? Text(text,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromRGBO(40, 40, 40, 0.9)))
+                    : Container(),
+              ],
+            ),
+            onTap: () => _onTapped(index),
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     //var height= MediaQuery.of(context).size.height;
-    //var width = MediaQuery.of(context).size.width;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromRGBO(40, 40, 40, 0.9),
         items: [
           BottomNavigationBarItem(
-            title: Text(
-              'FP',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            icon: Icon(
-              Icons.fingerprint,
-              size: 40,
-              color: Colors.black,
-            ),
+            // activeIcon: Container(
+            //   width: width * 0.25,
+            //   height: 40,
+            //   child: Image.asset(
+            //     'assets/images/ac.png',
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
+            //  backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+            title: SizedBox.shrink(),
+            icon: _buildIcon(Icons.fingerprint, 'FP', 0),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              size: 40,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Account',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            //label: 'Account',
-            //backgroundColor: Colors.white
+            title: SizedBox.shrink(),
+            icon: _buildIcon(Icons.person, 'Account', 1),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.calendar_today,
-              size: 40,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Calendar',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            title: SizedBox.shrink(),
+            icon: _buildIcon(Icons.calendar_today, 'Calendar', 2),
             //label: 'Calendar'
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              size: 40,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Settings',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            title: SizedBox.shrink(),
+            icon: _buildIcon(Icons.settings, 'Settings', 3),
             // label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,
-        // backgroundColor: Colors.grey.shade700,
-        //selectedItemColor: Colors.white,
-        //unselectedItemColor: Colors.grey,
+        selectedItemColor: _selectedItemColor,
+        unselectedItemColor: _unselectedItemColor,
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        showSelectedLabels: false,
         onTap: _onTapped,
-
-        //fixedColor: Colors.grey,
       ),
     );
   }

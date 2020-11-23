@@ -4,48 +4,49 @@ import 'package:my_finger_printer/utils/common_container.dart';
 class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Column(
       children: [
         Stack(
           overflow: Overflow.visible,
           children: [
             Container(
-                height: 100, // height*.15
+                height: height * .11,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   ),
-                  color: Colors.black87,
+                  color: Color.fromRGBO(60, 60, 60, 1),
                 )),
             Positioned(
-              top: 50,
-              left: 127,
+              top: height * 0.02,
+              left: width * 0.29,
               child: CircleAvatar(
-                  //   backgroundImage: NetworkImage(
-                  //       //''),
-                  //   backgroundColor: Colors.white,
-                  //   radius: 60,
-                  //
-                  ),
+                backgroundImage: AssetImage('assets/images/avater.png'),
+                radius: 70,
+              ),
             ),
           ],
         ),
         SizedBox(
-          height: 95,
+          height: height * .15,
         ),
         Stack(
           overflow: Overflow.visible,
           children: [
             Card(
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.16),
+              elevation: 6,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
               color: Colors.white,
               child: Container(
-                height: 370,
-                width: 320,
+                height: height * 0.50,
+                width: width * 0.8,
                 padding: EdgeInsets.only(right: 15, left: 15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -60,8 +61,8 @@ class AccountPage extends StatelessWidget {
                       child: Text(
                         'Department',
                         style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 20,
+                            color: Color.fromRGBO(60, 60, 60, 0.9),
+                            fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -69,7 +70,9 @@ class AccountPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 5, left: 10),
                       child: Text(
                         'Marketing Department',
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                        style: TextStyle(
+                            color: Color.fromRGBO(116, 116, 116, 0.9),
+                            fontSize: 15),
                       ),
                     ),
                     Padding(
@@ -77,8 +80,8 @@ class AccountPage extends StatelessWidget {
                       child: Text(
                         'Job Title',
                         style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 20,
+                            color: Color.fromRGBO(60, 60, 60, 0.9),
+                            fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -86,7 +89,9 @@ class AccountPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 5, left: 10),
                       child: Text(
                         'Digital Marketing Specialist',
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                        style: TextStyle(
+                            color: Color.fromRGBO(116, 116, 116, 0.9),
+                            fontSize: 15),
                       ),
                     ),
                     Padding(
@@ -94,8 +99,8 @@ class AccountPage extends StatelessWidget {
                       child: Text(
                         'Job Title',
                         style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 20,
+                            color: Color.fromRGBO(60, 60, 60, 0.9),
+                            fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -103,15 +108,17 @@ class AccountPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 5, left: 10),
                       child: Text(
                         'Digital Marketing Specialist',
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                        style: TextStyle(
+                            color: Color.fromRGBO(116, 116, 116, 0.9),
+                            fontSize: 15),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: height * 0.06,
                     ),
                     DrawContainer('General Rules & Information', 15),
                     SizedBox(
-                      height: 10,
+                      height: 11,
                     ),
                     DrawContainer('Requests & Inquiries', 15)
                   ],
@@ -129,7 +136,7 @@ class AccountPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15, right: 210),
           child: Text(
-            'Developed By Logo',
+            'DevelopedBy',
             style: TextStyle(color: Colors.grey),
           ),
         ),
