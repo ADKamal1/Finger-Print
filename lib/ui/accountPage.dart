@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/ui/genral_roules.dart';
+import 'package:my_finger_printer/ui/inquires.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
 
 class AccountPage extends StatelessWidget {
@@ -12,7 +14,7 @@ class AccountPage extends StatelessWidget {
           overflow: Overflow.visible,
           children: [
             Container(
-                height: height * .11,
+                height: height * .1,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -116,11 +118,26 @@ class AccountPage extends StatelessWidget {
                     SizedBox(
                       height: height * 0.06,
                     ),
-                    DrawContainer('General Rules & Information', 15),
+                    InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GeneralRules()));
+                        },
+                        child:
+                            DrawContainer('General Rules & Information', 15)),
                     SizedBox(
                       height: 11,
                     ),
-                    DrawContainer('Requests & Inquiries', 15)
+                    InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RequestsAndInq()));
+                        },
+                        child: DrawContainer('Requests & Inquiries', 15))
                   ],
                 ),
               ),
