@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/animations/scale-transation-route.dart';
 import 'package:my_finger_printer/ui/home-page-screen.dart';
+import 'package:my_finger_printer/widgets/general.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +12,40 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  AuthenticationBloc authenticationBloc;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _emailControllor = new TextEditingController();
+  TextEditingController _passwordControllor = new TextEditingController();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    authenticationBloc = Provider.of<AuthenticationBloc>(context, listen: false);
+  }
+
+  _login() async {
+    print("Emptyww");
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
+      General.showDialogue(txtWidget: Text("Please enter username and password"), context: context);
+      return ;
+    }
+    else{
+      //_formKey.currentState.save();
+      authenticationBloc.loginService(
+          _emailControllor.text.trim(),
+          _passwordControllor.text.trim(),
+          context
+      );
+    }
+
+
+
+  }
+
   @override
   Widget _backButton() {
     return InkWell(
@@ -45,7 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                 TextStyle(fontSize: 20, color: Color.fromRGBO(49, 49, 49, 1)),
           ),
           (!isPassword)
-              ? TextField(
+              ? TextFormField(
+            controller: _emailControllor,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
@@ -64,7 +102,8 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true),
                   cursorColor: Color.fromRGBO(237, 237, 237, 1),
                 )
-              : TextField(
+              : TextFormField(
+            controller: _passwordControllor,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
@@ -87,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _submitButton() {
+    AuthenticationBloc authenticationBloc = Provider.of<AuthenticationBloc>(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 15),
@@ -95,12 +135,12 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.all(Radius.circular(5)),
         color: Color.fromRGBO(40, 40, 40, 1),
       ),
-      child: Text(
-        "Log In",
-        textAlign: TextAlign.center,
-        style:
-            TextStyle(color: Color.fromRGBO(255, 255, 2555, 1), fontSize: 18),
-      ),
+      child: !authenticationBloc.isWaiting
+            ? General.buildTxt(
+            txt:"Log In",
+            color: Colors.white,
+            fontSize: 16.0)
+            : General.customThreeBounce(context)
     );
   }
 
@@ -188,12 +228,11 @@ class _LoginPageState extends State<LoginPage> {
                   InkWell(
                       onTap: () {
 
-                        Navigator.push(context, ScaleTransationRoute(page: HomePage()));
+                        print("jjj${authenticationBloc.isWaiting}");
+                        !authenticationBloc.isWaiting ? _login() : null;
+                        //_login();
 
-//                        Navigator.push(context,
-//                            MaterialPageRoute(builder: (context) => HomePage()
-//                            )
-//                        );
+
                       },
                       child: _submitButton()),
                 ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/ui/login.dart';
-import 'package:my_finger_printer/values/slider_data.dart';
+import 'file:///I:/PartTime/FP/lib/utils/slider_data.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
