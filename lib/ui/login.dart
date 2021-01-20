@@ -136,6 +136,29 @@ class _LoginPageState extends State<LoginPage> {
       color: Colors.white,
       child: Stack(
         children: <Widget>[
+          Positioned(
+            bottom: 20,
+            left: 10,
+            child: Row(
+              children: [
+                Text(
+                  "Developed By",
+                  style: TextStyle(
+                      color: Color.fromRGBO(81, 81, 81, 0.8),
+                      fontSize: 12,
+                      inherit: false),
+                ),
+                Container(
+                  child: Image.asset(
+                    "assets/images/component.png",
+                    fit: BoxFit.cover,
+                    height: 70,
+                    width: 70,
+                  ),
+                )
+              ],
+            ),
+          ),
           Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 20),

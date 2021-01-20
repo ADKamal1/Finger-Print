@@ -151,10 +151,25 @@ class AccountPage extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, right: 210),
-          child: Text(
-            'DevelopedBy',
-            style: TextStyle(color: Colors.grey),
+          padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+          child: Row(
+            children: [
+              Text(
+                "Developed By",
+                style: TextStyle(
+                    color: Color.fromRGBO(41, 41, 41, 1),
+                    fontSize: 12,
+                    inherit: false),
+              ),
+              Container(
+                child: Image.asset(
+                  "assets/images/component.png",
+                  fit: BoxFit.cover,
+                  height: 70,
+                  width: 70,
+                ),
+              )
+            ],
           ),
         ),
       ],

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/ui/accountPage.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
+import 'package:my_finger_printer/ui/mainCalender.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -12,12 +13,7 @@ class _MyPageState extends State<MyPage> {
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
-    Center(
-      child: Text(
-        'Index 2: Calender',
-        style: optionStyle,
-      ),
-    ),
+    CalenderPage(),
     Center(
       child: Text(
         'Index 3: Settings',

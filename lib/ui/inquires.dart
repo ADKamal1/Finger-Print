@@ -145,6 +145,28 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
             height: height * 0.03,
           ),
           MyContainer('FAQ', 30, Color.fromRGBO(40, 40, 40, 1)),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
+            child: Row(
+              children: [
+                Text(
+                  "Developed By",
+                  style: TextStyle(
+                      color: Color.fromRGBO(41, 41, 41, 1),
+                      fontSize: 12,
+                      inherit: false),
+                ),
+                Container(
+                  child: Image.asset(
+                    "assets/images/component.png",
+                    fit: BoxFit.cover,
+                    height: 70,
+                    width: 70,
+                  ),
+                )
+              ],
+            ),
+          ),
         ]),
       ),
     );
