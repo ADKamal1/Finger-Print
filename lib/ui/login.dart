@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_finger_printer/ui/mainPage.dart';
+import 'package:my_finger_printer/animations/scale-transation-route.dart';
+import 'package:my_finger_printer/ui/home-page-screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -186,8 +187,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyPage()));
+
+                        Navigator.push(context, ScaleTransationRoute(page: HomePage()));
+
+//                        Navigator.push(context,
+//                            MaterialPageRoute(builder: (context) => HomePage()
+//                            )
+//                        );
                       },
                       child: _submitButton()),
                 ],
@@ -199,4 +205,5 @@ class _LoginPageState extends State<LoginPage> {
       ),
     ));
   }
+
 }

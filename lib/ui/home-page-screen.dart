@@ -4,12 +4,12 @@ import 'package:my_finger_printer/ui/accountPage.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
 import 'package:my_finger_printer/ui/mainCalender.dart';
 
-class MyPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
   _MyPageState createState() => _MyPageState();
 }
 
-class _MyPageState extends State<MyPage> {
+class _MyPageState extends State<HomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
