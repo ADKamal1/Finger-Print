@@ -44,6 +44,9 @@ class Api {
 
 
 
+
+
+
   checkIn({DateTime date, String lat,String lon ,BuildContext context}) async {
     try {
       User user = await SharedPreferenceHandler.getuserData();
