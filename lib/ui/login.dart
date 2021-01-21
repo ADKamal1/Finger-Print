@@ -23,7 +23,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    init();
+
+  }
+
+
+  init() async {
+    await Future.delayed(Duration(milliseconds: 150));
     authenticationBloc = Provider.of<AuthenticationBloc>(context, listen: false);
+
+
+    //wishlistBloc.getWishlistProduct();
+
   }
 
   _login() async {
