@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:my_finger_printer/models/CheckIn.dart';
+import 'package:my_finger_printer/models/CheckOut.dart';
 import 'package:my_finger_printer/services/api.dart';
 
 import 'general_bloc.dart';
 
-class CheckInBloc extends GeneralBloc {
+class CheckOutBloc extends GeneralBloc {
   bool _isWaiting = false;
   bool get isWaiting => _isWaiting;
-  CheckIn checkIn;
+  CheckOut checkOut;
 
-  userCheckIn(
+  userCheckOut(
       {DateTime date, String lat, String lon, BuildContext context}) async {
     try {
       setWaiting();
       notifyListeners();
-      checkIn =
-          await Api().checkIn(date: date, lat: lat, lon: lon, context: context);
+      checkOut = await Api()
+          .checkOut(date: date, lat: lat, lon: lon, context: context);
       dismissWaiting();
       notifyListeners();
       setError(null);

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
+import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
 import 'package:my_finger_printer/ui/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'Provider/authentication_bloc.dart';
+import 'Provider/checkOut_bloc.dart';
 import 'Provider/general_bloc.dart';
 
 void main() async {
@@ -20,6 +23,15 @@ Widget app(Widget startScreen) {
       ),
       ChangeNotifierProvider<AuthenticationBloc>.value(
         value: AuthenticationBloc(),
+      ),
+      ChangeNotifierProvider<Request_Bloc>.value(
+        value: Request_Bloc(),
+      ),
+      ChangeNotifierProvider<CheckInBloc>.value(
+        value: CheckInBloc(),
+      ),
+      ChangeNotifierProvider<CheckOutBloc>.value(
+        value: CheckOutBloc(),
       ),
     ],
     child: MyApp(

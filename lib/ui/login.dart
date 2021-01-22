@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
-import 'package:my_finger_printer/animations/scale-transation-route.dart';
-import 'package:my_finger_printer/ui/home-page-screen.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
+// import 'package:unique_ids/unique_ids.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,49 +12,64 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   AuthenticationBloc authenticationBloc;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _emailControllor = new TextEditingController();
   TextEditingController _passwordControllor = new TextEditingController();
-
-
+  String serial = "123123";
 
   @override
   void initState() {
     super.initState();
     init();
-
+    // initUniqueIdentifierState();
   }
-
+  //
+  // Future<void> initUniqueIdentifierState() async {
+  //   String adId;
+  //   String uuid;
+  //
+  //   try {
+  //     uuid = await UniqueIds.uuid;
+  //   } on PlatformException {
+  //     uuid = 'Failed to create uuid.v1';
+  //   }
+  //
+  //   try {
+  //     adId = await UniqueIds.adId;
+  //   } on PlatformException {
+  //     adId = 'Failed to get adId version.';
+  //   }
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     serial = adId;
+  //   });
+  // }
 
   init() async {
     await Future.delayed(Duration(milliseconds: 150));
-    authenticationBloc = Provider.of<AuthenticationBloc>(context, listen: false);
 
-
+    authenticationBloc =
+        Provider.of<AuthenticationBloc>(context, listen: false);
     //wishlistBloc.getWishlistProduct();
-
   }
 
   _login() async {
     print("Emptyww");
+
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
-      General.showDialogue(txtWidget: Text("Please enter username and password"), context: context);
-      return ;
-    }
-    else{
+      General.showDialogue(
+          txtWidget: Text("Please enter username and password"),
+          context: context);
+      return;
+    } else {
       //_formKey.currentState.save();
-      authenticationBloc.loginService(
-          _emailControllor.text.trim(),
-          _passwordControllor.text.trim(),
-          context
-      );
+      authenticationBloc.loginService(_emailControllor.text.trim(),
+          _passwordControllor.text.trim(), serial.trim(), context);
     }
-
-
-
   }
 
   @override
@@ -94,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
           (!isPassword)
               ? TextFormField(
-            controller: _emailControllor,
-                  keyboardType: TextInputType.number,
+                  controller: _emailControllor,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide:
@@ -114,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   cursorColor: Color.fromRGBO(237, 237, 237, 1),
                 )
               : TextFormField(
-            controller: _passwordControllor,
+                  controller: _passwordControllor,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
@@ -137,22 +152,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _submitButton() {
-    AuthenticationBloc authenticationBloc = Provider.of<AuthenticationBloc>(context);
+    AuthenticationBloc authenticationBloc =
+        Provider.of<AuthenticationBloc>(context);
     return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        color: Color.fromRGBO(40, 40, 40, 1),
-      ),
-      child: !authenticationBloc.isWaiting
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: Color.fromRGBO(40, 40, 40, 1),
+        ),
+        child: !authenticationBloc.isWaiting
             ? General.buildTxt(
-            txt:"Log In",
-            color: Colors.white,
-            fontSize: 16.0)
-            : General.customThreeBounce(context)
-    );
+                txt: "Log In", color: Colors.white, fontSize: 16.0)
+            : General.customThreeBounce(context));
   }
 
   Widget _title() {
@@ -238,12 +251,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   InkWell(
                       onTap: () {
-
                         print("jjj${authenticationBloc.isWaiting}");
                         !authenticationBloc.isWaiting ? _login() : null;
-                        //_login();
-
-
+                        // //_login();
+                        //
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => OurRequests()));
                       },
                       child: _submitButton()),
                 ],
@@ -255,5 +270,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     ));
   }
-
 }

@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/ui/genral_roules.dart';
 import 'package:my_finger_printer/ui/inquires.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:provider/provider.dart';
 
 class AccountPage extends StatelessWidget {
+  final Color backg = Colors.black;
+  final Color write = Colors.white;
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
+    AuthenticationBloc authenticationBloc =
+        Provider.of<AuthenticationBloc>(context);
+    authenticationBloc.user.userData;
     return Column(
       children: [
         Stack(
@@ -71,7 +80,7 @@ class AccountPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 5, left: 10),
                       child: Text(
-                        'Marketing Department',
+                        authenticationBloc.user.userData.department,
                         style: TextStyle(
                             color: Color.fromRGBO(116, 116, 116, 0.9),
                             fontSize: 15),
@@ -90,7 +99,7 @@ class AccountPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 5, left: 10),
                       child: Text(
-                        'Digital Marketing Specialist',
+                        authenticationBloc.user.userData.job,
                         style: TextStyle(
                             color: Color.fromRGBO(116, 116, 116, 0.9),
                             fontSize: 15),
@@ -109,7 +118,7 @@ class AccountPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 5, left: 10),
                       child: Text(
-                        'Digital Marketing Specialist',
+                        authenticationBloc.user.userData.job,
                         style: TextStyle(
                             color: Color.fromRGBO(116, 116, 116, 0.9),
                             fontSize: 15),
@@ -125,19 +134,21 @@ class AccountPage extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => GeneralRules()));
                         },
-                        child:
-                            DrawContainer('General Rules & Information', 15)),
+                        child: DrawContainer(
+                            'General Rules & Information', 15, backg, write)),
                     SizedBox(
                       height: 11,
                     ),
                     InkWell(
                         onTap: () {
+                          print("zzzzzzzzzzzzzzz");
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => RequestsAndInq()));
                         },
-                        child: DrawContainer('Requests & Inquiries', 15))
+                        child: DrawContainer(
+                            'Requests & Inquiries', 15, backg, write))
                   ],
                 ),
               ),
@@ -146,7 +157,8 @@ class AccountPage extends StatelessWidget {
               top: -20,
               left: 20,
               right: 20,
-              child: DrawContainer('Ahmed Mahmoud', 30),
+              child: DrawContainer(
+                  authenticationBloc.user.userData.name, 30, backg, write),
             ),
           ],
         ),

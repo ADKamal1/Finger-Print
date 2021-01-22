@@ -131,13 +131,16 @@ class _GeneralRulesState extends State<GeneralRules> {
           SizedBox(
             height: height * 0.1,
           ),
-          Center(
-            child: Text(
-              'Rules & Information',
-              style: TextStyle(
-                color: Color.fromRGBO(0, 0, 0, 0.9),
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+          InkWell(
+            onTap: () {},
+            child: Center(
+              child: Text(
+                'Rules & Information',
+                style: TextStyle(
+                  color: Color.fromRGBO(0, 0, 0, 0.9),
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

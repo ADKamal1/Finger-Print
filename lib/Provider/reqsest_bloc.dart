@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/animations/scale-transation-route.dart';
-import 'package:my_finger_printer/models/user.dart';
+import 'package:my_finger_printer/models/request.dart';
 import 'package:my_finger_printer/services/api.dart';
 import 'package:my_finger_printer/ui/home-page-screen.dart';
-import 'package:my_finger_printer/widgets/shared_preference.dart';
 
 import 'general_bloc.dart';
 
-class AuthenticationBloc extends GeneralBloc {
+class Request_Bloc extends GeneralBloc {
   bool _isWaiting = false;
   bool get isWaiting => _isWaiting;
-  User user;
+  Request request;
 
-  loginService(String email, String password, String serial,
+  RequestService(String email, String password, String massage, String type,
       BuildContext context) async {
     try {
       setWaiting();
       notifyListeners();
-      user =
-          await Api().login(email: email, password: password, serial: serial);
+      request = await Api().Requests(
+          email: email, password: password, massage: massage, type: type);
       dismissWaiting();
       notifyListeners();
-      print("hhh:${user.errors}");
-      if (user.errors.isEmpty) {
+      print("hhh:${request.errors}");
+      if (request.errors.isEmpty) {
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       }
-      SharedPreferenceHandler.setUserData(user);
-      //SharedPreferenceHandler.setUserSerial(user);
       setError(null);
     } catch (e) {
       waiting = false;
       notifyListeners();
       setError(e.toString());
-      print("login Error :$e");
+      print("request error :$e");
     }
   }
 }

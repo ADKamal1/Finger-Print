@@ -132,19 +132,22 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
           SizedBox(
             height: height * 0.15,
           ),
-          MyContainer('Leave Request', 30, Color.fromRGBO(40, 40, 40, 1)),
+          MyContainer(
+              'Leave Request', 30, Color.fromRGBO(40, 40, 40, 1), "Leave"),
           SizedBox(
             height: height * 0.03,
           ),
-          MyContainer('Loan Request', 30, Color.fromRGBO(40, 40, 40, 1)),
+          MyContainer(
+              'Loan Request', 30, Color.fromRGBO(40, 40, 40, 1), "Loan"),
           SizedBox(
             height: height * 0.03,
           ),
-          MyContainer('Salary Inquiry', 30, Color.fromRGBO(40, 40, 40, 1)),
+          MyContainer(
+              'Salary Inquiry', 30, Color.fromRGBO(40, 40, 40, 1), "Salary"),
           SizedBox(
             height: height * 0.03,
           ),
-          MyContainer('FAQ', 30, Color.fromRGBO(40, 40, 40, 1)),
+          MyContainer('FAQ', 30, Color.fromRGBO(40, 40, 40, 1), "FAQ"),
           Padding(
             padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
             child: Row(
@@ -175,16 +178,22 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
 
 class MyContainer extends StatelessWidget {
   final String data;
+  final String type;
+
   final double radius;
   final Color color;
 
-  MyContainer(this.data, this.radius, this.color);
+  MyContainer(this.data, this.radius, this.color, this.type);
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => OurRequests()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => OurRequests(
+                      type: type,
+                    )));
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.09,

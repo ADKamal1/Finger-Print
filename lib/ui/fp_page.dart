@@ -1,17 +1,68 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
+import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:provider/provider.dart';
 
 class FPPage extends StatefulWidget {
-  final bool location=true;
+  final bool location = true;
+
   @override
   _FPPageState createState() => _FPPageState();
 }
 
 class _FPPageState extends State<FPPage> {
+  final Geolocator geolocator = Geolocator();
+
+  Position current;
+
+  location() async {
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        current = position;
+      });
+
+      setState(() {
+        frist = false;
+      });
+
+      print("fffffffffff" + position.longitude.toString());
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  bool frist = true;
+  bool second = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    location();
+  }
+
+  Color colorin = Color.fromRGBO(227, 227, 227, 1);
+  Color confirmWrite = Color.fromRGBO(255, 255, 255, 0.9);
+  Color confirmColor = Color.fromRGBO(40, 40, 40, 1);
+  Color writein = Color.fromRGBO(100, 100, 100, 0.9);
+  Color writeout = Color.fromRGBO(100, 100, 100, 0.9);
+  Color colorout = Color.fromRGBO(227, 227, 227, 1);
+
   @override
   Widget build(BuildContext context) {
+    AuthenticationBloc authenticationBloc =
+        Provider.of<AuthenticationBloc>(context);
+    authenticationBloc.user.userData;
+
+    CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
+
+    CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
@@ -112,7 +163,7 @@ class _FPPageState extends State<FPPage> {
                           Center(
                             child: Padding(
                               padding:
-                              const EdgeInsets.only(left: 10, right: 10),
+                                  const EdgeInsets.only(left: 10, right: 10),
                               child: Text(
                                 'Confirm your location to have to option to check in or out.',
                                 textAlign: TextAlign.center,
@@ -128,28 +179,84 @@ class _FPPageState extends State<FPPage> {
                           ),
                           InkWell(
                               onTap: () {
-                                (widget.location)?
-                                    CircularProgressIndicator(backgroundColor: Colors.red,):
-                                CircularProgressIndicator(backgroundColor: Colors.red,);
-
-
-
-
+                                print(current.longitude.toString());
                               },
-                              child: DrawContainer('Confirm Location', 15)),
+                              child: DrawContainer(
+                                  'Confirm Location',
+                                  15,
+                                  (frist)
+                                      ? confirmColor
+                                      : Color.fromRGBO(227, 227, 227, 1),
+                                  (frist)
+                                      ? confirmWrite
+                                      : Color.fromRGBO(100, 100, 100, 0.9))),
                           SizedBox(
                             height: 12,
                           ),
                           Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 12),
-                                child: DrawCheckContainer('Check in'),
+                              GestureDetector(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 12),
+                                  child: DrawCheckContainer(
+                                      'Check in',
+                                      frist
+                                          ? colorin
+                                          : Color.fromRGBO(36, 200, 139, 1),
+                                      frist
+                                          ? writein
+                                          : Color.fromRGBO(255, 255, 255, 0.9)),
+                                ),
+                                onTap: () async {
+                                  setState(() {
+                                    second = false;
+                                    frist = true;
+                                    confirmColor = colorin;
+                                    confirmWrite =
+                                        Color.fromRGBO(100, 100, 100, 0.9);
+                                  });
+
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  checkInBlock.userCheckIn(
+                                      context: context,
+                                      date: DateTime.now(),
+                                      lat: current.latitude.toString().trim(),
+                                      lon: current.longitude.toString().trim());
+                                  print("xxxxxxxxxxxxxxxxxxxxxx");
+                                },
                               ),
                               SizedBox(
                                 width: 8,
                               ),
-                              DrawCheckContainer('Check out'),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    second = true;
+                                    frist = false;
+                                    confirmColor = colorout;
+                                    confirmWrite =
+                                        Color.fromRGBO(100, 100, 100, 0.9);
+                                  });
+
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  checkOutBlock.userCheckOut(
+                                      context: context,
+                                      date: DateTime.now(),
+                                      lat: current.latitude.toString().trim(),
+                                      lon: current.longitude.toString().trim());
+                                  print("yyyyyyyyyyyyyyyyyyyyyyyy");
+                                },
+                                child: DrawCheckContainer(
+                                    'Check out',
+                                    second
+                                        ? colorout
+                                        : Color.fromRGBO(249, 96, 96, 1),
+                                    second
+                                        ? writein
+                                        : Color.fromRGBO(255, 255, 255, 0.9)),
+                              ),
                             ],
                           )
                         ],
@@ -176,7 +283,7 @@ class _FPPageState extends State<FPPage> {
                                       padding: const EdgeInsets.only(
                                           top: 3, left: 20),
                                       child: Text(
-                                        'Ahmed Mohamed',
+                                        authenticationBloc.user.userData.name,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Color.fromRGBO(
@@ -189,7 +296,7 @@ class _FPPageState extends State<FPPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(right: 60),
                                       child: Text(
-                                        'ID:',
+                                        'ID:       ${authenticationBloc.user.userData.id}',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
                                                 255, 255, 255, 0.8)),
@@ -204,7 +311,7 @@ class _FPPageState extends State<FPPage> {
                               top: -7,
                               child: CircleAvatar(
                                 backgroundImage:
-                                AssetImage('assets/images/avater.png'),
+                                    AssetImage('assets/images/avater.png'),
                                 // backgroundColor: Colors.white,
                                 radius: 30,
                               ),
@@ -224,4 +331,3 @@ class _FPPageState extends State<FPPage> {
     );
   }
 }
-

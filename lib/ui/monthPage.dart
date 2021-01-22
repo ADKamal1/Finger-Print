@@ -66,7 +66,6 @@ class CalenderWidget extends StatelessWidget {
               color: Color.fromRGBO(49, 49, 49, 1),
               fontWeight: FontWeight.w800,
               fontSize: 11),
-          locale: "fuckkkkk",
         ),
       ],
     );

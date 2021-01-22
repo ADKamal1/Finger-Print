@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
 import 'package:my_finger_printer/ui/accountPage.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
+import 'package:provider/provider.dart';
 
 class OurRequests extends StatefulWidget {
+  final String type;
+
+  const OurRequests({Key key, this.type}) : super(key: key);
   @override
   _OurRequestsState createState() => _OurRequestsState();
 }
 
 class _OurRequestsState extends State<OurRequests> {
+  String type1 = "";
+
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
@@ -31,6 +39,9 @@ class _OurRequestsState extends State<OurRequests> {
     });
   }
 
+  Request_Bloc request_bloc;
+
+  final TextEditingController _rquestControler = TextEditingController();
   final _selectedItemColor = Colors.black;
   final _unselectedItemColor = Colors.black;
   final _selectedBgColor = Colors.white;
@@ -64,7 +75,24 @@ class _OurRequestsState extends State<OurRequests> {
       );
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    request_bloc = Provider.of<Request_Bloc>(context, listen: false);
+    setState(() {
+      type1 = widget.type;
+    });
+  }
+
+  _request() async {
+    print("Emptyww");
+  }
+
+  @override
   Widget build(BuildContext context) {
+    AuthenticationBloc authenticationBloc =
+        Provider.of<AuthenticationBloc>(context);
+    authenticationBloc.user.userData;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -154,6 +182,7 @@ class _OurRequestsState extends State<OurRequests> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _rquestControler,
                       cursorColor: Color.fromRGBO(112, 112, 112, 1),
                       showCursor: true,
                       maxLines: 20,
@@ -187,29 +216,40 @@ class _OurRequestsState extends State<OurRequests> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 8, 23, 8),
-                  child: Container(
-                    height: height * 0.06,
-                    width: width * 0.3,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(230, 230, 230, 1),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
-                            "Send",
-                            style: TextStyle(
-                              color: Color.fromRGBO(0, 0, 0, 0.9),
-                              fontSize: 30,
+                  child: FlatButton(
+                    onPressed: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      request_bloc.RequestService(
+                          authenticationBloc.user.userData.email,
+                          authenticationBloc.user.userData.code,
+                          _rquestControler.text.trim(),
+                          type1,
+                          context);
+                    },
+                    child: Container(
+                      height: height * 0.06,
+                      width: width * 0.3,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(230, 230, 230, 1),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Text(
+                              "Send",
+                              style: TextStyle(
+                                color: Color.fromRGBO(0, 0, 0, 0.9),
+                                fontSize: 30,
+                              ),
                             ),
                           ),
-                        ),
-                        Icon(
-                          Icons.send,
-                          size: 25,
-                        )
-                      ],
+                          Icon(
+                            Icons.send,
+                            size: 25,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )
