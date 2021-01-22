@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
-// import 'package:unique_ids/unique_ids.dart';
+import 'package:unique_ids/unique_ids.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -22,31 +22,31 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     init();
-    // initUniqueIdentifierState();
+    initUniqueIdentifierState();
   }
-  //
-  // Future<void> initUniqueIdentifierState() async {
-  //   String adId;
-  //   String uuid;
-  //
-  //   try {
-  //     uuid = await UniqueIds.uuid;
-  //   } on PlatformException {
-  //     uuid = 'Failed to create uuid.v1';
-  //   }
-  //
-  //   try {
-  //     adId = await UniqueIds.adId;
-  //   } on PlatformException {
-  //     adId = 'Failed to get adId version.';
-  //   }
-  //
-  //   if (!mounted) return;
-  //
-  //   setState(() {
-  //     serial = adId;
-  //   });
-  // }
+
+  Future<void> initUniqueIdentifierState() async {
+    String adId;
+    String uuid;
+
+    try {
+      uuid = await UniqueIds.uuid;
+    } on PlatformException {
+      uuid = 'Failed to create uuid.v1';
+    }
+
+    try {
+      adId = await UniqueIds.adId;
+    } on PlatformException {
+      adId = 'Failed to get adId version.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      serial = adId;
+    });
+  }
 
   init() async {
     await Future.delayed(Duration(milliseconds: 150));
