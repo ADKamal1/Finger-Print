@@ -57,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _login() async {
-    print("Emptyww");
 
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
@@ -67,6 +66,8 @@ class _LoginPageState extends State<LoginPage> {
       return;
     } else {
       //_formKey.currentState.save();
+      print("\nkkk:-");
+      print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),
           _passwordControllor.text.trim(), serial.trim(), context);
     }
