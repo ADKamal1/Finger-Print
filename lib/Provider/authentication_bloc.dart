@@ -6,6 +6,7 @@ import 'package:my_finger_printer/ui/home-page-screen.dart';
 import 'package:my_finger_printer/widgets/shared_preference.dart';
 
 import 'general_bloc.dart';
+import '../widgets/general.dart';
 
 class AuthenticationBloc extends GeneralBloc {
   bool _isWaiting = false;
@@ -17,15 +18,20 @@ class AuthenticationBloc extends GeneralBloc {
     try {
       setWaiting();
       notifyListeners();
-      user =
-          await Api().login(email: email, password: password, serial: serial);
+      user = await Api().login(email: email, password: password, serial: serial);
       dismissWaiting();
       notifyListeners();
       print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
+        SharedPreferenceHandler.setUserData(user);
       }
-      SharedPreferenceHandler.setUserData(user);
+      else{
+        General.showDialogue(
+            txtWidget: Text(user.errors[0]),
+            context: context);
+      }
+//      SharedPreferenceHandler.setUserData(user);
       //SharedPreferenceHandler.setUserSerial(user);
       setError(null);
     } catch (e) {

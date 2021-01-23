@@ -116,8 +116,9 @@ class General {
 
   static formatStringFromDate(DateTime date) {
     //DateTime myDate = DateTime.parse(date);
-    return new DateFormat('yyyy/MM/dd').format(date);
+    return DateTime.parse(DateFormat('yyyy/MM/dd').format(date));
   }
+
   static formatStringWithTimeFromDate(DateTime date) {
     //DateTime myDate = DateTime.parse(date);
     return new DateFormat('yyyy/MM/dd hh:mm').format(date);
