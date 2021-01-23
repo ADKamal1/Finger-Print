@@ -31,7 +31,5 @@ class Request_Bloc extends GeneralBloc {
       setError(e.toString());
       print("request error :$e");
     }
-
-
   }
 }
