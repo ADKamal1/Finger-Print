@@ -3,7 +3,8 @@ import 'package:flutter_neat_and_clean_calendar/neat_and_clean_calendar_event.da
 
 class Events {
   static final Map<DateTime, List<NeatCleanCalendarEvent>> events = {
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day):
+    [
       NeatCleanCalendarEvent('Check in',
           startTime: DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day, 10, 0),
@@ -13,7 +14,7 @@ class Events {
           color: Colors.blue[700]),
     ],
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 2):
-        [
+    [
       NeatCleanCalendarEvent('Event B',
           startTime: DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day + 2, 10, 0),

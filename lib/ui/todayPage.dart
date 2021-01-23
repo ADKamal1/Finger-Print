@@ -55,6 +55,7 @@ class _TodayPageState extends State<TodayPage> {
                           print(afterDay.toIso8601String());
                           setState(() {
                             selectedDay = index;
+
                           });
                         },
                         child: Card(
@@ -99,9 +100,51 @@ class _TodayPageState extends State<TodayPage> {
         //                           Events of Day
         Expanded(
           flex: 6,
-          child: Column(
-            children: Events.events.values
-                .map((e) => Padding(
+          child: ListView.builder(
+              itemCount: Events.events.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      EventWidget(
+                        title: 'Check in',
+                        color: Color.fromRGBO(36, 200, 139, 1),
+                        icon: Icon(
+                          Icons.remove_circle_outline,
+                          color: Color.fromRGBO(36, 200, 139, 1),
+                        ),
+                        dateFormatted:
+                        '${DateFormat.jm().format(Events.events[index].startTime)}',
+                        lineThrough: false,
+                      ),
+                      EventWidget(
+                        title: 'Check out',
+                        color: Color.fromRGBO(249, 96, 96, 1),
+                        icon: Icon(
+                          Icons.check_circle,
+                          color: Color.fromRGBO(249, 96, 96, 1),
+                        ),
+                        dateFormatted:
+                        '${DateFormat.jm().format(Events.events[index].startTime)}',
+                        lineThrough: true,
+                      ),
+                    ],
+                  ),
+                );
+
+              }
+          ),
+        )
+      ],
+    );
+  }
+}
+
+
+/*
+Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
                         children: [
@@ -129,11 +172,5 @@ class _TodayPageState extends State<TodayPage> {
                           ),
                         ],
                       ),
-                    ))
-                .toList(),
-          ),
-        )
-      ],
-    );
-  }
-}
+                    )
+ */

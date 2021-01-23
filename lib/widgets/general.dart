@@ -125,10 +125,6 @@ class General {
   }
 
 
-
-
-
-
   static Future<void> showMakeSureDialogue(
       {@required String txt,
       @required BuildContext context,

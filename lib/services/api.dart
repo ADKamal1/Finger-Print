@@ -157,7 +157,7 @@ class Api {
     }
   }
 
-  Calender(
+  getCalenderEvents(
       {String email,
       String password,
       DateTime dateTime,
@@ -183,7 +183,7 @@ class Api {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var requestInfo = json.decode(response.body)['result'];
         print("request : ${requestInfo}");
-        return CalenderData.fromJson(requestInfo);
+        return Calender.fromJson(requestInfo);
       } else {
         throw Exception('Failed to load Data');
       }
