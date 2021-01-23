@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as httpRequest;
+import 'package:my_finger_printer/models/Calender.dart';
 import 'package:my_finger_printer/models/CheckIn.dart';
 import 'package:my_finger_printer/models/CheckOut.dart';
 import 'package:my_finger_printer/models/request.dart';
@@ -155,38 +156,39 @@ class Api {
       throw e;
     }
   }
-}
 
-Calender(
-    {String email,
-    String password,
-    DateTime dateTime,
-    BuildContext context}) async {
-  try {
-    var url = APIService().createPath('Employee/Calender');
+  Calender(
+      {String email,
+      String password,
+      DateTime dateTime,
+      BuildContext context}) async {
+    try {
+      var url = APIService().createPath('Employee/Calender');
 
-    ////- Run
-    Map<String, String> _headers = {
-      'Content-type': 'application/json',
-      //'Cookie': 'session_id=${sharedPreferences.getString('session_id')}'
-    };
+      ////- Run
+      Map<String, String> _headers = {
+        'Content-type': 'application/json',
+        //'Cookie': 'session_id=${sharedPreferences.getString('session_id')}'
+      };
 
-    var params = {
-      "email": email,
-      "code": password,
-      "serial": "123123",
-      "date": dateTime.toIso8601String(),
-    };
-    var body = json.encode(APIService().createPayload(params));
-    final response = await httpRequest.post(url, body: body, headers: _headers);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var requestInfo = json.decode(response.body)['result'];
-      print("request : ${requestInfo}");
-      return Request.fromJson(requestInfo);
-    } else {
-      throw Exception('Failed to load Data');
+      var params = {
+        "email": email,
+        "code": password,
+        "serial": "123123",
+        "date": dateTime.toIso8601String(),
+      };
+      var body = json.encode(APIService().createPayload(params));
+      final response =
+          await httpRequest.post(url, body: body, headers: _headers);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var requestInfo = json.decode(response.body)['result'];
+        print("request : ${requestInfo}");
+        return CalenderData.fromJson(requestInfo);
+      } else {
+        throw Exception('Failed to load Data');
+      }
+    } catch (e) {
+      throw e;
     }
-  } catch (e) {
-    throw e;
   }
 }

@@ -44,6 +44,7 @@ class _TodayPageState extends State<TodayPage> {
               itemBuilder: (context, index) {
                 var afterDay = now.add(Duration(days: index));
                 selectedDay = selectedDay ?? 0;
+
                 return Column(
                   children: [
                     Container(
