@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
@@ -25,10 +26,6 @@ class _FPPageState extends State<FPPage> {
         .then((Position position) {
       setState(() {
         current = position;
-      });
-
-      setState(() {
-        frist = false;
       });
 
       print("fffffffffff" + position.longitude.toString());
@@ -180,6 +177,10 @@ class _FPPageState extends State<FPPage> {
                           InkWell(
                               onTap: () {
                                 print(current.longitude.toString());
+
+                                setState(() {
+                                  frist = false;
+                                });
                               },
                               child: DrawContainer(
                                   'Confirm Location',
@@ -216,14 +217,24 @@ class _FPPageState extends State<FPPage> {
                                         Color.fromRGBO(100, 100, 100, 0.9);
                                   });
 
+                                  formatStringWithTimeFromDate(DateTime date) {
+                                    //DateTime myDate = DateTime.parse(date);
+                                    return new DateFormat('yyyy-MM-dd hh:mm:ss')
+                                        .format(date);
+                                  }
+
+                                  var a = formatStringWithTimeFromDate(
+                                      DateTime.now());
+
                                   FocusScope.of(context)
                                       .requestFocus(new FocusNode());
                                   checkInBlock.userCheckIn(
                                       context: context,
-                                      date: DateTime.now(),
+                                      date: DateTime.parse(
+                                          formatStringWithTimeFromDate(
+                                              DateTime.now())),
                                       lat: current.latitude.toString().trim(),
                                       lon: current.longitude.toString().trim());
-                                  print("xxxxxxxxxxxxxxxxxxxxxx");
                                 },
                               ),
                               SizedBox(

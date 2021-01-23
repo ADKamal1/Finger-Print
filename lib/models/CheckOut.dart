@@ -43,7 +43,7 @@ class CheckOutData {
     this.lonout,
   });
 
-  bool id;
+  int id;
   int employeeId;
   DateTime checkOut;
   String serialMobile;

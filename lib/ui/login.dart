@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
 
   _login() async {
     print("Emptyww");
-
+    print(serial);
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
       General.showDialogue(

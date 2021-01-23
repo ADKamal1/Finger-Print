@@ -28,7 +28,7 @@ class Api {
       var params = {
         "email": email,
         "code": password,
-        "serial": serial,
+        "serial": "123123",
       };
       var body = json.encode(APIService().createPayload(params));
       final response =
@@ -61,7 +61,7 @@ class Api {
         "code": user.userData.code,
         "serial": "123123",
         "email": user.userData.email,
-        "date": "2022-05-02 1:00:00",
+        "date": date.toIso8601String(),
         "lat": lat,
         "lon": lon
       };
@@ -99,7 +99,7 @@ class Api {
         "serial": "123123",
         //SharedPreferenceHandler.getUserSerial(),
         "email": user.userData.email,
-        "date": "2021-03-01 1:00:00",
+        "date": date.toIso8601String(),
         "lat": lat,
         "lon": lon
       };
@@ -175,7 +175,7 @@ Calender(
       "email": email,
       "code": password,
       "serial": "123123",
-      "date": dateTime,
+      "date": dateTime.toIso8601String(),
     };
     var body = json.encode(APIService().createPayload(params));
     final response = await httpRequest.post(url, body: body, headers: _headers);
