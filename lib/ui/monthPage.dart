@@ -32,11 +32,11 @@ class _CalenderState extends State<Calender> {
     auth  = await Provider.of<AuthenticationBloc>(context,listen: false);
     calenderBloc = await Provider.of<CalenderBloc>(context,listen: false);
 
-//    calenderBloc.getCalenderData(
-//        email: auth.user.userData.email,
-//        dateTime: now,
-//        context: context,
-//        password: auth.user.userData.code);
+    calenderBloc.getCalenderData(
+        email: auth.user.userData.email,
+        dateTime: now,
+        context: context,
+        password: auth.user.userData.code);
   }
 
 
