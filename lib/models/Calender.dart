@@ -5,26 +5,26 @@ class Calender {
     this.isSubmitted,
     this.isSubmittedSuccessfully,
     this.errors,
-    this.model,
+    this.calenderData,
   });
 
   bool isSubmitted;
   bool isSubmittedSuccessfully;
   List<dynamic> errors;
-  List<CalenderData> model;
+  List<CalenderData> calenderData;
 
   factory Calender.fromJson(Map<String, dynamic> json) => Calender(
     isSubmitted: json["isSubmitted"] == null ? null : json["isSubmitted"],
     isSubmittedSuccessfully: json["isSubmittedSuccessfully"] == null ? null : json["isSubmittedSuccessfully"],
     errors: json["errors"] == null ? null : List<dynamic>.from(json["errors"].map((x) => x)),
-    model: json["model"] == null ? null : List<CalenderData>.from(json["model"].map((x) => CalenderData.fromJson(x))),
+    calenderData: json["model"] == null ? null : List<CalenderData>.from(json["model"].map((x) => CalenderData.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "isSubmitted": isSubmitted == null ? null : isSubmitted,
     "isSubmittedSuccessfully": isSubmittedSuccessfully == null ? null : isSubmittedSuccessfully,
     "errors": errors == null ? null : List<dynamic>.from(errors.map((x) => x)),
-    "model": model == null ? null : List<dynamic>.from(model.map((x) => x.toJson())),
+    "model": calenderData == null ? null : List<dynamic>.from(calenderData.map((x) => x.toJson())),
   };
 }
 
