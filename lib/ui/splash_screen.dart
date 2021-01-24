@@ -99,9 +99,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     alignment: Alignment.center,
                     // height: MediaQuery.of(context).size.height/4,
                     padding: EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.width / 2.2,
+                      150,
                       10,
-                      MediaQuery.of(context).size.width / 3,
+                      0,
                       10,
                     ),
                     child: Row(

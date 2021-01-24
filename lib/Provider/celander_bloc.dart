@@ -13,7 +13,7 @@ class CalenderBloc extends GeneralBloc {
   Map<DateTime, List<NeatCleanCalendarEvent>> events;
   //List<NeatCleanCalendarEvent> events;
   NeatCleanCalendarEvent neatCleanCalendarEvent;
-  List<NeatCleanCalendarEvent> neatCleanCalendarEventList=[];
+  List<NeatCleanCalendarEvent> neatCleanCalendarEventList = [];
   List _selectedEvents;
 
   getCalenderData(
@@ -22,28 +22,30 @@ class CalenderBloc extends GeneralBloc {
       DateTime dateTime,
       BuildContext context}) async {
     try {
-      events={};
-      neatCleanCalendarEventList=[];
-      setWaiting ( );
-      notifyListeners ( );
-      calender = await Api ( ).getCalenderEvents ( dateTime: dateTime, password: password, context: context );
+      events = {};
+      neatCleanCalendarEventList = [];
+      setWaiting();
+      notifyListeners();
+      calender = await Api().getCalenderEvents(
+          dateTime: dateTime, password: password, context: context);
 
       for (int i = 0; i < calender.calenderData.length; i++) {
-        neatCleanCalendarEvent = NeatCleanCalendarEvent ( 'Check in',
-            startTime: DateTime ( dateTime.year,dateTime.month, dateTime.day, dateTime.hour,
-                dateTime.minute ),
-            endTime: DateTime ( dateTime.year,
-                dateTime.month,
-                dateTime.day,
-                dateTime.hour,
-                dateTime.minute ),
+        neatCleanCalendarEvent = NeatCleanCalendarEvent('Check in',
+            startTime: DateTime(dateTime.year, dateTime.month, dateTime.day,
+                dateTime.hour, dateTime.minute),
+            endTime: DateTime(dateTime.year, dateTime.month, dateTime.day,
+                dateTime.hour, dateTime.minute),
             description: 'A special event',
-            color: Colors.blue[700] );
+            color: Colors.blue[700]);
 
-        neatCleanCalendarEventList.add ( neatCleanCalendarEvent );
+        neatCleanCalendarEventList.add(neatCleanCalendarEvent);
       }
 
-      events = {DateTime ( dateTime.year, dateTime.month, dateTime.day ): neatCleanCalendarEventList};
+      events = {
+        DateTime(dateTime.year, dateTime.month, dateTime.day):
+            neatCleanCalendarEventList
+      };
+
       //print("Events in Bloc : ${events.values}");
       dismissWaiting();
       notifyListeners();
