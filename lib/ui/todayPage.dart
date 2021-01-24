@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/utils/eventWidget.dart';
 import 'package:my_finger_printer/utils/events.dart';
+import 'package:provider/provider.dart';
 
 class TodayPage extends StatefulWidget {
   @override
@@ -21,6 +24,9 @@ class _TodayPageState extends State<TodayPage> {
 
   @override
   Widget build(BuildContext context) {
+    CalenderBloc celenderBlock = Provider.of<CalenderBloc>(context);
+
+    AuthenticationBloc auth = Provider.of<AuthenticationBloc>(context);
     return Column(
       children: <Widget>[
         SizedBox(
@@ -55,8 +61,9 @@ class _TodayPageState extends State<TodayPage> {
                           print(afterDay.toIso8601String());
                           setState(() {
                             selectedDay = index;
-
                           });
+
+                          print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         },
                         child: Card(
                           elevation: 10,
@@ -115,8 +122,8 @@ class _TodayPageState extends State<TodayPage> {
                           Icons.remove_circle_outline,
                           color: Color.fromRGBO(36, 200, 139, 1),
                         ),
-                        dateFormatted:
-                        '${DateFormat.jm().format(Events.events[index].startTime)}',
+                        dateFormatted: "22222",
+                        //          '${DateFormat.jm().format(Events.events[index].startTime)}',
                         lineThrough: false,
                       ),
                       EventWidget(
@@ -126,51 +133,20 @@ class _TodayPageState extends State<TodayPage> {
                           Icons.check_circle,
                           color: Color.fromRGBO(249, 96, 96, 1),
                         ),
-                        dateFormatted:
-                        '${DateFormat.jm().format(Events.events[index].startTime)}',
+                        dateFormatted: "111111"
+                        // '${
+                        //     DateFormat.jm().format(
+                        //     Events.events[index].StaerTime
+                        // )}',
+                        ,
                         lineThrough: true,
                       ),
                     ],
                   ),
                 );
-
-              }
-          ),
+              }),
         )
       ],
     );
   }
 }
-
-
-/*
-Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        children: [
-                          EventWidget(
-                            title: 'Check in',
-                            color: Color.fromRGBO(36, 200, 139, 1),
-                            icon: Icon(
-                              Icons.remove_circle_outline,
-                              color: Color.fromRGBO(36, 200, 139, 1),
-                            ),
-                            dateFormatted:
-                                '${DateFormat.jm().format(e[0].startTime)}',
-                            lineThrough: false,
-                          ),
-                          EventWidget(
-                            title: 'Check out',
-                            color: Color.fromRGBO(249, 96, 96, 1),
-                            icon: Icon(
-                              Icons.check_circle,
-                              color: Color.fromRGBO(249, 96, 96, 1),
-                            ),
-                            dateFormatted:
-                                '${DateFormat.jm().format(e[0].startTime)}',
-                            lineThrough: true,
-                          ),
-                        ],
-                      ),
-                    )
- */

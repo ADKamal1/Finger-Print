@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
 import 'package:my_finger_printer/ui/splash_screen.dart';
@@ -32,6 +33,9 @@ Widget app(Widget startScreen) {
       ),
       ChangeNotifierProvider<CheckOutBloc>.value(
         value: CheckOutBloc(),
+      ),
+      ChangeNotifierProvider<CalenderBloc>.value(
+        value: CalenderBloc(),
       ),
     ],
     child: MyApp(

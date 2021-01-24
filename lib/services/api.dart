@@ -165,6 +165,7 @@ class Api {
     try {
       var url = APIService().createPath('Employee/Calender');
 
+      User user = await SharedPreferenceHandler.getuserData();
       ////- Run
       Map<String, String> _headers = {
         'Content-type': 'application/json',
@@ -172,8 +173,8 @@ class Api {
       };
 
       var params = {
-        "email": email,
-        "code": password,
+        "email": user.userData.email,
+        "code": user.userData.code,
         "serial": "123123",
         "date": dateTime.toIso8601String(),
       };
@@ -182,7 +183,7 @@ class Api {
           await httpRequest.post(url, body: body, headers: _headers);
       if (response.statusCode == 200 || response.statusCode == 201) {
         var requestInfo = json.decode(response.body)['result'];
-        print("request : ${requestInfo}");
+        print("request00000000000000000000000000000000 : ${requestInfo}");
         return Calender.fromJson(requestInfo);
       } else {
         throw Exception('Failed to load Data');

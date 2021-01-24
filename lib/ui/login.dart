@@ -57,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _login() async {
-
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
       General.showDialogue(
@@ -155,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     AuthenticationBloc authenticationBloc =
         Provider.of<AuthenticationBloc>(context);
+
     return Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 15),
@@ -254,6 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: () {
                         print("jjj${authenticationBloc.isWaiting}");
                         !authenticationBloc.isWaiting ? _login() : null;
+
                         // //_login();
                         //
                         // Navigator.push(
