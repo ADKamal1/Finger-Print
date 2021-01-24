@@ -32,11 +32,11 @@ class _CalenderState extends State<Calender> {
     auth  = await Provider.of<AuthenticationBloc>(context,listen: false);
     calenderBloc = await Provider.of<CalenderBloc>(context,listen: false);
 
-    calenderBloc.getCalenderData(
-        email: auth.user.userData.email,
-        dateTime: now,
-        context: context,
-        password: auth.user.userData.code);
+//    calenderBloc.getCalenderData(
+//        email: auth.user.userData.email,
+//        dateTime: now,
+//        context: context,
+//        password: auth.user.userData.code);
   }
 
 
@@ -80,103 +80,87 @@ class _CalenderState extends State<Calender> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    return Consumer<CalenderBloc>(
-        builder: (BuildContext context, state, __) {
-          if (state.error != null) {
-            return Center(child: General.buildTxt(txt: state.error));
-          } else if (state.hasData) {
-            return buildEvents(state,context);
-          } else {
-            return Center(
-                child: General.customThreeBounce(context,
-                    color: Theme.of(context).accentColor, size: 30.0));
-          }
-        });
-
-
-
-
-  }
-
-
-
-  ////- To Build List Of Courses list
-  buildEvents(CalenderBloc state, BuildContext context) {
-    return state.events.isNotEmpty
-        ? ListView(
+    return ListView(
       children: [
-        Calendar(
-          hideArrows: false,
-          startOnMonday: true,
-          weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          events: state.events,
-          onDateSelected: (date) {
-            FocusScope.of(context).requestFocus(new FocusNode());
-            state.getCalenderData(
-                email: auth.user.userData.email,
-                dateTime: date,
-                context: context,
-                password: auth.user.userData.code);
-            print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-          },
-          isExpandable: true,
-          isExpanded: widget.expanded,
-          eventDoneColor: Color.fromRGBO(36, 200, 139, 1),
-          selectedColor: Colors.transparent.withOpacity(0.3),
-          todayColor: Colors.blueAccent,
-          eventListBuilder: (BuildContext context,
-              List<NeatCleanCalendarEvent> _selectesdEvents) {
-            return Column(
-              children: _selectesdEvents
-                  .map((e) => Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    EventWidget(
-                      title: 'Check in',
-                      color: Color.fromRGBO(36, 200, 139, 1),
-                      icon: Icon(
-                        Icons.remove_circle_outline,
-                        color: Color.fromRGBO(36, 200, 139, 1),
-                      ),
-                      dateFormatted:
-                      '${DateFormat.jm().format(e.startTime)}',
-                      lineThrough: false,
-                    ),
-                    EventWidget(
-                      title: 'Check out',
-                      color: Color.fromRGBO(249, 96, 96, 1),
-                      icon: Icon(
-                        Icons.check_circle,
-                        color: Color.fromRGBO(249, 96, 96, 1),
-                      ),
-                      dateFormatted:
-                      '${DateFormat.jm().format(e.startTime)}',
-                      lineThrough: true,
-                    ),
-                  ],
+        calenderBloc.events == null?Container():Calendar(
+                  hideArrows: false,
+                  startOnMonday: true,
+                  weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                  events: calenderBloc.events,
+                  onDateSelected: (date) {
+                    //FocusScope.of(context).requestFocus(new FocusNode());
+                    calenderBloc.getCalenderData(
+                        email: auth.user.userData.email,
+                        dateTime: date,
+                        context: context,
+                        password: auth.user.userData.code);
+                    print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                  },
+                  isExpandable: true,
+                  isExpanded: widget.expanded,
+                  eventDoneColor: Color.fromRGBO(36, 200, 139, 1),
+                  selectedColor: Colors.transparent.withOpacity(0.3),
+                  todayColor: Colors.blueAccent,
+                  eventListBuilder: (BuildContext context, List<NeatCleanCalendarEvent> _selectesdEvents) {
+                    return Column(
+                      children: calenderBloc.neatCleanCalendarEventList
+                          .map((e) => Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: [
+                            EventWidget(
+                              title: 'Check in',
+                              color: Color.fromRGBO(36, 200, 139, 1),
+                              icon: Icon(
+                                Icons.remove_circle_outline,
+                                color: Color.fromRGBO(36, 200, 139, 1),
+                              ),
+                              dateFormatted:
+                              '${DateFormat.jm().format(e.startTime)}',
+                              lineThrough: false,
+                            ),
+                            EventWidget(
+                              title: 'Check out',
+                              color: Color.fromRGBO(249, 96, 96, 1),
+                              icon: Icon(
+                                Icons.check_circle,
+                                color: Color.fromRGBO(249, 96, 96, 1),
+                              ),
+                              dateFormatted:
+                              '${DateFormat.jm().format(e.startTime)}',
+                              lineThrough: true,
+                            ),
+                          ],
+                        ),
+                      ))
+                          .toList(),
+                    );
+                  },
+                  hideTodayIcon: true,
+                  eventColor: Colors.transparent,
+                  expandableDateFormat: 'EEE, MMM d/yyyy',
+                  dayOfWeekStyle: TextStyle(
+                      color: Color.fromRGBO(49, 49, 49, 1),
+                      fontWeight: FontWeight.w800,
+                      fontSize: 11),
                 ),
-              ))
-                  .toList(),
-            );
-          },
-          hideTodayIcon: true,
-          eventColor: Colors.transparent,
-          expandableDateFormat: 'EEE, MMM d/yyyy',
-          dayOfWeekStyle: TextStyle(
-              color: Color.fromRGBO(49, 49, 49, 1),
-              fontWeight: FontWeight.w800,
-              fontSize: 11),
-        ),
+
       ],
-    )
-        : Container(child: Center(child: General.buildTxt(
-      txt: ('THERE_IS_NO_Events'),
-    )),
     );
+
   }
+
+
+
+//  ////- To Build List Of Courses list
+//  buildEvents(CalenderBloc state, BuildContext context) {
+//    return state.events.isNotEmpty
+//        ?
+//        : Container(child: Center(child: General.buildTxt(
+//      txt: ('THERE_IS_NO_Events'),
+//    )),
+//    );
+//  }
 
 
 }

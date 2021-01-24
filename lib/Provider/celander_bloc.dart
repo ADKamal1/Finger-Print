@@ -22,21 +22,21 @@ class CalenderBloc extends GeneralBloc {
       DateTime dateTime,
       BuildContext context}) async {
     try {
+      events={};
+      neatCleanCalendarEventList=[];
       setWaiting ( );
       notifyListeners ( );
       calender = await Api ( ).getCalenderEvents ( dateTime: dateTime, password: password, context: context );
 
       for (int i = 0; i < calender.calenderData.length; i++) {
         neatCleanCalendarEvent = NeatCleanCalendarEvent ( 'Check in',
-            startTime: DateTime ( calender.calenderData[i].checkIn.year,
-                calender.calenderData[i].checkIn.month,
-                calender.calenderData[i].checkIn.day, calender.calenderData[i].checkIn.hour,
-                calender.calenderData[i].checkIn.minute ),
-            endTime: DateTime ( calender.calenderData[i].checkOut.year,
-                calender.calenderData[i].checkOut.month,
-                calender.calenderData[i].checkOut.day,
-                calender.calenderData[i].checkOut.hour,
-                calender.calenderData[i].checkOut.minute ),
+            startTime: DateTime ( dateTime.year,dateTime.month, dateTime.day, dateTime.hour,
+                dateTime.minute ),
+            endTime: DateTime ( dateTime.year,
+                dateTime.month,
+                dateTime.day,
+                dateTime.hour,
+                dateTime.minute ),
             description: 'A special event',
             color: Colors.blue[700] );
 
@@ -44,7 +44,7 @@ class CalenderBloc extends GeneralBloc {
       }
 
       events = {DateTime ( dateTime.year, dateTime.month, dateTime.day ): neatCleanCalendarEventList};
-      print("Events in Bloc : ${events.toString()}");
+      //print("Events in Bloc : ${events.values}");
       dismissWaiting();
       notifyListeners();
       setError(null);
