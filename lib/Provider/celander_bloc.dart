@@ -26,15 +26,6 @@ class CalenderBloc extends GeneralBloc {
       calender = await Api().getCalenderEvents(
           dateTime: dateTime, password: password, context: context);
 
-      Future<List<Calender>> getAllEvent() async {
-        try {
-          print("zzzzzzzzzzzzzz${calender.model}");
-        } catch (e) {
-          return Future.error(e.toString());
-        }
-      }
-
-      getAllEvent();
       dismissWaiting();
       notifyListeners();
       setError(null);
