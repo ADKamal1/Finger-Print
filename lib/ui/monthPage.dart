@@ -29,6 +29,7 @@ class _CalenderState extends State<Calender> {
   }
 
   _init()async {
+    await Future.delayed(Duration(milliseconds: 200));
     auth  = await Provider.of<AuthenticationBloc>(context,listen: false);
     calenderBloc = await Provider.of<CalenderBloc>(context,listen: false);
 
@@ -80,13 +81,20 @@ class _CalenderState extends State<Calender> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        calenderBloc.events == null?Container():Calendar(
+    return Consumer<CalenderBloc>(
+        builder: (BuildContext context, state, __) {
+          if (state.error != null) {
+            return Center(child: General.buildTxt(txt: state.error));
+          } else if (state.hasData) {
+            print("dddddddddd:${calenderBloc.events}");
+            return calenderBloc.events == null?Container():ListView(
+              children: [
+                Calendar(
                   hideArrows: false,
                   startOnMonday: true,
                   weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
                   events: calenderBloc.events,
+                  initialDate: calenderBloc.neatCleanCalendarEvent==null?now:calenderBloc.neatCleanCalendarEvent.startTime,
                   onDateSelected: (date) {
                     //FocusScope.of(context).requestFocus(new FocusNode());
                     calenderBloc.getCalenderData(
@@ -144,10 +152,14 @@ class _CalenderState extends State<Calender> {
                       fontWeight: FontWeight.w800,
                       fontSize: 11),
                 ),
-
-      ],
-    );
-
+              ],
+            );
+          } else {
+            return Center(
+                child: General.customThreeBounce(context,
+                    color:Color.fromRGBO(60, 60, 60, 1), size: 30.0));
+          }
+        });
   }
 
 
