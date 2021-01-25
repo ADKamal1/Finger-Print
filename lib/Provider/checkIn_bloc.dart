@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/models/CheckIn.dart';
 import 'package:my_finger_printer/services/api.dart';
+import 'package:my_finger_printer/widgets/general.dart';
 
 import 'general_bloc.dart';
 
@@ -18,6 +19,12 @@ class CheckInBloc extends GeneralBloc {
           await Api().checkIn(date: date, lat: lat, lon: lon, context: context);
       dismissWaiting();
       notifyListeners();
+      if (checkIn.errors.isNotEmpty) {
+
+        General.showDialogue(
+            txtWidget: Text(checkIn.errors[0]),
+            context: context);
+      }
       setError(null);
     } catch (e) {
       waiting = false;

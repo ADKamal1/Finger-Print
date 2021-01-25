@@ -257,7 +257,6 @@ class _FPPageState extends State<FPPage> {
                                       date: DateTime.now(),
                                       lat: current.latitude.toString().trim(),
                                       lon: current.longitude.toString().trim());
-                                  print("yyyyyyyyyyyyyyyyyyyyyyyy");
                                 },
                                 child: DrawCheckContainer(
                                     'Check out',
