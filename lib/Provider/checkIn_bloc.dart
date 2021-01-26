@@ -21,7 +21,7 @@ class CheckInBloc extends GeneralBloc {
       notifyListeners();
       if (checkIn.errors.isNotEmpty) {
         General.showDialogue(
-            txtWidget: Text(checkIn.errors[0].toString()), context: context);
+            txtWidget: Text("user is already checked in"), context: context);
       }
       setError(null);
     } catch (e) {

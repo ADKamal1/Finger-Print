@@ -38,7 +38,7 @@ class _FPPageState extends State<FPPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    location();
+    //  location();
     init();
   }
 
@@ -159,9 +159,8 @@ class _FPPageState extends State<FPPage> {
                                 height: 40,
                               ),
                               InkWell(
-                                  onTap: () async {
-                                    print(current.longitude.toString());
-
+                                  onTap: () {
+                                    location();
                                     setState(() {
                                       frist = false;
                                     });
@@ -194,8 +193,9 @@ class _FPPageState extends State<FPPage> {
                                               : Color.fromRGBO(
                                                   255, 255, 255, 0.9)),
                                     ),
-                                    onTap: () async {
-                                      Duration(seconds: 1);
+                                    onTap:
+                                        //  (frist == false)?
+                                        () {
                                       setState(() {
                                         second = false;
                                         frist = true;
@@ -228,14 +228,26 @@ class _FPPageState extends State<FPPage> {
                                           lon: current.longitude
                                               .toString()
                                               .trim());
+                                      // setState(() {
+                                      //   if (checkInBlock.checkIn
+                                      //           .isSubmittedSuccessfully ==
+                                      //       false) {
+                                      //     second = true;
+                                      //     frist = false;
+                                      //   }
+                                      // });
                                     },
+                                    //  : () {},
                                   ),
                                   SizedBox(
                                     width: 8,
                                   ),
                                   GestureDetector(
-                                    onTap: () {
-                                      Duration(seconds: 1);
+                                    onTap:
+                                        // (checkInBlock
+                                        //         .checkIn.isSubmittedSuccessfully)
+                                        //     ?
+                                        () {
                                       setState(() {
                                         second = true;
                                         frist = false;
@@ -256,6 +268,7 @@ class _FPPageState extends State<FPPage> {
                                               .toString()
                                               .trim());
                                     },
+                                    // : () {},
                                     child: DrawCheckContainer(
                                         'Check out',
                                         second

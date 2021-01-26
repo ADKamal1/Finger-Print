@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
+import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
 import 'package:my_finger_printer/ui/accountPage.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
 import 'package:my_finger_printer/ui/mainCalender.dart';
@@ -24,7 +26,11 @@ class _MyPageState extends State<HomePage> {
     ),
   ];
 
-  void _onTapped(int index) {
+  void _onTapped(int index) async {
+    AnimatedAlign(
+            alignment: Alignment.topCenter, duration: Duration(seconds: 2))
+        .curve
+        .flipped;
     setState(() {
       _selectedIndex = index;
     });
@@ -69,15 +75,17 @@ class _MyPageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    AuthenticationBloc authenticationBloc = Provider.of(context);
-
+    CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
+    AuthenticationBloc authenticationBloc =
+        Provider.of<AuthenticationBloc>(context);
+    //  authenticationBloc.user.userData;
+    CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: Colors.green,
         backgroundColor: Color.fromRGBO(243, 243, 243, 1),
@@ -109,7 +117,9 @@ class _MyPageState extends State<HomePage> {
         ],
 
         currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
         showUnselectedLabels: true,
         showSelectedLabels: false,
         onTap: _onTapped,

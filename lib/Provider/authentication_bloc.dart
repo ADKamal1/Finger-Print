@@ -25,9 +25,11 @@ class AuthenticationBloc extends GeneralBloc {
       print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
+        notifyListeners();
         SharedPreferenceHandler.setUserData(user);
       } else {
-        General.showDialogue(txtWidget: Text(user.errors[0]), context: context);
+        General.showDialogue(
+            txtWidget: Text("In Valid Login"), context: context);
       }
       //SharedPreferenceHandler.setUserSerial(user);
       setError(null);
