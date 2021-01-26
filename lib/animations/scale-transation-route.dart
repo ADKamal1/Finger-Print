@@ -27,6 +27,7 @@ class ScaleTransationRoute extends PageRouteBuilder {
               ),
             ),
             child: child,
+            alignment: Alignment.center,
           ),
         );
 }

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/utils/eventWidget.dart';
-import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 
 class Calender extends StatefulWidget {
@@ -28,18 +27,15 @@ class _CalenderState extends State<Calender> {
     _init();
   }
 
-  _init()async {
-    auth  = await Provider.of<AuthenticationBloc>(context,listen: false);
-    calenderBloc = await Provider.of<CalenderBloc>(context,listen: false);
-
+  _init() async {
+    auth = await Provider.of<AuthenticationBloc>(context, listen: false);
+    calenderBloc = await Provider.of<CalenderBloc>(context, listen: false);
     calenderBloc.getCalenderData(
         email: auth.user.userData.email,
         dateTime: now,
         context: context,
         password: auth.user.userData.code);
   }
-
-
 //  Map<DateTime, List<NeatCleanCalendarEvent>> events = {
 //    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 5):
 //        [
@@ -82,75 +78,74 @@ class _CalenderState extends State<Calender> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        calenderBloc.events == null?Container():Calendar(
-                  hideArrows: false,
-                  startOnMonday: true,
-                  weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                  events: calenderBloc.events,
-                  onDateSelected: (date) {
-                    //FocusScope.of(context).requestFocus(new FocusNode());
-                    calenderBloc.getCalenderData(
-                        email: auth.user.userData.email,
-                        dateTime: date,
-                        context: context,
-                        password: auth.user.userData.code);
-                    print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                  },
-                  isExpandable: true,
-                  isExpanded: widget.expanded,
-                  eventDoneColor: Color.fromRGBO(36, 200, 139, 1),
-                  selectedColor: Colors.transparent.withOpacity(0.3),
-                  todayColor: Colors.blueAccent,
-                  eventListBuilder: (BuildContext context, List<NeatCleanCalendarEvent> _selectesdEvents) {
-                    return Column(
-                      children: calenderBloc.neatCleanCalendarEventList
-                          .map((e) => Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          children: [
-                            EventWidget(
-                              title: 'Check in',
-                              color: Color.fromRGBO(36, 200, 139, 1),
-                              icon: Icon(
-                                Icons.remove_circle_outline,
-                                color: Color.fromRGBO(36, 200, 139, 1),
+        calenderBloc.events == null
+            ? Container()
+            : Calendar(
+                hideArrows: false,
+                startOnMonday: true,
+                weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                events: calenderBloc.events,
+                onDateSelected: (date) {
+                  //FocusScope.of(context).requestFocus(new FocusNode());
+                  calenderBloc.getCalenderData(
+                      email: auth.user.userData.email,
+                      dateTime: date,
+                      context: context,
+                      password: auth.user.userData.code);
+                  print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                },
+                isExpandable: true,
+                isExpanded: widget.expanded,
+                eventDoneColor: Color.fromRGBO(36, 200, 139, 1),
+                selectedColor: Colors.transparent.withOpacity(0.3),
+                todayColor: Colors.blueAccent,
+                eventListBuilder: (BuildContext context,
+                    List<NeatCleanCalendarEvent> _selectesdEvents) {
+                  return Column(
+                    children: calenderBloc.neatCleanCalendarEventList
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  EventWidget(
+                                    title: 'Check in',
+                                    color: Color.fromRGBO(36, 200, 139, 1),
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Color.fromRGBO(36, 200, 139, 1),
+                                    ),
+                                    dateFormatted:
+                                        '${DateFormat.jm().format(e.startTime)}',
+                                    lineThrough: false,
+                                  ),
+                                  EventWidget(
+                                    title: 'Check out',
+                                    color: Color.fromRGBO(249, 96, 96, 1),
+                                    icon: Icon(
+                                      Icons.check_circle,
+                                      color: Color.fromRGBO(249, 96, 96, 1),
+                                    ),
+                                    dateFormatted:
+                                        '${DateFormat.jm().format(e.startTime)}',
+                                    lineThrough: true,
+                                  ),
+                                ],
                               ),
-                              dateFormatted:
-                              '${DateFormat.jm().format(e.startTime)}',
-                              lineThrough: false,
-                            ),
-                            EventWidget(
-                              title: 'Check out',
-                              color: Color.fromRGBO(249, 96, 96, 1),
-                              icon: Icon(
-                                Icons.check_circle,
-                                color: Color.fromRGBO(249, 96, 96, 1),
-                              ),
-                              dateFormatted:
-                              '${DateFormat.jm().format(e.startTime)}',
-                              lineThrough: true,
-                            ),
-                          ],
-                        ),
-                      ))
-                          .toList(),
-                    );
-                  },
-                  hideTodayIcon: true,
-                  eventColor: Colors.transparent,
-                  expandableDateFormat: 'EEE, MMM d/yyyy',
-                  dayOfWeekStyle: TextStyle(
-                      color: Color.fromRGBO(49, 49, 49, 1),
-                      fontWeight: FontWeight.w800,
-                      fontSize: 11),
-                ),
-
+                            ))
+                        .toList(),
+                  );
+                },
+                hideTodayIcon: true,
+                eventColor: Colors.transparent,
+                expandableDateFormat: 'EEE, MMM d/yyyy',
+                dayOfWeekStyle: TextStyle(
+                    color: Color.fromRGBO(49, 49, 49, 1),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 11),
+              ),
       ],
     );
-
   }
-
-
 
 //  ////- To Build List Of Courses list
 //  buildEvents(CalenderBloc state, BuildContext context) {
@@ -161,6 +156,5 @@ class _CalenderState extends State<Calender> {
 //    )),
 //    );
 //  }
-
 
 }
