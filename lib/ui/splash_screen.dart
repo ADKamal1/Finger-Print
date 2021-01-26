@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height - 58;
+    var h = MediaQuery.of(context).size.height - 60;
     var w = MediaQuery.of(context).size.width;
     return Stack(children: [
       Scaffold(
@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 backgroundColor: Colors.white,
               ),
         backgroundColor: Colors.white,
-        body: ListView(children: [
+        body: ListView(shrinkWrap: true, physics: ScrollPhysics(), children: [
           Container(
               color: Colors.white,
               child: Column(children: [

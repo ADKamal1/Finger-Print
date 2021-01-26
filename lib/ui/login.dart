@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unique_ids/unique_ids.dart';
 
 class LoginPage extends StatefulWidget {
@@ -69,6 +70,9 @@ class _LoginPageState extends State<LoginPage> {
       print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),
           _passwordControllor.text.trim(), serial.trim(), context);
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('email', _emailControllor.text.trim());
     }
   }
 
@@ -126,11 +130,13 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 16),
                       fillColor: Colors.white10,
                       filled: true),
-                  cursorColor: Color.fromRGBO(237, 237, 237, 1),
+                  cursorColor: Color.fromRGBO(0, 0, 0, 0.7),
                 )
               : TextFormField(
                   controller: _passwordControllor,
+                  obscureText: true,
                   keyboardType: TextInputType.number,
+                  cursorColor: Color.fromRGBO(0, 0, 0, 0.7),
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide:

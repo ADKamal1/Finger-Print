@@ -18,7 +18,7 @@ class FPPage extends StatefulWidget {
 
 class _FPPageState extends State<FPPage> {
   final Geolocator geolocator = Geolocator();
-
+  AuthenticationBloc authenticationBloc;
   Position current;
 
   location() async {
@@ -34,14 +34,20 @@ class _FPPageState extends State<FPPage> {
     });
   }
 
-  bool frist = true;
-  bool second = true;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    location();
+    //  location();
+    init();
+  }
+
+  init() async {
+    await Future.delayed(Duration(milliseconds: 150));
+
+    authenticationBloc =
+        Provider.of<AuthenticationBloc>(context, listen: false);
+    //wishlistBloc.getWishlistProduct();
   }
 
   Color colorin = Color.fromRGBO(227, 227, 227, 1);
@@ -50,294 +56,324 @@ class _FPPageState extends State<FPPage> {
   Color writein = Color.fromRGBO(100, 100, 100, 0.9);
   Color writeout = Color.fromRGBO(100, 100, 100, 0.9);
   Color colorout = Color.fromRGBO(227, 227, 227, 1);
-
+  bool frist = true;
+  bool second = true;
   @override
   Widget build(BuildContext context) {
+    CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
     AuthenticationBloc authenticationBloc =
         Provider.of<AuthenticationBloc>(context);
-    authenticationBloc.user.userData;
-
-    CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
-
+    //  authenticationBloc.user.userData;
     CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
-    return Container(
-      color: Colors.white,
-      child: Stack(children: [
-        Positioned(
-          bottom: -10,
-          left: 10,
-          child: Row(
-            children: [
-              Text(
-                "Developed By",
-                style: TextStyle(
-                    color: Color.fromRGBO(41, 41, 41, 1),
-                    fontSize: 12,
-                    inherit: false),
-              ),
-              Container(
-                child: Image.asset(
-                  "assets/images/component.png",
-                  fit: BoxFit.cover,
-                  height: 70,
-                  width: 70,
-                ),
-              )
-            ],
-          ),
-        ),
-        Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  child: Image.asset(
-                    "assets/images/gtt.png",
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Card(
-                shadowColor: Color.fromRGBO(0, 0, 0, 0.16),
-                elevation: 6,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Stack(
-                  overflow: Overflow.visible,
-                  children: [
-                    Container(
-                      height: height * .62,
-                      width: width * .93,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Divider(
-                            color: Color.fromRGBO(60, 60, 60, 0.3),
-                            height: 20,
-                            thickness: 2,
-                            indent: 40,
-                            endIndent: 40,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              child: Image.asset(
-                                "assets/images/fp.png",
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Divider(
-                            color: Color.fromRGBO(40, 40, 40, 0.8),
-                            height: 20,
-                            thickness: 1,
-                            indent: 40,
-                            endIndent: 40,
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: Text(
-                                'Confirm your location to have to option to check in or out.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(40, 40, 40, 0.8),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          InkWell(
-                              onTap: () {
-                                print(current.longitude.toString());
-
-                                setState(() {
-                                  frist = false;
-                                });
-                              },
-                              child: DrawContainer(
-                                  'Confirm Location',
-                                  15,
-                                  (frist)
-                                      ? confirmColor
-                                      : Color.fromRGBO(227, 227, 227, 1),
-                                  (frist)
-                                      ? confirmWrite
-                                      : Color.fromRGBO(100, 100, 100, 0.9))),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 12),
-                                  child: DrawCheckContainer(
-                                      'Check in',
-                                      frist
-                                          ? colorin
-                                          : Color.fromRGBO(36, 200, 139, 1),
-                                      frist
-                                          ? writein
-                                          : Color.fromRGBO(255, 255, 255, 0.9)),
-                                ),
-                                onTap: () async {
-                                  setState(() {
-                                    second = false;
-                                    frist = true;
-                                    confirmColor = colorin;
-                                    confirmWrite =
-                                        Color.fromRGBO(100, 100, 100, 0.9);
-                                  });
-
-                                  formatStringWithTimeFromDate(DateTime date) {
-                                    //DateTime myDate = DateTime.parse(date);
-                                    return new DateFormat('yyyy-MM-dd hh:mm:ss')
-                                        .format(date);
-                                  }
-
-                                  var a = formatStringWithTimeFromDate(
-                                      DateTime.now());
-
-                                  FocusScope.of(context)
-                                      .requestFocus(new FocusNode());
-                                  checkInBlock.userCheckIn(
-                                      context: context,
-                                      date: DateTime.parse(
-                                          formatStringWithTimeFromDate(
-                                              DateTime.now())),
-                                      lat: current.latitude.toString().trim(),
-                                      lon: current.longitude.toString().trim());
-                                },
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    second = true;
-                                    frist = false;
-                                    confirmColor = colorout;
-                                    confirmWrite =
-                                        Color.fromRGBO(100, 100, 100, 0.9);
-                                  });
-
-                                  FocusScope.of(context)
-                                      .requestFocus(new FocusNode());
-                                  checkOutBlock.userCheckOut(
-                                      context: context,
-                                      date: DateTime.now(),
-                                      lat: current.latitude.toString().trim(),
-                                      lon: current.longitude.toString().trim());
-                                },
-                                child: DrawCheckContainer(
-                                    'Check out',
-                                    second
-                                        ? colorout
-                                        : Color.fromRGBO(249, 96, 96, 1),
-                                    second
-                                        ? writein
-                                        : Color.fromRGBO(255, 255, 255, 0.9)),
-                              ),
-                            ],
-                          )
-                        ],
+    return SafeArea(
+      child: Scaffold(
+        body: ListView(children: [
+          Stack(children: [
+            Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      child: Image.asset(
+                        "assets/images/gtt.png",
+                        fit: BoxFit.contain,
                       ),
                     ),
-                    Positioned(
-                        top: -20,
-                        left: 15,
-                        right: 15,
-                        child: Stack(
-                          overflow: Overflow.visible,
-                          children: [
-                            Container(
-                              height: 45,
-                              width: 300,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(40, 40, 40, 1),
-                                borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Card(
+                    shadowColor: Color.fromRGBO(0, 0, 0, 0.16),
+                    elevation: 6,
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Stack(
+                      overflow: Overflow.visible,
+                      children: [
+                        Container(
+                          height: height * .615,
+                          width: width * .93,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 40,
                               ),
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 3, left: 20),
-                                      child: Text(
-                                        authenticationBloc.user.userData.name,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(
-                                              255, 255, 255, 0.9),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 60),
-                                      child: Text(
-                                        'ID:       ${authenticationBloc.user.userData.id}',
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                255, 255, 255, 0.8)),
-                                      ),
-                                    )
-                                  ],
+                              Divider(
+                                color: Color.fromRGBO(60, 60, 60, 0.3),
+                                height: 20,
+                                thickness: 2,
+                                indent: 40,
+                                endIndent: 40,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Center(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                  child: Image.asset(
+                                    "assets/images/fp.png",
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              left: 18,
-                              top: -7,
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/images/avater.png'),
-                                // backgroundColor: Colors.white,
-                                radius: 30,
+                              SizedBox(
+                                height: 20,
                               ),
-                            )
-                          ],
-                        )),
-                  ],
+                              Divider(
+                                color: Color.fromRGBO(40, 40, 40, 0.8),
+                                height: 20,
+                                thickness: 1,
+                                indent: 40,
+                                endIndent: 40,
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Text(
+                                    'Confirm your location to have to option to check in or out.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(40, 40, 40, 0.8),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    location();
+                                    setState(() {
+                                      frist = false;
+                                    });
+                                  },
+                                  child: DrawContainer(
+                                      'Confirm Location',
+                                      15,
+                                      (frist)
+                                          ? confirmColor
+                                          : Color.fromRGBO(227, 227, 227, 1),
+                                      (frist)
+                                          ? confirmWrite
+                                          : Color.fromRGBO(
+                                              100, 100, 100, 0.9))),
+                              SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 12),
+                                      child: DrawCheckContainer(
+                                          'Check in',
+                                          frist
+                                              ? colorin
+                                              : Color.fromRGBO(36, 200, 139, 1),
+                                          frist
+                                              ? writein
+                                              : Color.fromRGBO(
+                                                  255, 255, 255, 0.9)),
+                                    ),
+                                    onTap:
+                                        //  (frist == false)?
+                                        () {
+                                      setState(() {
+                                        second = false;
+                                        frist = true;
+                                        confirmColor = colorin;
+                                        confirmWrite =
+                                            Color.fromRGBO(100, 100, 100, 0.9);
+                                      });
+
+                                      formatStringWithTimeFromDate(
+                                          DateTime date) {
+                                        //DateTime myDate = DateTime.parse(date);
+                                        return new DateFormat(
+                                                'yyyy-MM-dd hh:mm:ss')
+                                            .format(date);
+                                      }
+
+                                      var a = formatStringWithTimeFromDate(
+                                          DateTime.now());
+
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      checkInBlock.userCheckIn(
+                                          context: context,
+                                          date: DateTime.parse(
+                                              formatStringWithTimeFromDate(
+                                                  DateTime.now())),
+                                          lat: current.latitude
+                                              .toString()
+                                              .trim(),
+                                          lon: current.longitude
+                                              .toString()
+                                              .trim());
+                                      // setState(() {
+                                      //   if (checkInBlock.checkIn
+                                      //           .isSubmittedSuccessfully ==
+                                      //       false) {
+                                      //     second = true;
+                                      //     frist = false;
+                                      //   }
+                                      // });
+                                    },
+                                    //  : () {},
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  GestureDetector(
+                                    onTap:
+                                        // (checkInBlock
+                                        //         .checkIn.isSubmittedSuccessfully)
+                                        //     ?
+                                        () {
+                                      setState(() {
+                                        second = true;
+                                        frist = false;
+                                        confirmColor = colorout;
+                                        confirmWrite =
+                                            Color.fromRGBO(100, 100, 100, 0.9);
+                                      });
+
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      checkOutBlock.userCheckOut(
+                                          context: context,
+                                          date: DateTime.now(),
+                                          lat: current.latitude
+                                              .toString()
+                                              .trim(),
+                                          lon: current.longitude
+                                              .toString()
+                                              .trim());
+                                    },
+                                    // : () {},
+                                    child: DrawCheckContainer(
+                                        'Check out',
+                                        second
+                                            ? colorout
+                                            : Color.fromRGBO(249, 96, 96, 1),
+                                        second
+                                            ? writein
+                                            : Color.fromRGBO(
+                                                255, 255, 255, 0.9)),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                            top: -20,
+                            left: 15,
+                            right: 15,
+                            child: Stack(
+                              overflow: Overflow.visible,
+                              children: [
+                                Container(
+                                  height: 45,
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(40, 40, 40, 1),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 3, left: 20),
+                                          child: Text(
+                                            "",
+                                            //authenticationBloc.user.userData.name,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  255, 255, 255, 0.9),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 60),
+                                          child: Text(
+                                            'ID:     ',
+                                            //   ' ${authenticationBloc.user.userData.id}',
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    255, 255, 255, 0.8)),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 18,
+                                  top: -7,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage('assets/images/avater.png'),
+                                    // backgroundColor: Colors.white,
+                                    radius: 30,
+                                  ),
+                                )
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Developed By",
+                        style: TextStyle(
+                            color: Color.fromRGBO(41, 41, 41, 1),
+                            fontSize: 12,
+                            inherit: false),
+                      ),
+                      Container(
+                        child: Image.asset(
+                          "assets/images/component.png",
+                          fit: BoxFit.cover,
+                          height: 70,
+                          width: 70,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
-              height: 25,
-            ),
-          ],
-        ),
-      ]),
+          ]),
+        ]),
+      ),
     );
   }
 }

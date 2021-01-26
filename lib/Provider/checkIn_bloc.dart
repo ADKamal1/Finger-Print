@@ -20,10 +20,8 @@ class CheckInBloc extends GeneralBloc {
       dismissWaiting();
       notifyListeners();
       if (checkIn.errors.isNotEmpty) {
-
         General.showDialogue(
-            txtWidget: Text(checkIn.errors[0]),
-            context: context);
+            txtWidget: Text("user is already checked in"), context: context);
       }
       setError(null);
     } catch (e) {
