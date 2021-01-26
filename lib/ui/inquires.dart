@@ -67,39 +67,6 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      // bottomNavigationBar:
-      // BottomNavigationBar(
-      //   elevation: 0.0,
-      //   backgroundColor: Color.fromRGBO(243, 243, 243, 1),
-      //   iconSize: 25,
-      //   selectedIconTheme:
-      //       IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 30),
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       title: SizedBox.shrink(),
-      //       icon: _buildIcon(Icons.fingerprint, 'FP', 0),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       title: SizedBox.shrink(),
-      //       icon: _buildIcon(Icons.person, 'Account', 1),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       title: SizedBox.shrink(),
-      //       icon: _buildIcon(Icons.calendar_today, 'Calendar', 2),
-      //       //label: 'Calendar'
-      //     ),
-      //     BottomNavigationBarItem(
-      //       title: SizedBox.shrink(),
-      //       icon: _buildIcon(Icons.settings, 'Settings', 3),
-      //       // label: 'Settings',
-      //     ),
-      //   ],
-      //   currentIndex: _selectedIndex,
-      //   type: BottomNavigationBarType.fixed,
-      //   showUnselectedLabels: true,
-      //   showSelectedLabels: false,
-      //   onTap: _onTapped,
-      // ),
       body: ListView(children: [
         Container(
           height: height,
@@ -130,7 +97,7 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
                           padding:
                               EdgeInsets.only(left: 0, top: 15, bottom: 10),
                           child: Icon(
-                            Icons.arrow_back,
+                            Icons.arrow_back_ios,
                             color: Colors.white,
                             size: 40,
                           ),

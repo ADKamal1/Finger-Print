@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/login.dart';
 import 'package:my_finger_printer/utils/slider_data.dart';
+import 'package:my_finger_printer/widgets/global-functions.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
+import 'home-page-screen.dart';
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -9,26 +17,37 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  List<SliderModel> mySLides = new List<SliderModel>();
+  List<SliderModel> mySLides = new List<SliderModel>( );
   int slideIndex = 0;
   PageController controller;
 
-  Widget _buildPageIndicator(bool isCurrentPage) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4.0),
-      height: isCurrentPage ? 8.0 : 6.0,
-      width: isCurrentPage ? 8.0 : 6.0,
-      decoration: BoxDecoration(
-        color: isCurrentPage ? Colors.black : Colors.grey[300],
-        borderRadius: BorderRadius.circular(16),
-      ),
-    );
+  UserBloc userBloc;
+  Map<String, dynamic> userData;
+
+//  init() async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance ( );
+//    userData = prefs.getString ( 'userData' ) != null
+//        ? json.decode ( prefs.getString ( 'userData' ) )
+//        : null;
+//    userBloc = Provider.of<UserBloc> ( context, listen: false );
+//    if (userBloc.isLogin || userData != null) {
+//      return null;
+//    } else {
+//      Navigator.of ( context ).pushReplacement (
+//          MaterialPageRoute (
+//              builder: (BuildContext context) => HomePage ( ) ) );
+//    }
+//  }
+  getUserData() async {
+    await Future.delayed(Duration(milliseconds: 10));
+    await GlobalFunctions.getUserData(context);
   }
+
 
   void initState() {
     super.initState();
     // startTime();
-
+    getUserData();
     mySLides = getSlides();
     controller = new PageController();
   }
@@ -265,6 +284,19 @@ class _SplashScreenState extends State<SplashScreen> {
   //     }
   //   });
   // }
+
+
+  Widget _buildPageIndicator(bool isCurrentPage) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 4.0),
+      height: isCurrentPage ? 8.0 : 6.0,
+      width: isCurrentPage ? 8.0 : 6.0,
+      decoration: BoxDecoration(
+        color: isCurrentPage ? Colors.black : Colors.grey[300],
+        borderRadius: BorderRadius.circular(16),
+      ),
+    );
+  }
 }
 
 class SlideTile extends StatelessWidget {

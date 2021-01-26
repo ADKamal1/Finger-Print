@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class FPPage extends StatefulWidget {
 
 class _FPPageState extends State<FPPage> {
   final Geolocator geolocator = Geolocator();
-  AuthenticationBloc authenticationBloc;
+  UserBloc userBloc;
   Position current;
 
   location() async {
@@ -45,8 +46,7 @@ class _FPPageState extends State<FPPage> {
   init() async {
     await Future.delayed(Duration(milliseconds: 150));
 
-    authenticationBloc =
-        Provider.of<AuthenticationBloc>(context, listen: false);
+    userBloc = Provider.of<UserBloc>(context, listen: false);
     //wishlistBloc.getWishlistProduct();
   }
 
@@ -61,9 +61,7 @@ class _FPPageState extends State<FPPage> {
   @override
   Widget build(BuildContext context) {
     CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
-    AuthenticationBloc authenticationBloc =
-        Provider.of<AuthenticationBloc>(context);
-    //  authenticationBloc.user.userData;
+    UserBloc userBloc = Provider.of<UserBloc>(context);
     CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -104,9 +102,6 @@ class _FPPageState extends State<FPPage> {
                           width: width * .93,
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 40,
-                              ),
                               Divider(
                                 color: Color.fromRGBO(60, 60, 60, 0.3),
                                 height: 20,
@@ -194,7 +189,7 @@ class _FPPageState extends State<FPPage> {
                                                   255, 255, 255, 0.9)),
                                     ),
                                     onTap:
-                                        //  (frist == false)?
+                                          (frist == false)?
                                         () {
                                       setState(() {
                                         second = false;
@@ -236,8 +231,7 @@ class _FPPageState extends State<FPPage> {
                                       //     frist = false;
                                       //   }
                                       // });
-                                    },
-                                    //  : () {},
+                                    }: () {},
                                   ),
                                   SizedBox(
                                     width: 8,
@@ -300,13 +294,14 @@ class _FPPageState extends State<FPPage> {
                                   ),
                                   child: Center(
                                     child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 3, left: 20),
-                                          child: Text(
-                                            "",
-                                            //authenticationBloc.user.userData.name,
+                                              top: 3,),
+                                          child: userBloc.user.userData.name==null?Container():Text(
+                                            userBloc.user.userData.name,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Color.fromRGBO(
@@ -319,9 +314,8 @@ class _FPPageState extends State<FPPage> {
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(right: 60),
-                                          child: Text(
-                                            'ID:     ',
-                                            //   ' ${authenticationBloc.user.userData.id}',
+                                          child: userBloc.user.userData.id==null?Container():Text(
+                                            'ID:  ${userBloc.user.userData.id}',
                                             style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     255, 255, 255, 0.8)),

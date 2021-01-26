@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/widgets/general.dart';
+import 'package:my_finger_printer/widgets/shared_preference.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unique_ids/unique_ids.dart';
@@ -18,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailControllor = new TextEditingController();
   TextEditingController _passwordControllor = new TextEditingController();
   String serial = "123123";
+  User user;
 
   @override
   void initState() {
@@ -50,11 +53,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   init() async {
+    //user = SharedPreferenceHandler.getuserData();
     await Future.delayed(Duration(milliseconds: 150));
-
-    authenticationBloc =
-        Provider.of<AuthenticationBloc>(context, listen: false);
-    //wishlistBloc.getWishlistProduct();
+    authenticationBloc = Provider.of<AuthenticationBloc>(context, listen: false);
   }
 
   _login() async {
@@ -65,7 +66,6 @@ class _LoginPageState extends State<LoginPage> {
           context: context);
       return;
     } else {
-      //_formKey.currentState.save();
       print("\nkkk:-");
       print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),

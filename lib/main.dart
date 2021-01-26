@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
+import 'package:my_finger_printer/ui/home-page-screen.dart';
 import 'package:my_finger_printer/ui/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Provider/authentication_bloc.dart';
 import 'Provider/checkOut_bloc.dart';
 import 'Provider/general_bloc.dart';
+import 'Provider/user_bloc.dart';
+import 'widgets/global-functions.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var email = prefs.getString('email');
-
-  print(email);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.black,
-  ));
-
+void main() async {
   Widget _defaultHome = SplashScreen();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(app(_defaultHome));
   //runApp(MyApp());
 }
@@ -31,6 +24,9 @@ Widget app(Widget startScreen) {
     providers: [
       ChangeNotifierProvider<GeneralBloc>.value(
         value: GeneralBloc(),
+      ),
+      ChangeNotifierProvider<UserBloc>.value(
+        value: UserBloc(),
       ),
       ChangeNotifierProvider<AuthenticationBloc>.value(
         value: AuthenticationBloc(),
@@ -65,6 +61,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
