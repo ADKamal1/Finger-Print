@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:intl/intl.dart';
 import 'package:my_finger_printer/utils/values.dart';
 
@@ -28,8 +27,6 @@ class General {
 //        fontSize: 16.0);
 //  }
 
-
-
   static customThreeBounce(BuildContext context,
       {Color color = Colors.yellow, size = 30.0}) {
     return Center(
@@ -40,8 +37,6 @@ class General {
     );
   }
 
-
-
   static buildTxt(
       {@required String txt,
       Color color = Values.GreyColor,
@@ -50,20 +45,19 @@ class General {
       bool isBold = false,
       bool isOverflow = false,
       bool isUnderLine = false,
-      isCenter = true
-      }) {
+      isCenter = true}) {
     return Text(
       txt,
       textAlign: isCenter ? TextAlign.center : null,
       overflow: isOverflow ? TextOverflow.ellipsis : null,
       style: TextStyle(
-          //decoration: TextDecoration.underline,
-          color: color,
-          height: lineHeight,
-          fontFamily: "Montserrat",
-          decoration: isUnderLine ? TextDecoration.underline : null,
-          fontSize: fontSize,
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        //decoration: TextDecoration.underline,
+        color: color,
+        height: lineHeight,
+        fontFamily: "Montserrat",
+        decoration: isUnderLine ? TextDecoration.underline : null,
+        fontSize: fontSize,
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       ),
     );
   }
@@ -123,7 +117,6 @@ class General {
     //DateTime myDate = DateTime.parse(date);
     return new DateFormat('yyyy/MM/dd hh:mm').format(date);
   }
-
 
   static Future<void> showMakeSureDialogue(
       {@required String txt,

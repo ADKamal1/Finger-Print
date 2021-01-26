@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/utils/eventWidget.dart';
-import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 
 class Calender extends StatefulWidget {
@@ -28,19 +27,15 @@ class _CalenderState extends State<Calender> {
     _init();
   }
 
-  _init()async {
-    await Future.delayed(Duration(milliseconds: 200));
-    auth  = await Provider.of<AuthenticationBloc>(context,listen: false);
-    calenderBloc = await Provider.of<CalenderBloc>(context,listen: false);
-
+  _init() async {
+    auth = Provider.of<AuthenticationBloc>(context, listen: false);
+    calenderBloc = Provider.of<CalenderBloc>(context, listen: false);
     calenderBloc.getCalenderData(
         email: auth.user.userData.email,
         dateTime: now,
         context: context,
         password: auth.user.userData.code);
   }
-
-
 //  Map<DateTime, List<NeatCleanCalendarEvent>> events = {
 //    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 5):
 //        [
@@ -81,38 +76,32 @@ class _CalenderState extends State<Calender> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CalenderBloc>(
-        builder: (BuildContext context, state, __) {
-          if (state.error != null) {
-            return Center(child: General.buildTxt(txt: state.error));
-          } else if (state.hasData) {
-            print("dddddddddd:${calenderBloc.events}");
-            return calenderBloc.events == null?Container():ListView(
-              children: [
-                Calendar(
-                  hideArrows: false,
-                  startOnMonday: true,
-                  weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                  events: calenderBloc.events,
-                  initialDate: calenderBloc.neatCleanCalendarEvent==null?now:calenderBloc.neatCleanCalendarEvent.startTime,
-                  onDateSelected: (date) {
-                    //FocusScope.of(context).requestFocus(new FocusNode());
-                    calenderBloc.getCalenderData(
-                        email: auth.user.userData.email,
-                        dateTime: date,
-                        context: context,
-                        password: auth.user.userData.code);
-                    print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                  },
-                  isExpandable: true,
-                  isExpanded: widget.expanded,
-                  eventDoneColor: Color.fromRGBO(36, 200, 139, 1),
-                  selectedColor: Colors.transparent.withOpacity(0.3),
-                  todayColor: Colors.blueAccent,
-                  eventListBuilder: (BuildContext context, List<NeatCleanCalendarEvent> _selectesdEvents) {
-                    return Column(
-                      children: calenderBloc.neatCleanCalendarEventList
-                          .map((e) => Padding(
+    return ListView(
+      children: [
+        Calendar(
+          hideArrows: false,
+          startOnMonday: true,
+          weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+          events: calenderBloc.events,
+          onDateSelected: (date) {
+            //FocusScope.of(context).requestFocus(new FocusNode());
+            calenderBloc.getCalenderData(
+                email: auth.user.userData.email,
+                dateTime: date,
+                context: context,
+                password: auth.user.userData.code);
+            print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+          },
+          isExpandable: true,
+          isExpanded: widget.expanded,
+          eventDoneColor: Color.fromRGBO(36, 200, 139, 1),
+          selectedColor: Colors.transparent.withOpacity(0.3),
+          todayColor: Colors.blueAccent,
+          eventListBuilder: (BuildContext context,
+              List<NeatCleanCalendarEvent> _selectesdEvents) {
+            return Column(
+              children: calenderBloc.neatCleanCalendarEventList
+                  .map((e) => Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Column(
                           children: [
@@ -124,7 +113,7 @@ class _CalenderState extends State<Calender> {
                                 color: Color.fromRGBO(36, 200, 139, 1),
                               ),
                               dateFormatted:
-                              '${DateFormat.jm().format(e.startTime)}',
+                                  '${DateFormat.jm().format(e.startTime)}',
                               lineThrough: false,
                             ),
                             EventWidget(
@@ -135,34 +124,27 @@ class _CalenderState extends State<Calender> {
                                 color: Color.fromRGBO(249, 96, 96, 1),
                               ),
                               dateFormatted:
-                              '${DateFormat.jm().format(e.startTime)}',
+                                  '${DateFormat.jm().format(e.startTime)}',
                               lineThrough: true,
                             ),
                           ],
                         ),
                       ))
-                          .toList(),
-                    );
-                  },
-                  hideTodayIcon: true,
-                  eventColor: Colors.transparent,
-                  expandableDateFormat: 'EEE, MMM d/yyyy',
-                  dayOfWeekStyle: TextStyle(
-                      color: Color.fromRGBO(49, 49, 49, 1),
-                      fontWeight: FontWeight.w800,
-                      fontSize: 11),
-                ),
-              ],
+                  .toList(),
             );
-          } else {
-            return Center(
-                child: General.customThreeBounce(context,
-                    color:Color.fromRGBO(60, 60, 60, 1), size: 30.0));
-          }
-        });
+          },
+          hideTodayIcon: true,
+          eventColor: Colors.transparent,
+          expandableDateFormat: 'EEE, MMM d/yyyy',
+          dayOfWeekStyle: TextStyle(
+              color: Color.fromRGBO(49, 49, 49, 1),
+              fontWeight: FontWeight.w800,
+              fontSize: 11),
+        )
+        //: buildCircularProgressIndicator(),
+      ],
+    );
   }
-
-
 
 //  ////- To Build List Of Courses list
 //  buildEvents(CalenderBloc state, BuildContext context) {
@@ -173,6 +155,5 @@ class _CalenderState extends State<Calender> {
 //    )),
 //    );
 //  }
-
 
 }
