@@ -1,0 +1,34 @@
+PODS:
+  - Flutter (1.0.0)
+  - geolocator (6.1.9):
+    - Flutter
+  - shared_preferences (0.0.1):
+    - Flutter
+  - unique_ids (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - geolocator (from `.symlinks/plugins/geolocator/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - unique_ids (from `.symlinks/plugins/unique_ids/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  geolocator:
+    :path: ".symlinks/plugins/geolocator/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  unique_ids:
+    :path: ".symlinks/plugins/unique_ids/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  geolocator: 057a0c63a43e9c5296d8ad845a3ac8e6df23d899
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  unique_ids: af43dfe3e491210975f4c61c57251dfbaf0031e3
+
+PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
+
+COCOAPODS: 1.10.0.beta.2
