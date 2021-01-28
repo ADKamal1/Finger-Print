@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
-import 'package:my_finger_printer/ui/home-page-screen.dart';
 import 'package:my_finger_printer/ui/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -10,12 +10,18 @@ import 'Provider/authentication_bloc.dart';
 import 'Provider/checkOut_bloc.dart';
 import 'Provider/general_bloc.dart';
 import 'Provider/user_bloc.dart';
-import 'widgets/global-functions.dart';
 
 void main() async {
   Widget _defaultHome = SplashScreen();
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.black, // Color for Android
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor:
+          Colors.black // Dark == white status bar -- for IOS.
+      ));
   runApp(app(_defaultHome));
+
   //runApp(MyApp());
 }
 
@@ -45,7 +51,7 @@ Widget app(Widget startScreen) {
       ),
     ],
     child: MyApp(
-      defaultHome: startScreen,
+      defaultHome: SplashScreen(),
       //defaultHome: TabsScreen(),
     ),
   );
@@ -61,14 +67,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
-
   }
-
-
 
   Widget build(BuildContext context) {
     return MaterialApp(

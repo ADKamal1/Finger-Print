@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
-import 'package:my_finger_printer/Provider/user_bloc.dart';
-import 'package:my_finger_printer/animations/scale-transation-route.dart';
 import 'package:my_finger_printer/ui/accountPage.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
 import 'package:my_finger_printer/ui/mainCalender.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyPageState extends State<HomePage> {
-
-
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
