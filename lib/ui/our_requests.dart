@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
 
 class OurRequests extends StatefulWidget {
   final String type;
@@ -79,6 +80,7 @@ class _OurRequestsState extends State<OurRequests> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    StatusBar.color(Colors.black);
     request_bloc = Provider.of<Request_Bloc>(context, listen: false);
     setState(() {
       type1 = widget.type;

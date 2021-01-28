@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
-import 'package:my_finger_printer/ui/accountPage.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
 import 'package:my_finger_printer/ui/mainCalender.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
+import '../ui/accountPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,6 +26,14 @@ class _MyPageState extends State<HomePage> {
       ),
     ),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StatusBar.color(Colors.black);
+
+  }
 
   void _onTapped(int index) async {
     AnimatedAlign(

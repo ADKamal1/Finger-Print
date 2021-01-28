@@ -15,8 +15,8 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    UserBloc userBloc = Provider.of<UserBloc>(
-        context); // AuthenticationBloc authenticationBloc =
+    UserBloc userBloc = Provider.of<UserBloc>( context);
+    // AuthenticationBloc authenticationBloc =
     //     Provider.of<AuthenticationBloc>(context);
     // authenticationBloc.user.userData;
     return SafeArea(

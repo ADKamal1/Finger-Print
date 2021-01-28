@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
+import 'package:my_finger_printer/ui/first-screen.dart';
 import 'package:my_finger_printer/ui/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -12,14 +13,14 @@ import 'Provider/general_bloc.dart';
 import 'Provider/user_bloc.dart';
 
 void main() async {
-  Widget _defaultHome = SplashScreen();
+  Widget _defaultHome = FirstScreen();
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.black, // Color for Android
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor:
-          Colors.black // Dark == white status bar -- for IOS.
-      ));
+//  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+//      statusBarColor: Colors.black, // Color for Android
+//      statusBarBrightness: Brightness.dark,
+//      systemNavigationBarColor:
+//          Colors.black // Dark == white status bar -- for IOS.
+//      ));
   runApp(app(_defaultHome));
 
   //runApp(MyApp());
@@ -50,10 +51,7 @@ Widget app(Widget startScreen) {
         value: CalenderBloc(),
       ),
     ],
-    child: MyApp(
-      defaultHome: SplashScreen(),
-      //defaultHome: TabsScreen(),
-    ),
+    child: MyApp(defaultHome: startScreen,),
   );
 }
 

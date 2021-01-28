@@ -3,6 +3,7 @@ import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/login.dart';
 import 'package:my_finger_printer/utils/slider_data.dart';
 import 'package:my_finger_printer/widgets/global-functions.dart';
+import 'package:statusbar/statusbar.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,27 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
   UserBloc userBloc;
   Map<String, dynamic> userData;
 
-//  init() async {
-//    SharedPreferences prefs = await SharedPreferences.getInstance ( );
-//    userData = prefs.getString ( 'userData' ) != null
-//        ? json.decode ( prefs.getString ( 'userData' ) )
-//        : null;
-//    userBloc = Provider.of<UserBloc> ( context, listen: false );
-//    if (userBloc.isLogin || userData != null) {
-//      return null;
-//    } else {
-//      Navigator.of ( context ).pushReplacement (
-//          MaterialPageRoute (
-//              builder: (BuildContext context) => HomePage ( ) ) );
-//    }
-//  }
-  getUserData() async {
-    await Future.delayed(Duration(milliseconds: 10));
-    await GlobalFunctions.getUserData(context);
-  }
+
 
   void initState() {
     super.initState();
+    StatusBar.color(Colors.black);
     // startTime();
     // getUserData();
     mySLides = getSlides();
@@ -178,8 +163,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                         builder: (context) => LoginPage()));
                               },
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(160, 20, 150, 20),
+                                padding: const EdgeInsets.fromLTRB(160, 20, 150, 20),
                                 child: Center(
                                   child: Text(
                                     'Log In',
@@ -269,19 +253,6 @@ class _SplashScreenState extends State<SplashScreen> {
         //backgroundColor: Colors.white,
         );
   }
-  //
-  // startTime() async {
-  //   return Timer(Duration(seconds: 2), () async {
-  //     SharedPreferences sharedPreferences =
-  //         await SharedPreferences.getInstance();
-  //     bool isLogin = sharedPreferences.getBool(keyIsLogin) ?? false;
-  //     if (isLogin) {
-  //       Navigator.of(context).pushReplacementNamed(navigatorDashboard);
-  //     } else {
-  //       Navigator.of(context).pushReplacementNamed(navigatorLogin);
-  //     }
-  //   });
-  // }
 
   Widget _buildPageIndicator(bool isCurrentPage) {
     return Container(

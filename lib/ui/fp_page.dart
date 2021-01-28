@@ -9,6 +9,7 @@ import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
 
 class FPPage extends StatefulWidget {
   final bool location = true;
@@ -37,8 +38,8 @@ class _FPPageState extends State<FPPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    StatusBar.color(Colors.black);
     location();
     init();
   }

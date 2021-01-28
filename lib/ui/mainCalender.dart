@@ -6,6 +6,7 @@ import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/monthPage.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
 
 class CalenderPage extends StatefulWidget {
   @override
@@ -13,6 +14,15 @@ class CalenderPage extends StatefulWidget {
 }
 
 class _CalenderPageState extends State<CalenderPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StatusBar.color(Colors.black);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     CalenderBloc calenderBloc = Provider.of<CalenderBloc>(context, listen: true);

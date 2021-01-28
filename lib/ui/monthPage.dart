@@ -7,6 +7,7 @@ import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/eventWidget.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
 
 class Calender extends StatefulWidget {
   bool expanded;
@@ -25,6 +26,7 @@ class _CalenderState extends State<Calender> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    StatusBar.color(Colors.black);
     _init();
   }
 
@@ -40,43 +42,6 @@ class _CalenderState extends State<Calender> {
 
 
 
-//  Map<DateTime, List<NeatCleanCalendarEvent>> events = {
-//    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 5):
-//        [
-//      NeatCleanCalendarEvent('Check in',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 10, 0),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 12, 0),
-//          description: 'A special event',
-//          color: Colors.blue[700]),
-//    ],
-//    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 5):
-//        [
-//      NeatCleanCalendarEvent('Check in',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 10, 0),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 12, 0),
-//          description: 'A special event',
-//          color: Colors.blue[700]),
-//    ],
-//    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 2):
-//        [
-//      NeatCleanCalendarEvent('Event B',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 10, 0),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 12, 0),
-//          color: Colors.orange),
-//      NeatCleanCalendarEvent('Event C',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 14, 30),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 17, 0),
-//          color: Colors.pink),
-//    ],
-//  };
 
   @override
   Widget build(BuildContext context) {

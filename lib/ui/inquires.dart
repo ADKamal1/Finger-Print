@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/ui/our_requests.dart';
+import 'package:statusbar/statusbar.dart';
 
 class RequestsAndInq extends StatefulWidget {
   @override
@@ -7,6 +8,16 @@ class RequestsAndInq extends StatefulWidget {
 }
 
 class _RequestsAndInqState extends State<RequestsAndInq> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StatusBar.color(Colors.black);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
