@@ -13,7 +13,7 @@ import 'Provider/general_bloc.dart';
 import 'Provider/user_bloc.dart';
 
 void main() async {
-  Widget _defaultHome = FirstScreen();
+  Widget _defaultHome = SplashScreen();
   WidgetsFlutterBinding.ensureInitialized();
 //  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
 //      statusBarColor: Colors.black, // Color for Android

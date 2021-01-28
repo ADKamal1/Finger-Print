@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Container(
                   child: Column(children: [
                 Container(
-                  height: (h / 2),
+                  height: h *.53,
                   child: PageView(
                     controller: controller,
                     onPageChanged: (index) {
@@ -109,7 +109,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: h / 20,
+                  height: h *.04,
                 )
               ])),
               slideIndex != 2
