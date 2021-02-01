@@ -19,7 +19,7 @@ class _CalenderPageState extends State<CalenderPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.black);
+   // StatusBar.color(Colors.black);
 
   }
 
@@ -32,7 +32,7 @@ class _CalenderPageState extends State<CalenderPage> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(60, 60, 60, 1),
-            toolbarHeight: MediaQuery.of(context).size.height * 0.15,
+            toolbarHeight: MediaQuery.of(context).size.height * 0.13,
             bottom: TabBar(
               indicatorColor: Colors.white,
               indicatorWeight: 3,

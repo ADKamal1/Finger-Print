@@ -13,14 +13,14 @@ import 'Provider/general_bloc.dart';
 import 'Provider/user_bloc.dart';
 
 void main() async {
-  Widget _defaultHome = SplashScreen();
+  Widget _defaultHome = FirstScreen();
   WidgetsFlutterBinding.ensureInitialized();
-//  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-//      statusBarColor: Colors.black, // Color for Android
-//      statusBarBrightness: Brightness.dark,
-//      systemNavigationBarColor:
-//          Colors.black // Dark == white status bar -- for IOS.
-//      ));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.black, // Color for Android
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor:
+          Colors.black // Dark == white status bar -- for IOS.
+      ));
   runApp(app(_defaultHome));
 
   //runApp(MyApp());
@@ -65,6 +65,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+
+
   @override
   void initState() {
     super.initState();

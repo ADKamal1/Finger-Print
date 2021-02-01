@@ -26,7 +26,7 @@ class _CalenderState extends State<Calender> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.black);
+//    StatusBar.color(Colors.black);
     _init();
   }
 
@@ -68,7 +68,11 @@ class _CalenderState extends State<Calender> {
           todayColor: Colors.blueAccent,
           eventListBuilder: (BuildContext context,
               List<NeatCleanCalendarEvent> _selectesdEvents) {
-            return Column(
+            return calenderBloc.neatCleanCalendarEventList.isEmpty?
+            Center(
+              child:Text("No Events",style: TextStyle(color: Colors.red,fontSize: 20),)
+            )
+                :Column(
               children: calenderBloc.neatCleanCalendarEventList
                   .map((e) => Padding(
                         padding: const EdgeInsets.all(15.0),

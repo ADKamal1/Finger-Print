@@ -78,7 +78,6 @@ class _OurRequestsState extends State<OurRequests> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     StatusBar.color(Colors.black);
     request_bloc = Provider.of<Request_Bloc>(context, listen: false);
@@ -90,7 +89,7 @@ class _OurRequestsState extends State<OurRequests> {
   @override
   Widget build(BuildContext context) {
     AuthenticationBloc authenticationBloc =
-        Provider.of<AuthenticationBloc>(context);
+    Provider.of<AuthenticationBloc>(context);
     Request_Bloc request_bloc = Provider.of<Request_Bloc>(context);
     // authenticationBloc.user.userData;
     var height = MediaQuery.of(context).size.height;

@@ -39,7 +39,7 @@ class _FPPageState extends State<FPPage> {
   @override
   void initState() {
     super.initState();
-    StatusBar.color(Colors.black);
+    //StatusBar.color(Colors.black);
     location();
     init();
   }
