@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
 
 class FPPage extends StatefulWidget {
   final bool location = true;
@@ -18,7 +20,7 @@ class FPPage extends StatefulWidget {
 
 class _FPPageState extends State<FPPage> {
   final Geolocator geolocator = Geolocator();
-  AuthenticationBloc authenticationBloc;
+  UserBloc userBloc;
   Position current;
 
   location() async {
@@ -36,17 +38,16 @@ class _FPPageState extends State<FPPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //  location();
+    StatusBar.color(Colors.black);
+    location();
     init();
   }
 
   init() async {
     await Future.delayed(Duration(milliseconds: 150));
 
-    authenticationBloc =
-        Provider.of<AuthenticationBloc>(context, listen: false);
+    userBloc = Provider.of<UserBloc>(context, listen: false);
     //wishlistBloc.getWishlistProduct();
   }
 
@@ -58,19 +59,18 @@ class _FPPageState extends State<FPPage> {
   Color colorout = Color.fromRGBO(227, 227, 227, 1);
   bool frist = true;
   bool second = true;
+  bool a = true, b = false, c = false;
   @override
   Widget build(BuildContext context) {
     CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
-    AuthenticationBloc authenticationBloc =
-        Provider.of<AuthenticationBloc>(context);
-    //  authenticationBloc.user.userData;
+    UserBloc userBloc = Provider.of<UserBloc>(context);
     CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
-        body: ListView(children: [
+        body: Column(children: [
           Stack(children: [
             Column(
               children: [
@@ -100,13 +100,10 @@ class _FPPageState extends State<FPPage> {
                       overflow: Overflow.visible,
                       children: [
                         Container(
-                          height: height * .615,
+                          height: height * 0.58,
                           width: width * .93,
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 40,
-                              ),
                               Divider(
                                 color: Color.fromRGBO(60, 60, 60, 0.3),
                                 height: 20,
@@ -138,9 +135,6 @@ class _FPPageState extends State<FPPage> {
                                 indent: 40,
                                 endIndent: 40,
                               ),
-                              SizedBox(
-                                height: 8,
-                              ),
                               Center(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -156,15 +150,22 @@ class _FPPageState extends State<FPPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: 40,
+                                height: height * 0.04,
                               ),
                               InkWell(
-                                  onTap: () {
-                                    location();
-                                    setState(() {
-                                      frist = false;
-                                    });
-                                  },
+                                  onTap:
+                                      ((a == true && b == false && c == false))
+                                          ? () async {
+                                              await Future.delayed(
+                                                  Duration(milliseconds: 150));
+                                              print("Confirm location");
+                                              location();
+                                              setState(() {
+                                                frist = false;
+                                                a = false;
+                                              });
+                                            }
+                                          : () {},
                                   child: DrawContainer(
                                       'Confirm Location',
                                       15,
@@ -193,82 +194,96 @@ class _FPPageState extends State<FPPage> {
                                               : Color.fromRGBO(
                                                   255, 255, 255, 0.9)),
                                     ),
-                                    onTap:
-                                        //  (frist == false)?
-                                        () {
-                                      setState(() {
-                                        second = false;
-                                        frist = true;
-                                        confirmColor = colorin;
-                                        confirmWrite =
-                                            Color.fromRGBO(100, 100, 100, 0.9);
-                                      });
+                                    onTap: (a == false && c == false)
+                                        ? () {
+                                            Future.delayed(Duration(seconds: 2))
+                                                .then((value) => () {
+                                                      setState(() {
+                                                        second = false;
+                                                        frist = true;
+                                                        b = false;
 
-                                      formatStringWithTimeFromDate(
-                                          DateTime date) {
-                                        //DateTime myDate = DateTime.parse(date);
-                                        return new DateFormat(
-                                                'yyyy-MM-dd hh:mm:ss')
-                                            .format(date);
-                                      }
+                                                        confirmColor = colorin;
+                                                        confirmWrite =
+                                                            Color.fromRGBO(100,
+                                                                100, 100, 0.9);
+                                                      });
+                                                    });
 
-                                      var a = formatStringWithTimeFromDate(
-                                          DateTime.now());
+                                            formatStringWithTimeFromDate(
+                                                DateTime date) {
+                                              //DateTime myDate = DateTime.parse(date);
+                                              return new DateFormat(
+                                                      'yyyy-MM-dd hh:mm:ss')
+                                                  .format(date);
+                                            }
 
-                                      FocusScope.of(context)
-                                          .requestFocus(new FocusNode());
-                                      checkInBlock.userCheckIn(
-                                          context: context,
-                                          date: DateTime.parse(
-                                              formatStringWithTimeFromDate(
-                                                  DateTime.now())),
-                                          lat: current.latitude
-                                              .toString()
-                                              .trim(),
-                                          lon: current.longitude
-                                              .toString()
-                                              .trim());
-                                      // setState(() {
-                                      //   if (checkInBlock.checkIn
-                                      //           .isSubmittedSuccessfully ==
-                                      //       false) {
-                                      //     second = true;
-                                      //     frist = false;
-                                      //   }
-                                      // });
-                                    },
-                                    //  : () {},
+                                            var a =
+                                                formatStringWithTimeFromDate(
+                                                    DateTime.now());
+
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            checkInBlock.userCheckIn(
+                                                context: context,
+                                                date: DateTime.parse(
+                                                    formatStringWithTimeFromDate(
+                                                        DateTime.now())),
+                                                lat: current.latitude
+                                                    .toString()
+                                                    .trim(),
+                                                lon: current.longitude
+                                                    .toString()
+                                                    .trim());
+                                            // setState(() {
+                                            //   if (checkInBlock.checkIn
+                                            //           .isSubmittedSuccessfully ==
+                                            //       false) {
+                                            //     second = true;
+                                            //     frist = false;
+                                            //   }
+                                            // });
+                                          }
+                                        : () {
+                                            General.showDialogue(
+                                                txtWidget: Text(
+                                                    'Confirm location first'),
+                                                context: context);
+                                          },
                                   ),
                                   SizedBox(
                                     width: 8,
                                   ),
                                   GestureDetector(
-                                    onTap:
-                                        // (checkInBlock
-                                        //         .checkIn.isSubmittedSuccessfully)
-                                        //     ?
-                                        () {
-                                      setState(() {
-                                        second = true;
-                                        frist = false;
-                                        confirmColor = colorout;
-                                        confirmWrite =
-                                            Color.fromRGBO(100, 100, 100, 0.9);
-                                      });
+                                    onTap: (a == false && b == true)
+                                        ? () {
+                                            print(b);
+                                            setState(() {
+                                              second = true;
+                                              frist = false;
+                                              confirmColor = colorout;
+                                              confirmWrite = Color.fromRGBO(
+                                                  100, 100, 100, 0.9);
+                                            });
 
-                                      FocusScope.of(context)
-                                          .requestFocus(new FocusNode());
-                                      checkOutBlock.userCheckOut(
-                                          context: context,
-                                          date: DateTime.now(),
-                                          lat: current.latitude
-                                              .toString()
-                                              .trim(),
-                                          lon: current.longitude
-                                              .toString()
-                                              .trim());
-                                    },
-                                    // : () {},
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            checkOutBlock.userCheckOut(
+                                                context: context,
+                                                date: DateTime.now(),
+                                                lat: current.latitude
+                                                    .toString()
+                                                    .trim(),
+                                                lon: current.longitude
+                                                    .toString()
+                                                    .trim());
+                                          }
+                                        : () {
+                                            // General.showDialogue(
+                                            //     txtWidget: Text(
+                                            //         'Confirm location first'),
+                                            //     context: context);
+                                          },
                                     child: DrawCheckContainer(
                                         'Check out',
                                         second
@@ -300,32 +315,41 @@ class _FPPageState extends State<FPPage> {
                                   ),
                                   child: Center(
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 3, left: 20),
-                                          child: Text(
-                                            "",
-                                            //authenticationBloc.user.userData.name,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  255, 255, 255, 0.9),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            ),
+                                            top: 3,
                                           ),
+                                          child: userBloc.user.userData.name ==
+                                                  null
+                                              ? Container()
+                                              : Text(
+                                                  userBloc.user.userData.name,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 0.9),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
                                         ),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(right: 60),
-                                          child: Text(
-                                            'ID:     ',
-                                            //   ' ${authenticationBloc.user.userData.id}',
-                                            style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    255, 255, 255, 0.8)),
-                                          ),
+                                          child: userBloc.user.userData.id ==
+                                                  null
+                                              ? Container()
+                                              : Text(
+                                                  'ID:  ${userBloc.user.userData.id}',
+                                                  style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          255, 255, 255, 0.8)),
+                                                ),
                                         )
                                       ],
                                     ),

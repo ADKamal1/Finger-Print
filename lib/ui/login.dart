@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:statusbar/statusbar.dart';
 import 'package:unique_ids/unique_ids.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,10 +20,12 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailControllor = new TextEditingController();
   TextEditingController _passwordControllor = new TextEditingController();
   String serial = "123123";
+  User user;
 
   @override
   void initState() {
     super.initState();
+    StatusBar.color(Colors.black);
     init();
     initUniqueIdentifierState();
   }
@@ -50,11 +54,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   init() async {
+    //user = SharedPreferenceHandler.getuserData();
     await Future.delayed(Duration(milliseconds: 150));
-
     authenticationBloc =
         Provider.of<AuthenticationBloc>(context, listen: false);
-    //wishlistBloc.getWishlistProduct();
   }
 
   _login() async {
@@ -65,7 +68,6 @@ class _LoginPageState extends State<LoginPage> {
           context: context);
       return;
     } else {
-      //_formKey.currentState.save();
       print("\nkkk:-");
       print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),
@@ -124,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderSide:
                             BorderSide(color: Color.fromRGBO(237, 237, 237, 1)),
                       ),
-                      hintText: '10001',
+                      hintText: 'amr@sovision.com',
                       hintStyle: TextStyle(
                           color: Color.fromRGBO(198, 198, 198, 1),
                           fontSize: 16),
@@ -243,7 +245,7 @@ class _LoginPageState extends State<LoginPage> {
                   _title(),
                   SizedBox(height: 10),
                   _subtitle(),
-                  SizedBox(height: height * 0.06),
+                  SizedBox(height: height * 0.03),
                   _emailPasswordWidget(),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
@@ -253,9 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 18,
                             color: Color.fromRGBO(49, 49, 49, 1))),
                   ),
-                  SizedBox(
-                    height: height * .10,
-                  ),
+                  SizedBox(height: height * .05),
                   InkWell(
                       onTap: () {
                         print("jjj${authenticationBloc.isWaiting}");

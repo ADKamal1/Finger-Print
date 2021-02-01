@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/models/CheckOut.dart';
 import 'package:my_finger_printer/services/api.dart';
+import 'package:my_finger_printer/widgets/general.dart';
 
 import 'general_bloc.dart';
 
@@ -18,7 +19,11 @@ class CheckOutBloc extends GeneralBloc {
           .checkOut(date: date, lat: lat, lon: lon, context: context);
       dismissWaiting();
       notifyListeners();
-      setError(null);
+      if (checkOut.errors.isNotEmpty) {
+        General.showDialogue(
+            txtWidget: Text("can not checkout without check in"),
+            context: context);
+      }
     } catch (e) {
       waiting = false;
       notifyListeners();

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/genral_roules.dart';
 import 'package:my_finger_printer/ui/inquires.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:provider/provider.dart';
 
 class AccountPage extends StatelessWidget {
   final Color backg = Colors.black;
@@ -13,15 +15,15 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-
+    UserBloc userBloc = Provider.of<UserBloc>( context);
     // AuthenticationBloc authenticationBloc =
     //     Provider.of<AuthenticationBloc>(context);
     // authenticationBloc.user.userData;
     return SafeArea(
       bottom: true,
       child: Scaffold(
-        resizeToAvoidBottomPadding: true,
-        body: ListView(
+        // resizeToAvoidBottomPadding: true,
+        body: Column(
           children: [
             Stack(
               overflow: Overflow.visible,
@@ -61,11 +63,11 @@ class AccountPage extends StatelessWidget {
                   ),
                   color: Colors.white,
                   child: Container(
-                    height: height * 0.50,
+                    height: height * 0.45,
                     width: width * 0.8,
                     padding: EdgeInsets.only(right: 15, left: 15),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(25),
                       color: Colors.white,
                     ),
                     child: Column(
@@ -85,7 +87,7 @@ class AccountPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
-                            'jjjjjj',
+                            userBloc.user.userData.department,
                             //                   authenticationBloc.user.userData.department,
                             style: TextStyle(
                                 color: Color.fromRGBO(116, 116, 116, 0.9),
@@ -105,7 +107,7 @@ class AccountPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
-                            'jjkjjjk',
+                            userBloc.user.userData.job,
 //                        authenticationBloc.user.userData.job,
                             style: TextStyle(
                                 color: Color.fromRGBO(116, 116, 116, 0.9),
@@ -166,7 +168,7 @@ class AccountPage extends StatelessWidget {
                   right: 20,
                   child: DrawContainer(
                       // authenticationBloc.user.userData.name,
-                      '111',
+                      userBloc.user.userData.name,
                       30,
                       backg,
                       write),

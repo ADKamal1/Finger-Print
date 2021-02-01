@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/animations/scale-transation-route.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/services/api.dart';
 import 'package:my_finger_printer/ui/home-page-screen.dart';
 import 'package:my_finger_printer/widgets/shared_preference.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/general.dart';
 import 'general_bloc.dart';
@@ -15,6 +17,7 @@ class AuthenticationBloc extends GeneralBloc {
 
   loginService(String email, String password, String serial,
       BuildContext context) async {
+    UserBloc userBloc = Provider.of<UserBloc>(context, listen: false);
     try {
       setWaiting();
       notifyListeners();
@@ -31,11 +34,12 @@ class AuthenticationBloc extends GeneralBloc {
             (Route<dynamic> route) => false);
         notifyListeners();
         SharedPreferenceHandler.setUserData(user);
+        Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {
         General.showDialogue(
             txtWidget: Text("In Valid Login"), context: context);
       }
-      //SharedPreferenceHandler.setUserSerial(user);
+      notifyListeners();
       setError(null);
     } catch (e) {
       waiting = false;

@@ -4,8 +4,10 @@ import 'package:flutter_neat_and_clean_calendar/neat_and_clean_calendar_event.da
 import 'package:intl/intl.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/eventWidget.dart';
 import 'package:provider/provider.dart';
+import 'package:statusbar/statusbar.dart';
 
 class Calender extends StatefulWidget {
   bool expanded;
@@ -16,7 +18,7 @@ class Calender extends StatefulWidget {
 }
 
 class _CalenderState extends State<Calender> {
-  AuthenticationBloc auth;
+  UserBloc userBloc;
   CalenderBloc calenderBloc;
   DateTime now = DateTime.now();
 
@@ -24,55 +26,22 @@ class _CalenderState extends State<Calender> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    StatusBar.color(Colors.black);
     _init();
   }
 
   _init() async {
-    auth = Provider.of<AuthenticationBloc>(context, listen: false);
+    userBloc = Provider.of<UserBloc>(context, listen: false);
     calenderBloc = Provider.of<CalenderBloc>(context, listen: false);
     calenderBloc.getCalenderData(
-        email: auth.user.userData.email,
+        email: userBloc.user.userData.email,
         dateTime: now,
         context: context,
-        password: auth.user.userData.code);
+        password: userBloc.user.userData.code);
   }
-//  Map<DateTime, List<NeatCleanCalendarEvent>> events = {
-//    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 5):
-//        [
-//      NeatCleanCalendarEvent('Check in',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 10, 0),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 12, 0),
-//          description: 'A special event',
-//          color: Colors.blue[700]),
-//    ],
-//    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 5):
-//        [
-//      NeatCleanCalendarEvent('Check in',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 10, 0),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day, 12, 0),
-//          description: 'A special event',
-//          color: Colors.blue[700]),
-//    ],
-//    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 2):
-//        [
-//      NeatCleanCalendarEvent('Event B',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 10, 0),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 12, 0),
-//          color: Colors.orange),
-//      NeatCleanCalendarEvent('Event C',
-//          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 14, 30),
-//          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-//              DateTime.now().day + 2, 17, 0),
-//          color: Colors.pink),
-//    ],
-//  };
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +55,10 @@ class _CalenderState extends State<Calender> {
           onDateSelected: (date) {
             //FocusScope.of(context).requestFocus(new FocusNode());
             calenderBloc.getCalenderData(
-                email: auth.user.userData.email,
+                email: userBloc.user.userData.email,
                 dateTime: date,
                 context: context,
-                password: auth.user.userData.code);
+                password: userBloc.user.userData.code);
             print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
           },
           isExpandable: true,

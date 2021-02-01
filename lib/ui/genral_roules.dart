@@ -40,7 +40,7 @@ class _GeneralRulesState extends State<GeneralRules> {
                       Container(
                         padding: EdgeInsets.only(left: 0, top: 45, bottom: 10),
                         child: Icon(
-                          Icons.arrow_back,
+                          Icons.arrow_back_ios,
                           color: Colors.white,
                           size: 40,
                         ),

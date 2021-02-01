@@ -36,7 +36,7 @@ dependencies:
   geolocator: ^6.1.14
   unique_ids: ^1.0.12
 
-
+  device_preview: ^0.4.8
 
 
   provider:
@@ -46,7 +46,7 @@ dependencies:
   #toast sms
   toast: ^0.1.5
   flutter_spinkit:
-
+  statusbar: ^1.1.0
 
 
 
