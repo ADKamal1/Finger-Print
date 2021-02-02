@@ -100,7 +100,7 @@ class _FPPageState extends State<FPPage> {
                       overflow: Overflow.visible,
                       children: [
                         Container(
-                          height: height * 0.58,
+                          height: height * 0.55,
                           width: width * .93,
                           child: Column(
                             children: [
@@ -150,7 +150,7 @@ class _FPPageState extends State<FPPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: height * 0.04,
+                                height: height * 0.02,
                               ),
                               InkWell(
                                   onTap:

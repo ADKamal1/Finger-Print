@@ -21,8 +21,7 @@ class AuthenticationBloc extends GeneralBloc {
     try {
       setWaiting();
       notifyListeners();
-      user =
-          await Api().login(email: email, password: password, serial: serial);
+      user = await Api().login(email: email, password: password, serial: serial);
       dismissWaiting();
       notifyListeners();
       print("hhh:${user.errors}");
@@ -34,6 +33,7 @@ class AuthenticationBloc extends GeneralBloc {
             (Route<dynamic> route) => false);
         notifyListeners();
         SharedPreferenceHandler.setUserData(user);
+        userBloc.setUser(currentUser: user);
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {
         General.showDialogue(
