@@ -7,6 +7,7 @@ import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
@@ -140,7 +141,8 @@ class _FPPageState extends State<FPPage> {
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: Text(
-                                    'Confirm your location to have to option to check in or out.',
+                                    TranslationBase.of(context)
+                                        .getStringLocaledByKey('CONFIRM_LOCATION'),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(40, 40, 40, 0.8),

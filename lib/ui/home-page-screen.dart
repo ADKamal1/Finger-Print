@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
+import 'package:my_finger_printer/Provider/localization_bloc.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
 import 'package:my_finger_printer/ui/mainCalender.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
+import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
 import '../ui/accountPage.dart';
+import 'setting-screen/SettingScreen.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,16 +19,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyPageState extends State<HomePage> {
+
+  _changeLang(BuildContext context) {
+    LocalizationBloc localizationBloc =
+    Provider.of<LocalizationBloc>(context, listen: false);
+    localizationBloc.changeDirection();
+    General.showToast(txt: TranslationBase.of(context)
+        .getStringLocaledByKey('LANGUAGE_HAS_CHANGED'),);
+  }
+
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
     CalenderPage(),
-    Center(
-      child: Text(
-        'Index 3: Settings',
-        style: optionStyle,
-      ),
-    ),
+    SettingScreen(),
+//    Center(
+//      child: Column(
+//        children: [
+//          Text(
+//            'Index 3: Settings',
+//            style: optionStyle,
+//          ),
+//          InkWell(
+//            onTap: (){
+//              _changeLang(c)
+//            },
+//              child:Text(
+//            'Language',
+//            style: optionStyle,
+//          )
+//          ),
+//        ],
+//      ),
+//    ),
   ];
 
   @override
