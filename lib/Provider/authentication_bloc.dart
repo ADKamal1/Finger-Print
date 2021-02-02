@@ -15,7 +15,8 @@ class AuthenticationBloc extends GeneralBloc {
   bool get isWaiting => _isWaiting;
   User user;
 
-  loginService(String email, String password, String serial, BuildContext context) async {
+  loginService(String email, String password, String serial,
+      BuildContext context) async {
     UserBloc userBloc = Provider.of<UserBloc>(context, listen: false);
     try {
       setWaiting();
@@ -26,7 +27,12 @@ class AuthenticationBloc extends GeneralBloc {
       notifyListeners();
       print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
-        userBloc.setUser(currentUser: user);
+        // Navigator.push(context, ScaleTransationRoute(page: HomePage()));
+        Navigator.pushAndRemoveUntil(
+            context,
+            ScaleTransationRoute(page: HomePage()),
+            (Route<dynamic> route) => false);
+        notifyListeners();
         SharedPreferenceHandler.setUserData(user);
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {

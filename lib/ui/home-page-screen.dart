@@ -92,6 +92,12 @@ class _MyPageState extends State<HomePage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 10.0,
+        brightness: Brightness.light,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0.0,
+      ),
       body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
