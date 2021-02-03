@@ -86,7 +86,7 @@ class AccountPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Padding(
+                        userBloc.user.userData.department==null?Container():Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
                             userBloc.user.userData.department,
@@ -107,7 +107,7 @@ class AccountPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Padding(
+                        userBloc.user.userData.job==null?Container():Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
                             userBloc.user.userData.job,
@@ -213,4 +213,7 @@ class AccountPage extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/localization_bloc.dart';
+import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+
   _changeLang(BuildContext context) {
     LocalizationBloc localizationBloc =
         Provider.of<LocalizationBloc>(context, listen: false);
@@ -55,12 +57,19 @@ class _SettingScreenState extends State<SettingScreen> {
                       inherit: false, fontSize: 20, color: Colors.black),
                 ),
                 onTap: () {
-                  _changeLang(context);
+                  _logout(context);
                 },
                 contentPadding: EdgeInsets.symmetric(horizontal: 16),
               )),
         ],
       ),
     );
+  }
+
+
+  _logout(BuildContext context) async {
+    UserBloc _userBloc = Provider.of<UserBloc>(context, listen: false);
+    _userBloc.logout(context);
+    Navigator.pop(context);
   }
 }

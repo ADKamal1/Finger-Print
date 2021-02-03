@@ -20,7 +20,7 @@ class TranslationBase {
       "Account": "Account",
       "FP": "FP",
       "Logout": "Logout",
-      "Login": "Login",
+      "LOGIN": "Login",
       "Next": "Next",
       "Check In": "Check In",
       "ivl": "In Valid Login",
@@ -56,7 +56,8 @@ class TranslationBase {
       "UIAC": "user is already checked in",
       "CNC": "can not checkout without check in",
       "no event": " No Events",
-      "CL": "Change Langauge"
+      "CL": "Change Langauge",
+      "LANGUAGE_HAS_CHANGED": "Language has changed",
     },
     'ar': {
       "CL": "تغيير اللغة",
@@ -90,7 +91,7 @@ class TranslationBase {
       "Settings": " الضبط",
       "FP": " البصمة",
       "Logout": " تسجيل الخروج",
-      "Login": " تسجيل الدخول",
+      "LOGIN": " تسجيل الدخول",
       "Next": " التالى",
       "Check In": " الدخول",
       "Check Out": " الخروج",
@@ -101,6 +102,7 @@ class TranslationBase {
       "des1": "حيث يمكنك ارسال مطالبك بكل سهولة",
       "des3": " تأكيد الدخول والخروج ",
       "des2": " تسجيل مواعيد العمل",
+      "LANGUAGE_HAS_CHANGED": "تم تغيير اللغة",
     },
   };
 

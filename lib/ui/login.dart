@@ -54,10 +54,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   init() async {
-    //user = SharedPreferenceHandler.getuserData();
-    await Future.delayed(Duration(milliseconds: 150));
-    authenticationBloc =
-        Provider.of<AuthenticationBloc>(context, listen: false);
+    authenticationBloc = Provider.of<AuthenticationBloc>(context, listen: false);
   }
 
   _login() async {
@@ -85,8 +82,13 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(
+              child:TranslationBase.of(context).locale=='en'?
+              Icon(
                 Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 30,
+              ):Icon(
+                Icons.arrow_forward_ios,
                 color: Colors.black,
                 size: 30,
               ),
@@ -163,25 +165,27 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _submitButton() {
-    AuthenticationBloc authenticationBloc =
-        Provider.of<AuthenticationBloc>(context);
-
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          color: Color.fromRGBO(40, 40, 40, 1),
-        ),
-        child: !authenticationBloc.isWaiting
-            ? General.buildTxt(
-                txt: TranslationBase.of(context).getStringLocaledByKey('Login'),
-                color: Colors.white,
-                fontSize: 16.0)
-            : General.customThreeBounce(context));
-  }
+//  Widget _submitButton() {
+//    AuthenticationBloc authenticationBloc = Provider.of<AuthenticationBloc>(context);
+//
+//    return Container(
+//        width: MediaQuery.of(context).size.width,
+//        padding: EdgeInsets.symmetric(vertical: 15),
+//        alignment: Alignment.center,
+//        decoration: BoxDecoration(
+//          borderRadius: BorderRadius.all(Radius.circular(5)),
+//          color: Color.fromRGBO(40, 40, 40, 1),
+//        ),
+//        child: !authenticationBloc.isWaiting
+//            ? General.buildTxt(
+//            txt: TranslationBase.of(context)
+//                .getStringLocaledByKey('LOGIN'),
+//            color: Colors.white,
+//            fontSize: 16.0)
+//            : General.customThreeBounce(context)
+//    );
+//
+//  }
 
   Widget _title() {
     return Text(
@@ -210,6 +214,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget build(BuildContext context) {
+    AuthenticationBloc authenticationBloc = Provider.of<AuthenticationBloc>(context);
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Container(
@@ -257,30 +262,35 @@ class _LoginPageState extends State<LoginPage> {
                     key: _formKey,
                     child: _emailPasswordWidget(),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                        TranslationBase.of(context)
-                            .getStringLocaledByKey('forg'),
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(49, 49, 49, 1))),
-                  ),
+//                  Container(
+//                    padding: EdgeInsets.symmetric(vertical: 10),
+//                    alignment: Alignment.centerRight,
+//                    child: Text(
+//                        TranslationBase.of(context)
+//                            .getStringLocaledByKey('forg'),
+//                        style: TextStyle(
+//                            fontSize: 18,
+//                            color: Color.fromRGBO(49, 49, 49, 1))),
+//                  ),
                   SizedBox(height: height * .05),
                   InkWell(
-                      onTap: () {
-                        print("jjj${authenticationBloc.isWaiting}");
-                        !authenticationBloc.isWaiting ? _login() : null;
-
-                        // //_login();
-                        //
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => OurRequests()));
-                      },
-                      child: _submitButton()),
+                      onTap: () => !authenticationBloc.isWaiting ? _login() : null,
+                      child:
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Color.fromRGBO(40, 40, 40, 1),
+                          ),
+                          child: !authenticationBloc.isWaiting
+                              ? General.buildTxt(
+                              txt: TranslationBase.of(context).getStringLocaledByKey('LOGIN'),
+                              color: Colors.white,fontSize: 16.0)
+                              : General.customThreeBounce(context,size: 18.0,color: Colors.white)
+                      ),
+                  ),
                 ],
               ),
             ),

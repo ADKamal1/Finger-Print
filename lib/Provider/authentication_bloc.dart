@@ -16,15 +16,13 @@ class AuthenticationBloc extends GeneralBloc {
   bool get isWaiting => _isWaiting;
   User user;
 
-  loginService(String email, String password, String serial,
-      BuildContext context) async {
+  loginService(String email, String password, String serial, BuildContext context) async {
     UserBloc userBloc = Provider.of<UserBloc>(context, listen: false);
     try {
-      setWaiting();
+      _isWaiting = true;
       notifyListeners();
-      user =
-          await Api().login(email: email, password: password, serial: serial);
-      dismissWaiting();
+      user = await Api().login(email: email, password: password, serial: serial);
+      _isWaiting = false;
       notifyListeners();
       print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
