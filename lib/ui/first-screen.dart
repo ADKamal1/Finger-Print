@@ -1,15 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/ui/splash_screen.dart';
 import 'package:my_finger_printer/widgets/shared_preference.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home-page-screen.dart';
-
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -17,7 +13,6 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-
   UserBloc userBloc;
   User userData;
 
@@ -27,9 +22,9 @@ class _FirstScreenState extends State<FirstScreen> {
     userBloc = Provider.of<UserBloc>(context, listen: false);
 
     if (userData != null) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
       userBloc.setUser(currentUser: userData);
-
     } else {
       Navigator.pushAndRemoveUntil(
         context,

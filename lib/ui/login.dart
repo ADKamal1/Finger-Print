@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/models/user.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,12 +63,7 @@ class _LoginPageState extends State<LoginPage> {
 
   _login() async {
     FocusScope.of(context).requestFocus(new FocusNode());
-    if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
-      General.showDialogue(
-          txtWidget: Text("Please enter username and password"),
-          context: context);
-      return;
-    } else {
+    if (_formKey.currentState.validate()) {
       print("\nkkk:-");
       print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),
@@ -91,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
               child: Icon(
-                Icons.arrow_back,
+                Icons.arrow_back_ios,
                 color: Colors.black,
                 size: 30,
               ),
@@ -133,6 +129,10 @@ class _LoginPageState extends State<LoginPage> {
                       fillColor: Colors.white10,
                       filled: true),
                   cursorColor: Color.fromRGBO(0, 0, 0, 0.7),
+                  validator: (val) {
+                    val = _emailControllor.text.toString();
+                    if (val.isEmpty) return 'enter a valid E-Mail';
+                  },
                 )
               : TextFormField(
                   controller: _passwordControllor,
@@ -153,7 +153,12 @@ class _LoginPageState extends State<LoginPage> {
                           color: Color.fromRGBO(198, 198, 198, 1),
                           fontSize: 16),
                       fillColor: Colors.white10,
-                      filled: true))
+                      filled: true),
+                  validator: (val) {
+                    val = _passwordControllor.text.toString();
+                    if (val.isEmpty) return 'enter a valid password';
+                  },
+                ),
         ],
       ),
     );
@@ -173,7 +178,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: !authenticationBloc.isWaiting
             ? General.buildTxt(
-                txt: "Log In", color: Colors.white, fontSize: 16.0)
+                txt: TranslationBase.of(context).getStringLocaledByKey('Next'),
+                color: Colors.white,
+                fontSize: 16.0)
             : General.customThreeBounce(context));
   }
 
@@ -246,7 +253,10 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 10),
                   _subtitle(),
                   SizedBox(height: height * 0.03),
-                  _emailPasswordWidget(),
+                  Form(
+                    key: _formKey,
+                    child: _emailPasswordWidget(),
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,

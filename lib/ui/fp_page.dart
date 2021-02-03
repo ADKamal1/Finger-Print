@@ -10,7 +10,6 @@ import 'package:my_finger_printer/utils/common_container.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
-import 'package:statusbar/statusbar.dart';
 
 class FPPage extends StatefulWidget {
   final bool location = true;
@@ -280,12 +279,19 @@ class _FPPageState extends State<FPPage> {
                                                     .toString()
                                                     .trim());
                                           }
-                                        : () {
-                                            // General.showDialogue(
-                                            //     txtWidget: Text(
-                                            //         'Confirm location first'),
-                                            //     context: context);
-                                          },
+                                        : (a == true && b == false)
+                                            ? () {
+                                                General.showDialogue(
+                                                    txtWidget: Text(
+                                                        'Confirm location first'),
+                                                    context: context);
+                                              }
+                                            : () {
+                                                General.showDialogue(
+                                                    txtWidget:
+                                                        Text('check in first'),
+                                                    context: context);
+                                              },
                                     child: DrawCheckContainer(
                                         'Check out',
                                         second
