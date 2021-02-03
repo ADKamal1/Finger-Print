@@ -142,7 +142,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                   width: 3 * w / 4,
                                   color: Colors.white,
                                   child: Text(
-                                    '',
+                                    'Next',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(49, 49, 49, 1),
