@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -5,7 +7,6 @@ import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
 import 'package:my_finger_printer/ui/first-screen.dart';
-import 'package:my_finger_printer/ui/splash_screen.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:provider/provider.dart';
 
@@ -18,12 +19,13 @@ import 'Provider/user_bloc.dart';
 void main() async {
   Widget _defaultHome = FirstScreen();
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.black, // Color for Android
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor:
-          Colors.black // Dark == white status bar -- for IOS.
-      ));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+    statusBarColor: Colors.grey.shade600, // Color for Android
+    statusBarBrightness: Brightness.dark,
+    systemNavigationBarColor: (Platform.isIOS)
+        ? Colors.black
+        : Colors.white70, // Dark == white status bar -- for IOS.
+  ));
   runApp(app(_defaultHome));
 
   //runApp(MyApp());
@@ -57,7 +59,9 @@ Widget app(Widget startScreen) {
         value: LocalizationBloc(),
       ),
     ],
-    child: MyApp(defaultHome: startScreen,),
+    child: MyApp(
+      defaultHome: startScreen,
+    ),
   );
 }
 
@@ -71,21 +75,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
-
   @override
   void initState() {
     super.initState();
   }
 
   Widget build(BuildContext context) {
-    final LocalizationBloc localizationBloc = Provider.of<LocalizationBloc>(context);
+    final LocalizationBloc localizationBloc =
+        Provider.of<LocalizationBloc>(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: widget.defaultHome,
-
       locale: localizationBloc.appLocal,
       localizationsDelegates: [
         const TranslationBaseDelegate(),
@@ -93,13 +94,10 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
-
       supportedLocales: [
         const Locale('ar', ''), // Arabic
         const Locale('en', ''), // English
       ],
-
-
     );
   }
 }

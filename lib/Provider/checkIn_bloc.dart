@@ -3,6 +3,7 @@ import 'package:my_finger_printer/models/CheckIn.dart';
 import 'package:my_finger_printer/services/api.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'general_bloc.dart';
 
 class CheckInBloc extends GeneralBloc {
@@ -21,7 +22,7 @@ class CheckInBloc extends GeneralBloc {
       notifyListeners();
       if (checkIn.errors.isNotEmpty) {
         General.showDialogue(
-            txtWidget: Text("user is already checked in"), context: context);
+            txtWidget: Text(TranslationBase.of(context).getStringLocaledByKey('UIAC')), context: context);
       }
       setError(null);
     } catch (e) {

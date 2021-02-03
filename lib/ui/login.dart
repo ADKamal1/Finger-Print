@@ -7,7 +7,6 @@ import 'package:my_finger_printer/utils/languages/translations_delegate_base.dar
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:statusbar/statusbar.dart';
 import 'package:unique_ids/unique_ids.dart';
 
 class LoginPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    StatusBar.color(Colors.black);
+    // StatusBar.color(Colors.black);
     init();
     initUniqueIdentifierState();
   }

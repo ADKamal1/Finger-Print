@@ -9,7 +9,6 @@ import 'package:my_finger_printer/ui/mainCalender.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
-import 'package:statusbar/statusbar.dart';
 
 import '../ui/accountPage.dart';
 import 'setting-screen/SettingScreen.dart';
@@ -60,7 +59,7 @@ class _MyPageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.black);
+    //StatusBar.color(Colors.black);
   }
 
   void _onTapped(int index) async {
@@ -121,7 +120,7 @@ class _MyPageState extends State<HomePage> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 10.0,
+        toolbarHeight: 0,
         brightness: Brightness.light,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0.0,

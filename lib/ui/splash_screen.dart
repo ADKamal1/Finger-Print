@@ -3,7 +3,6 @@ import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/login.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/utils/slider_data.dart';
-import 'package:statusbar/statusbar.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -20,7 +19,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState() {
     super.initState();
-    StatusBar.color(Colors.black);
     // startTime();
     // getUserData();
     mySLides = getSlides();

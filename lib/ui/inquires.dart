@@ -13,7 +13,7 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.black);
+    StatusBar.color(Colors.grey);
   }
 
   @override
@@ -95,7 +95,7 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
           MyContainer(TranslationBase.of(context).getStringLocaledByKey('FAQ'),
               30, Color.fromRGBO(40, 40, 40, 1), "FAQ"),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
+            padding: EdgeInsets.fromLTRB(10, 45, 10, 0),
             child: Row(
               children: [
                 Text(

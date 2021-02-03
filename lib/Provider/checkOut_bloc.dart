@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/models/CheckOut.dart';
 import 'package:my_finger_printer/services/api.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 
 import 'general_bloc.dart';
@@ -21,7 +22,8 @@ class CheckOutBloc extends GeneralBloc {
       notifyListeners();
       if (checkOut.errors.isNotEmpty) {
         General.showDialogue(
-            txtWidget: Text("can not checkout without check in"),
+            txtWidget:
+                Text(TranslationBase.of(context).getStringLocaledByKey('CNC')),
             context: context);
       }
     } catch (e) {
