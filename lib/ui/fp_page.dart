@@ -100,7 +100,7 @@ class _FPPageState extends State<FPPage> {
                       overflow: Overflow.visible,
                       children: [
                         Container(
-                          height: height * 0.55,
+                          height: height * 0.53,
                           width: width * .93,
                           child: Column(
                             children: [
@@ -141,7 +141,8 @@ class _FPPageState extends State<FPPage> {
                                       left: 10, right: 10),
                                   child: Text(
                                     TranslationBase.of(context)
-                                        .getStringLocaledByKey('CONFIRM_LOCATION'),
+                                        .getStringLocaledByKey(
+                                            'CONFIRM_LOCATION'),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(40, 40, 40, 0.8),
@@ -168,7 +169,9 @@ class _FPPageState extends State<FPPage> {
                                             }
                                           : () {},
                                   child: DrawContainer(
-                                      'Confirm Location',
+                                      TranslationBase.of(context)
+                                          .getStringLocaledByKey(
+                                              'Confirm Location'),
                                       15,
                                       (frist)
                                           ? confirmColor
@@ -184,9 +187,12 @@ class _FPPageState extends State<FPPage> {
                                 children: [
                                   GestureDetector(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 12),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
                                       child: DrawCheckContainer(
-                                          'Check in',
+                                          TranslationBase.of(context)
+                                              .getStringLocaledByKey(
+                                                  'Check In'),
                                           frist
                                               ? colorin
                                               : Color.fromRGBO(36, 200, 139, 1),
@@ -248,7 +254,9 @@ class _FPPageState extends State<FPPage> {
                                         : () {
                                             General.showDialogue(
                                                 txtWidget: Text(
-                                                    'Confirm location first'),
+                                                    TranslationBase.of(context)
+                                                        .getStringLocaledByKey(
+                                                            'clf')),
                                                 context: context);
                                           },
                                   ),
@@ -283,17 +291,26 @@ class _FPPageState extends State<FPPage> {
                                             ? () {
                                                 General.showDialogue(
                                                     txtWidget: Text(
-                                                        'Confirm location first'),
+                                                      TranslationBase.of(
+                                                              context)
+                                                          .getStringLocaledByKey(
+                                                              'clf'),
+                                                    ),
                                                     context: context);
                                               }
                                             : () {
                                                 General.showDialogue(
-                                                    txtWidget:
-                                                        Text('check in first'),
+                                                    txtWidget: Text(
+                                                      TranslationBase.of(
+                                                              context)
+                                                          .getStringLocaledByKey(
+                                                              'cif'),
+                                                    ),
                                                     context: context);
                                               },
                                     child: DrawCheckContainer(
-                                        'Check out',
+                                        TranslationBase.of(context)
+                                            .getStringLocaledByKey('Check Out'),
                                         second
                                             ? colorout
                                             : Color.fromRGBO(249, 96, 96, 1),
@@ -347,8 +364,7 @@ class _FPPageState extends State<FPPage> {
                                                 ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 60),
+                                          padding: const EdgeInsets.only(),
                                           child: userBloc.user.userData.id ==
                                                   null
                                               ? Container()

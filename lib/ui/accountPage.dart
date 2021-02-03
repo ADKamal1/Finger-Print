@@ -4,10 +4,11 @@ import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/genral_roules.dart';
 import 'package:my_finger_printer/ui/inquires.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:provider/provider.dart';
 
 class AccountPage extends StatelessWidget {
-  final Color backg = Colors.black;
+  final Color backg = Color.fromRGBO(20, 20, 20, 0.9);
   final Color write = Colors.white;
   AuthenticationBloc authenticationBloc;
 
@@ -15,7 +16,7 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    UserBloc userBloc = Provider.of<UserBloc>( context);
+    UserBloc userBloc = Provider.of<UserBloc>(context);
     // AuthenticationBloc authenticationBloc =
     //     Provider.of<AuthenticationBloc>(context);
     // authenticationBloc.user.userData;
@@ -77,7 +78,8 @@ class AccountPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 40, left: 5),
                           child: Text(
-                            'Department',
+                            TranslationBase.of(context)
+                                .getStringLocaledByKey('dep'),
                             style: TextStyle(
                                 color: Color.fromRGBO(60, 60, 60, 0.9),
                                 fontSize: 22,
@@ -97,7 +99,8 @@ class AccountPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 20, left: 5),
                           child: Text(
-                            'Job Title',
+                            TranslationBase.of(context)
+                                .getStringLocaledByKey('job'),
                             style: TextStyle(
                                 color: Color.fromRGBO(60, 60, 60, 0.9),
                                 fontSize: 22,
@@ -143,8 +146,12 @@ class AccountPage extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) => GeneralRules()));
                             },
-                            child: DrawContainer('General Rules & Information',
-                                15, backg, write)),
+                            child: DrawContainer(
+                                TranslationBase.of(context)
+                                    .getStringLocaledByKey('gr'),
+                                15,
+                                backg,
+                                write)),
                         SizedBox(
                           height: 11,
                         ),
@@ -157,7 +164,11 @@ class AccountPage extends StatelessWidget {
                                       builder: (context) => RequestsAndInq()));
                             },
                             child: DrawContainer(
-                                'Requests & Inquiries', 15, backg, write))
+                                TranslationBase.of(context)
+                                    .getStringLocaledByKey('ri'),
+                                15,
+                                backg,
+                                write))
                       ],
                     ),
                   ),

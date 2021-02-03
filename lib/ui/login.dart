@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 10, 50, 10),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: !authenticationBloc.isWaiting
             ? General.buildTxt(
-                txt: TranslationBase.of(context).getStringLocaledByKey('Next'),
+                txt: TranslationBase.of(context).getStringLocaledByKey('Login'),
                 color: Colors.white,
                 fontSize: 16.0)
             : General.customThreeBounce(context));
@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _title() {
     return Text(
-      'Welcome back',
+      TranslationBase.of(context).getStringLocaledByKey('Welcome back'),
       textAlign: TextAlign.left,
       style: TextStyle(fontSize: 32, color: Color.fromRGBO(49, 49, 49, 1)),
     );
@@ -194,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _subtitle() {
     return Text(
-      'Sign in to continue',
+      TranslationBase.of(context).getStringLocaledByKey('sign'),
       textAlign: TextAlign.left,
       style: TextStyle(fontSize: 16, color: Color.fromRGBO(155, 155, 155, 1)),
     );
@@ -203,8 +203,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Employee ID"),
-        _entryField("Password", isPassword: true),
+        _entryField(TranslationBase.of(context).getStringLocaledByKey('EID')),
+        _entryField(TranslationBase.of(context).getStringLocaledByKey('pass'),
+            isPassword: true),
       ],
     );
   }
@@ -260,7 +261,9 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,
-                    child: Text('Forgot Password',
+                    child: Text(
+                        TranslationBase.of(context)
+                            .getStringLocaledByKey('forg'),
                         style: TextStyle(
                             fontSize: 18,
                             color: Color.fromRGBO(49, 49, 49, 1))),

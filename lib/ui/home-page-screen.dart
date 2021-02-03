@@ -10,6 +10,7 @@ import 'package:my_finger_printer/utils/languages/translations_delegate_base.dar
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
+
 import '../ui/accountPage.dart';
 import 'setting-screen/SettingScreen.dart';
 
@@ -19,13 +20,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyPageState extends State<HomePage> {
-
   _changeLang(BuildContext context) {
     LocalizationBloc localizationBloc =
-    Provider.of<LocalizationBloc>(context, listen: false);
+        Provider.of<LocalizationBloc>(context, listen: false);
     localizationBloc.changeDirection();
-    General.showToast(txt: TranslationBase.of(context)
-        .getStringLocaledByKey('LANGUAGE_HAS_CHANGED'),);
+    General.showToast(
+      txt: TranslationBase.of(context)
+          .getStringLocaledByKey('LANGUAGE_HAS_CHANGED'),
+    );
   }
 
   static List<Widget> _widgetOptions = <Widget>[
@@ -59,7 +61,6 @@ class _MyPageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     StatusBar.color(Colors.black);
-
   }
 
   void _onTapped(int index) async {
@@ -99,7 +100,7 @@ class _MyPageState extends State<HomePage> {
                 (_selectedIndex != index)
                     ? Text(text,
                         style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 12,
                             color: Color.fromRGBO(40, 40, 40, 0.9)))
                     : Container(),
               ],
@@ -140,20 +141,30 @@ class _MyPageState extends State<HomePage> {
           BottomNavigationBarItem(
             //
             title: SizedBox.shrink(),
-            icon: _buildIcon(Icons.fingerprint, 'FP', 0),
+            icon: _buildIcon(Icons.fingerprint,
+                TranslationBase.of(context).getStringLocaledByKey('FP'), 0),
           ),
           BottomNavigationBarItem(
             title: SizedBox.shrink(),
-            icon: _buildIcon(Icons.person, 'Account', 1),
+            icon: _buildIcon(
+                Icons.person,
+                TranslationBase.of(context).getStringLocaledByKey('Account'),
+                1),
           ),
           BottomNavigationBarItem(
             title: SizedBox.shrink(),
-            icon: _buildIcon(Icons.calendar_today, 'Calendar', 2),
+            icon: _buildIcon(
+                Icons.calendar_today,
+                TranslationBase.of(context).getStringLocaledByKey('Calender'),
+                2),
             //label: 'Calendar'
           ),
           BottomNavigationBarItem(
             title: SizedBox.shrink(),
-            icon: _buildIcon(Icons.settings, 'Settings', 3),
+            icon: _buildIcon(
+                Icons.settings,
+                TranslationBase.of(context).getStringLocaledByKey('Settings'),
+                3),
             // label: 'Settings',
           ),
         ],

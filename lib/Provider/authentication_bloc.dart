@@ -4,6 +4,7 @@ import 'package:my_finger_printer/animations/scale-transation-route.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/services/api.dart';
 import 'package:my_finger_printer/ui/home-page-screen.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/shared_preference.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,8 @@ class AuthenticationBloc extends GeneralBloc {
     try {
       setWaiting();
       notifyListeners();
-      user = await Api().login(email: email, password: password, serial: serial);
+      user =
+          await Api().login(email: email, password: password, serial: serial);
       dismissWaiting();
       notifyListeners();
       print("hhh:${user.errors}");
@@ -37,7 +39,9 @@ class AuthenticationBloc extends GeneralBloc {
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {
         General.showDialogue(
-            txtWidget: Text("In Valid Login"), context: context);
+            txtWidget:
+                Text(TranslationBase.of(context).getStringLocaledByKey('ivl')),
+            context: context);
       }
       notifyListeners();
       setError(null);

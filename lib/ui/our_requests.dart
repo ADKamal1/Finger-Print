@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
 
@@ -90,7 +91,7 @@ class _OurRequestsState extends State<OurRequests> {
             Padding(
               padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
               child: Text(
-                "Write your Request here",
+                TranslationBase.of(context).getStringLocaledByKey('write'),
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -122,9 +123,9 @@ class _OurRequestsState extends State<OurRequests> {
                   )),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
                     children: [
@@ -146,7 +147,7 @@ class _OurRequestsState extends State<OurRequests> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 8, 23, 8),
+                    padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
                     child: FlatButton(
                       onPressed: () {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -159,16 +160,17 @@ class _OurRequestsState extends State<OurRequests> {
                       },
                       child: Container(
                         height: height * 0.06,
-                        width: width * 0.3,
+                        width: width * 0.35,
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(230, 230, 230, 1),
                             borderRadius: BorderRadius.circular(30)),
                         child: Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
+                              padding: const EdgeInsets.only(left: 8, right: 8),
                               child: Text(
-                                "Send",
+                                TranslationBase.of(context)
+                                    .getStringLocaledByKey('send'),
                                 style: TextStyle(
                                   color: Color.fromRGBO(0, 0, 0, 0.9),
                                   fontSize: 30,

@@ -16,106 +16,84 @@ class TranslationBase {
     'en': {
       "CONFIRM_LOCATION":
           "Confirm your location to have to option to check in or out.",
-    },
-    'ar': {
-      "CONFIRM_LOCATION": "أكد موقعك لتأكيد دخولك وخروك ",
-    },
-    'en': {
-      "Confirm Location ": "Confirm Location",
-    },
-    'ar': {
-      "Confirm Location": " أكد موقعك",
-    },
-    'en': {
       "Check Out": "Check Out",
-    },
-    'ar': {
-      "Check Out": " الخروج",
-    },
-    'en': {
-      "Check In": "Check In",
-    },
-    'ar': {
-      "Check In": " الدخول",
-    },
-    'en': {
-      "Next": "Next",
-    },
-    'ar': {
-      "Next": " التالى",
-    },
-    'en': {
-      "Login": "Login",
-    },
-    'ar': {
-      "Login": " تسجيل الدخول",
-    },
-    'en': {
-      "Logout": "Logout",
-    },
-    'ar': {
-      "Logout": " تسجيل الخروج",
-    },
-    'en': {
-      "FP": "FP",
-    },
-    'ar': {
-      "FP": " البصمة",
-    },
-    'en': {
       "Account": "Account",
-    },
-    'ar': {
-      "Account": " حسابى",
-    },
-    'en': {
+      "FP": "FP",
+      "Logout": "Logout",
+      "Login": "Login",
+      "Next": "Next",
+      "Check In": "Check In",
+      "ivl": "In Valid Login",
+      "Confirm Location": "Confirm Location",
       "Calender": "Calender",
-    },
-    'ar': {
-      "Calender": "أوقاتى",
-    },
-    'en': {
-      "Settings": "Settings",
-    },
-    'ar': {
-      "Settings": " الضبط",
-    },
-    'en': {
-      "Month": "Month",
-    },
-    'ar': {
-      "Month": " الشهر",
-    },
-    'en': {
       "Day": "Day",
-    },
-    'ar': {
-      "Day": " اليوم",
-    },
-    'en': {
-      "Welcome": "Welcome to GTT",
-    },
-    'ar': {
-      "Welcome": " مرحبا بكم فى تطبيق GTT",
-    },
-    'en': {
+      "Month": "Month",
+      "Settings": "Settings",
       "des1": "Lorem lpsum is simply dummy",
-    },
-    'ar': {
-      "des1": "تلقى مطالبكم الوظيفي",
-    },
-    'en': {
       "des2": "Lorem lpsum is simply dummy",
+      "Welcome": "Welcome to GTT",
+      "des3": "Lorem lpsum is simply dummy",
+      "Welcome back": "Welcome back",
+      "sign": "Sign to continue",
+      "EID": "Employee ID",
+      "pass": "PassWord",
+      "forg": "Forgot Password",
+      "clf": "Confirm location first",
+      "cif": "Check in first",
+      "dep": "Department",
+      "job": "Job Title",
+      "gr": "General Rules & Information",
+      "ri": "Requests & Inquiries",
+      "s1": "Section I",
+      "s2": "Section II",
+      "s3": "Section III",
+      "leave": "Leave Request",
+      "loan": "Loan Request",
+      "salary": "Salary Inquiry",
+      "FAQ": "FAQ",
+      "write": "Write your request here",
+      "send": "Send",
     },
     'ar': {
+      "leave": "طلب للمغادرة",
+      "loan": "طلب قرض",
+      "salary": "الاستعلام عن الراتب",
+      "FAQ": "التعليمات",
+      "write": "اكتب طلبك هنا",
+      "send": "ارسال",
+      "s1": "الفصل الاول",
+      "s2": "الفصل الثانى",
+      "s3": "الفصل الثالث",
+      "dep": "القسم",
+      "job": "المسمى الوظيفى",
+      "gr": "المعلومات والقواعد العامة",
+      "ri": "الطلابات والاستفسارات",
+      "cif": "سجل دخولك اولا",
+      "clf": "أكد موقعك اولا",
+      "ivl": "تسجيل دخول خاطآ",
+      "forg": "نسيت كلمة المرور",
+      "pass": "كلمة المرور",
+      "EID": "البريد الالكترونى",
+      "sign": "سجل دخولك للاستمرار",
+      "Welcome back": 'مرحبا بعودتك',
+      "CONFIRM_LOCATION": "أكد موقعك لتأكيد دخولك وخروك ",
+      "Day": " اليوم",
+      "Month": " الشهر",
+      "Settings": " الضبط",
+      "FP": " البصمة",
+      "Logout": " تسجيل الخروج",
+      "Login": " تسجيل الدخول",
+      "Next": " التالى",
+      "Check In": " الدخول",
+      "Check Out": " الخروج",
+      "Calender": "أوقاتى",
+      "Account": " حسابى",
+      "Confirm Location": " أكد موقعك",
+      "Welcome": " مرحبا بكم فى تطبيق GTT",
+      "des1": "حيث يمكنك ارسال مطالبك بكل سهولة",
+      "des3": " تأكيد الدخول والخروج ",
       "des2": " تسجيل مواعيد العمل",
     },
-    'en': {
-      "des3": "Lorem lpsum is simply dummy",
-    },
-    'ar': {
-      "des3": " تأكيد الدخول والخروج ",
-    }
   };
 
   String getStringLocaledByKey(String key) {
