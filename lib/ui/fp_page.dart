@@ -7,9 +7,9 @@ import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
-import 'package:statusbar/statusbar.dart';
 
 class FPPage extends StatefulWidget {
   final bool location = true;
@@ -39,7 +39,7 @@ class _FPPageState extends State<FPPage> {
   @override
   void initState() {
     super.initState();
-    StatusBar.color(Colors.black);
+    //StatusBar.color(Colors.black);
     location();
     init();
   }
@@ -100,7 +100,7 @@ class _FPPageState extends State<FPPage> {
                       overflow: Overflow.visible,
                       children: [
                         Container(
-                          height: height * 0.58,
+                          height: height * 0.53,
                           width: width * .93,
                           child: Column(
                             children: [
@@ -140,7 +140,9 @@ class _FPPageState extends State<FPPage> {
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: Text(
-                                    'Confirm your location to have to option to check in or out.',
+                                    TranslationBase.of(context)
+                                        .getStringLocaledByKey(
+                                            'CONFIRM_LOCATION'),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(40, 40, 40, 0.8),
@@ -150,7 +152,7 @@ class _FPPageState extends State<FPPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: height * 0.04,
+                                height: height * 0.02,
                               ),
                               InkWell(
                                   onTap:
@@ -167,7 +169,9 @@ class _FPPageState extends State<FPPage> {
                                             }
                                           : () {},
                                   child: DrawContainer(
-                                      'Confirm Location',
+                                      TranslationBase.of(context)
+                                          .getStringLocaledByKey(
+                                              'Confirm Location'),
                                       15,
                                       (frist)
                                           ? confirmColor
@@ -183,9 +187,12 @@ class _FPPageState extends State<FPPage> {
                                 children: [
                                   GestureDetector(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 12),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
                                       child: DrawCheckContainer(
-                                          'Check in',
+                                          TranslationBase.of(context)
+                                              .getStringLocaledByKey(
+                                                  'Check In'),
                                           frist
                                               ? colorin
                                               : Color.fromRGBO(36, 200, 139, 1),
@@ -247,7 +254,9 @@ class _FPPageState extends State<FPPage> {
                                         : () {
                                             General.showDialogue(
                                                 txtWidget: Text(
-                                                    'Confirm location first'),
+                                                    TranslationBase.of(context)
+                                                        .getStringLocaledByKey(
+                                                            'clf')),
                                                 context: context);
                                           },
                                   ),
@@ -278,14 +287,30 @@ class _FPPageState extends State<FPPage> {
                                                     .toString()
                                                     .trim());
                                           }
-                                        : () {
-                                            // General.showDialogue(
-                                            //     txtWidget: Text(
-                                            //         'Confirm location first'),
-                                            //     context: context);
-                                          },
+                                        : (a == true && b == false)
+                                            ? () {
+                                                General.showDialogue(
+                                                    txtWidget: Text(
+                                                      TranslationBase.of(
+                                                              context)
+                                                          .getStringLocaledByKey(
+                                                              'clf'),
+                                                    ),
+                                                    context: context);
+                                              }
+                                            : () {
+                                                General.showDialogue(
+                                                    txtWidget: Text(
+                                                      TranslationBase.of(
+                                                              context)
+                                                          .getStringLocaledByKey(
+                                                              'cif'),
+                                                    ),
+                                                    context: context);
+                                              },
                                     child: DrawCheckContainer(
-                                        'Check out',
+                                        TranslationBase.of(context)
+                                            .getStringLocaledByKey('Check Out'),
                                         second
                                             ? colorout
                                             : Color.fromRGBO(249, 96, 96, 1),
@@ -339,8 +364,7 @@ class _FPPageState extends State<FPPage> {
                                                 ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 60),
+                                          padding: const EdgeInsets.only(),
                                           child: userBloc.user.userData.id ==
                                                   null
                                               ? Container()

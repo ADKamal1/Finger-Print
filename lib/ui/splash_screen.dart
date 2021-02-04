@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/ui/login.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/utils/slider_data.dart';
-import 'package:my_finger_printer/widgets/global-functions.dart';
-import 'package:statusbar/statusbar.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,19 +14,15 @@ class _SplashScreenState extends State<SplashScreen> {
   List<SliderModel> mySLides = new List<SliderModel>();
   int slideIndex = 0;
   PageController controller;
-
   UserBloc userBloc;
   Map<String, dynamic> userData;
 
-
-
   void initState() {
     super.initState();
-    StatusBar.color(Colors.black);
     // startTime();
     // getUserData();
     mySLides = getSlides();
-    // controller = new PageController();
+    controller = new PageController();
   }
 
   @override
@@ -41,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 backgroundColor: Colors.transparent,
                 leading: new IconButton(
                   icon: new Icon(
-                    Icons.arrow_back,
+                    Icons.arrow_back_ios,
                     color: Colors.black,
                     size: 30,
                   ),
@@ -57,13 +52,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 backgroundColor: Colors.white,
               ),
         backgroundColor: Colors.white,
-        body: Stack(children: [
-          Column(
-            children: [
+        body: Container(
+          child: Stack(children: [
+            Column(children: [
               Container(
                   child: Column(children: [
                 Container(
-                  height: h *.53,
+                  height: h * .53,
                   child: PageView(
                     controller: controller,
                     onPageChanged: (index) {
@@ -74,18 +69,24 @@ class _SplashScreenState extends State<SplashScreen> {
                     children: <Widget>[
                       SlideTile(
                         imagePath: mySLides[0].getImageAssetPath(),
-                        title: mySLides[0].getTitle(),
-                        desc: mySLides[0].getDesc(),
+                        title: TranslationBase.of(context)
+                            .getStringLocaledByKey('Welcome'),
+                        desc: TranslationBase.of(context)
+                            .getStringLocaledByKey('des1'),
                       ),
                       SlideTile(
                         imagePath: mySLides[1].getImageAssetPath(),
-                        title: mySLides[1].getTitle(),
-                        desc: mySLides[1].getDesc(),
+                        title: TranslationBase.of(context)
+                            .getStringLocaledByKey('Welcome'),
+                        desc: TranslationBase.of(context)
+                            .getStringLocaledByKey('des2'),
                       ),
                       SlideTile(
                         imagePath: mySLides[2].getImageAssetPath(),
-                        title: mySLides[2].getTitle(),
-                        desc: mySLides[2].getDesc(),
+                        title: TranslationBase.of(context)
+                            .getStringLocaledByKey('Welcome'),
+                        desc: TranslationBase.of(context)
+                            .getStringLocaledByKey('des3'),
                       ),
                     ],
                   ),
@@ -96,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   padding: EdgeInsets.fromLTRB(
                     150,
                     10,
-                    0,
+                    150,
                     10,
                   ),
                   child: Row(
@@ -108,9 +109,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: h *.04,
-                )
+//                SizedBox(
+//                  height: h * .04,
+//                )
               ])),
               slideIndex != 2
                   ? Expanded(
@@ -120,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             color: Color.fromRGBO(40, 40, 40, 1),
                           ),
                           // color: Color.fromRGBO(40, 40, 40, 1),
-                          height: h * 3.33,
+                          //height: h * .2,
                           // margin: EdgeInsets.symmetric(vertical: 16),
                           child: Column(children: [
                             Container(
@@ -135,7 +136,7 @@ class _SplashScreenState extends State<SplashScreen> {
                               child: InkWell(
                                 onTap: () {
                                   controller.animateToPage(
-                                    slideIndex,
+                                    slideIndex + 1,
                                     duration: Duration(milliseconds: 800),
                                     curve: Curves.fastOutSlowIn,
                                   );
@@ -146,7 +147,8 @@ class _SplashScreenState extends State<SplashScreen> {
                                   width: 3 * w / 4,
                                   color: Colors.white,
                                   child: Text(
-                                    "Next",
+                                    TranslationBase.of(context)
+                                        .getStringLocaledByKey('Next'),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(49, 49, 49, 1),
@@ -156,17 +158,20 @@ class _SplashScreenState extends State<SplashScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {
+                              onTap: ()=>
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LoginPage()));
-                              },
+                                        builder: (context) => LoginPage())
+                                ),
+
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(160, 20, 150, 20),
+                                padding:
+                                    const EdgeInsets.fromLTRB(120, 10, 120, 20),
                                 child: Center(
                                   child: Text(
-                                    'Log In',
+                                    TranslationBase.of(context)
+                                        .getStringLocaledByKey('LOGIN'),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         //  fontStyle: FontStyle,
@@ -212,7 +217,8 @@ class _SplashScreenState extends State<SplashScreen> {
                               width: 3 * w / 4,
                               color: Colors.white,
                               child: Text(
-                                "Log In",
+                                TranslationBase.of(context)
+                                    .getStringLocaledByKey('LOGIN'),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Color.fromRGBO(113, 113, 113, 1),
@@ -223,32 +229,32 @@ class _SplashScreenState extends State<SplashScreen> {
                         ]),
                       ),
                     ),
-            ],
-          ),
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: Row(
-              children: [
-                Text(
-                  "Developed By",
-                  style: TextStyle(
-                      color: Color.fromRGBO(213, 213, 213, 0.8),
-                      fontSize: 12,
-                      inherit: false),
-                ),
-                Container(
-                  child: Image.asset(
-                    "assets/images/component.png",
-                    fit: BoxFit.cover,
-                    height: 60,
-                    width: 60,
+            ]),
+            Positioned(
+              bottom: 20,
+              left: 10,
+              child: Row(
+                children: [
+                  Text(
+                    "Developed By",
+                    style: TextStyle(
+                        color: Color.fromRGBO(213, 213, 213, 0.8),
+                        fontSize: 12,
+                        inherit: false),
                   ),
-                )
-              ],
-            ),
-          )
-        ])
+                  Container(
+                    child: Image.asset(
+                      "assets/images/component.png",
+                      fit: BoxFit.cover,
+                      height: 60,
+                      width: 60,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ]),
+        )
 
         //backgroundColor: Colors.white,
         );
@@ -283,8 +289,9 @@ class SlideTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Image.asset(imagePath),
+
           SizedBox(
-            height: 60,
+            height: 20,
           ),
           Text(
             title,
@@ -292,18 +299,14 @@ class SlideTile extends StatelessWidget {
             style:
                 TextStyle(fontSize: 24, color: Color.fromRGBO(49, 49, 49, 1)),
           ),
-          // SizedBox(
-          //   height: 12,
-          // ),
+
           Text(
             desc,
             textAlign: TextAlign.center,
             style:
                 TextStyle(fontSize: 18, color: Color.fromRGBO(49, 49, 49, 0.8)),
           ),
-          // SizedBox(
-          //   height: 12,
-          // ),
+
         ],
       ),
     );

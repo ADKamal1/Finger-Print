@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import 'package:flutter_neat_and_clean_calendar/neat_and_clean_calendar_event.dart';
 import 'package:intl/intl.dart';
-import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/eventWidget.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:provider/provider.dart';
-import 'package:statusbar/statusbar.dart';
 
 class Calender extends StatefulWidget {
   bool expanded;
@@ -26,7 +25,7 @@ class _CalenderState extends State<Calender> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.black);
+//    StatusBar.color(Colors.black);
     _init();
   }
 
@@ -39,9 +38,6 @@ class _CalenderState extends State<Calender> {
         context: context,
         password: userBloc.user.userData.code);
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,39 +64,46 @@ class _CalenderState extends State<Calender> {
           todayColor: Colors.blueAccent,
           eventListBuilder: (BuildContext context,
               List<NeatCleanCalendarEvent> _selectesdEvents) {
-            return Column(
-              children: calenderBloc.neatCleanCalendarEventList
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          children: [
-                            EventWidget(
-                              title: 'Check in',
-                              color: Color.fromRGBO(36, 200, 139, 1),
-                              icon: Icon(
-                                Icons.remove_circle_outline,
-                                color: Color.fromRGBO(36, 200, 139, 1),
+            return calenderBloc.neatCleanCalendarEventList.isEmpty
+                ? Center(
+                    child: Text(
+                    TranslationBase.of(context)
+                        .getStringLocaledByKey('no event'),
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ))
+                : Column(
+                    children: calenderBloc.neatCleanCalendarEventList
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  EventWidget(
+                                    title: 'Check in',
+                                    color: Color.fromRGBO(36, 200, 139, 1),
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Color.fromRGBO(36, 200, 139, 1),
+                                    ),
+                                    dateFormatted:
+                                        '${DateFormat.jm().format(e.startTime)}',
+                                    lineThrough: false,
+                                  ),
+                                  EventWidget(
+                                    title: 'Check out',
+                                    color: Color.fromRGBO(249, 96, 96, 1),
+                                    icon: Icon(
+                                      Icons.check_circle,
+                                      color: Color.fromRGBO(249, 96, 96, 1),
+                                    ),
+                                    dateFormatted:
+                                        '${DateFormat.jm().format(e.startTime)}',
+                                    lineThrough: true,
+                                  ),
+                                ],
                               ),
-                              dateFormatted:
-                                  '${DateFormat.jm().format(e.startTime)}',
-                              lineThrough: false,
-                            ),
-                            EventWidget(
-                              title: 'Check out',
-                              color: Color.fromRGBO(249, 96, 96, 1),
-                              icon: Icon(
-                                Icons.check_circle,
-                                color: Color.fromRGBO(249, 96, 96, 1),
-                              ),
-                              dateFormatted:
-                                  '${DateFormat.jm().format(e.startTime)}',
-                              lineThrough: true,
-                            ),
-                          ],
-                        ),
-                      ))
-                  .toList(),
-            );
+                            ))
+                        .toList(),
+                  );
           },
           hideTodayIcon: true,
           eventColor: Colors.transparent,

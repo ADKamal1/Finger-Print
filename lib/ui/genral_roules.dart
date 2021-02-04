@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 
 class GeneralRules extends StatefulWidget {
   @override
@@ -64,7 +65,7 @@ class _GeneralRulesState extends State<GeneralRules> {
           ),
           Center(
             child: Text(
-              'Rules & Information',
+              TranslationBase.of(context).getStringLocaledByKey('gr'),
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.9),
                 fontSize: 22,
@@ -76,9 +77,9 @@ class _GeneralRulesState extends State<GeneralRules> {
             height: height * 0.045,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 30),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Text(
-              'Section I',
+              TranslationBase.of(context).getStringLocaledByKey('s1'),
               style: TextStyle(
                   color: Color.fromRGBO(0, 0, 0, 0.9),
                   fontSize: 16,
@@ -86,7 +87,7 @@ class _GeneralRulesState extends State<GeneralRules> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8, left: 30, right: 15),
+            padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
             child: Text(
               'Lorem Ipsum is simply dummy text of'
               ' the printing and typesetting industry'
@@ -98,9 +99,9 @@ class _GeneralRulesState extends State<GeneralRules> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 15, left: 30, right: 15),
+            padding: const EdgeInsets.only(top: 15, left: 30, right: 30),
             child: Text(
-              'Section II',
+              TranslationBase.of(context).getStringLocaledByKey('s2'),
               style: TextStyle(
                   color: Color.fromRGBO(0, 0, 0, 0.9),
                   fontSize: 16,
@@ -108,7 +109,7 @@ class _GeneralRulesState extends State<GeneralRules> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8, left: 30, right: 15),
+            padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
             child: Text(
               'Lorem Ipsum is simply dummy text of the printing and typesetting industry '
               's standard dummy text ever since . Lorem Ipsum is simply dummy text '
@@ -126,7 +127,7 @@ class _GeneralRulesState extends State<GeneralRules> {
           Padding(
             padding: const EdgeInsets.only(top: 15, left: 30, right: 15),
             child: Text(
-              'Section III',
+              TranslationBase.of(context).getStringLocaledByKey('s3'),
               style: TextStyle(
                   color: Color.fromRGBO(0, 0, 0, 0.9),
                   fontSize: 16,

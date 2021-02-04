@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/animations/scale-transation-route.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/services/api.dart';
+import 'package:my_finger_printer/ui/login.dart';
+import 'package:my_finger_printer/widgets/shared_preference.dart';
 
 import 'bloc_state.dart';
 
@@ -18,36 +21,23 @@ class UserBloc extends GeneralBlocState {
     notifyListeners();
   }
 
-//  logout(BuildContext context) async {
-//    try {
-//      _isLogin = false;
-//      _user = null;
-//      notifyListeners();
-//
-//      await SharedPreferenceHandler.setUserData(null);
-//      Navigator.pushAndRemoveUntil(
-//          context,
-//          ScaleTransationRoute(
-//              page: TabsScreen(
-//            tabIndex: 0,
-//          )),
-//          (Route<dynamic> route) => false);
-//      await Api().logout();
-//    } catch (e) {
-//      print("logout error :$e");
-//    }
-//  }
+  logout(BuildContext context) async {
+    try {
+      _isLogin = false;
+      _user = null;
+      notifyListeners();
 
-//  getUserData() async {
-//    try {
-//      setWaiting();
-//      _user = await Api().getUserData();
-//      dismissWaiting();
-//      setError(null);
-//    } catch (e) {
-//      dismissWatingWithError();
-//      setError(e.toString());
-//      print("get user error :$e");
-//    }
-//  }
+      await SharedPreferenceHandler.setUserData(null);
+      Navigator.pushAndRemoveUntil(
+          context,
+          ScaleTransationRoute(
+              page: LoginPage()),
+          (Route<dynamic> route) => false);
+
+    } catch (e) {
+      print("logout error :$e");
+    }
+  }
+
+
 }

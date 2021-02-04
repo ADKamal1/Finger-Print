@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
+  devicelocale:
+    dependency: "direct main"
+    description:
+      name: devicelocale
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
   fake_async:
     dependency: transitive
     description:
@@ -119,7 +126,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_localizations:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -147,6 +154,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.1.6"
   font_awesome_flutter:
     dependency: transitive
     description:

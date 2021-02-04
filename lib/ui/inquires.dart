@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/ui/our_requests.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:statusbar/statusbar.dart';
 
 class RequestsAndInq extends StatefulWidget {
@@ -8,14 +9,11 @@ class RequestsAndInq extends StatefulWidget {
 }
 
 class _RequestsAndInqState extends State<RequestsAndInq> {
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.black);
-
+    StatusBar.color(Colors.grey);
   }
 
   @override
@@ -74,23 +72,30 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
             height: height * 0.15,
           ),
           MyContainer(
-              'Leave Request', 30, Color.fromRGBO(40, 40, 40, 1), "Leave"),
+              TranslationBase.of(context).getStringLocaledByKey('leave'),
+              30,
+              Color.fromRGBO(40, 40, 40, 1),
+              "Leave"),
+          SizedBox(
+            height: height * 0.03,
+          ),
+          MyContainer(TranslationBase.of(context).getStringLocaledByKey('loan'),
+              30, Color.fromRGBO(40, 40, 40, 1), "Loan"),
           SizedBox(
             height: height * 0.03,
           ),
           MyContainer(
-              'Loan Request', 30, Color.fromRGBO(40, 40, 40, 1), "Loan"),
+              TranslationBase.of(context).getStringLocaledByKey('salary'),
+              30,
+              Color.fromRGBO(40, 40, 40, 1),
+              "Salary"),
           SizedBox(
             height: height * 0.03,
           ),
-          MyContainer(
-              'Salary Inquiry', 30, Color.fromRGBO(40, 40, 40, 1), "Salary"),
-          SizedBox(
-            height: height * 0.03,
-          ),
-          MyContainer('FAQ', 30, Color.fromRGBO(40, 40, 40, 1), "FAQ"),
+          MyContainer(TranslationBase.of(context).getStringLocaledByKey('FAQ'),
+              30, Color.fromRGBO(40, 40, 40, 1), "FAQ"),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
+            padding: EdgeInsets.fromLTRB(10, 45, 10, 0),
             child: Row(
               children: [
                 Text(

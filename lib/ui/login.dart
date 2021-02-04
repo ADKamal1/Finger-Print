@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/models/user.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:statusbar/statusbar.dart';
 import 'package:unique_ids/unique_ids.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    StatusBar.color(Colors.black);
+    // StatusBar.color(Colors.black);
     init();
     initUniqueIdentifierState();
   }
@@ -54,20 +54,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   init() async {
-    //user = SharedPreferenceHandler.getuserData();
-    await Future.delayed(Duration(milliseconds: 150));
-    authenticationBloc =
-        Provider.of<AuthenticationBloc>(context, listen: false);
+    authenticationBloc = Provider.of<AuthenticationBloc>(context, listen: false);
   }
 
   _login() async {
     FocusScope.of(context).requestFocus(new FocusNode());
-    if (_emailControllor.text.isEmpty || _passwordControllor.text.isEmpty) {
-      General.showDialogue(
-          txtWidget: Text("Please enter username and password"),
-          context: context);
-      return;
-    } else {
+    if (_formKey.currentState.validate()) {
       print("\nkkk:-");
       print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),
@@ -90,8 +82,13 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(
-                Icons.arrow_back,
+              child:TranslationBase.of(context).locale=='en'?
+              Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 30,
+              ):Icon(
+                Icons.arrow_forward_ios,
                 color: Colors.black,
                 size: 30,
               ),
@@ -104,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 10, 50, 10),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -133,6 +130,10 @@ class _LoginPageState extends State<LoginPage> {
                       fillColor: Colors.white10,
                       filled: true),
                   cursorColor: Color.fromRGBO(0, 0, 0, 0.7),
+                  validator: (val) {
+                    val = _emailControllor.text.toString();
+                    if (val.isEmpty) return 'enter a valid E-Mail';
+                  },
                 )
               : TextFormField(
                   controller: _passwordControllor,
@@ -153,33 +154,42 @@ class _LoginPageState extends State<LoginPage> {
                           color: Color.fromRGBO(198, 198, 198, 1),
                           fontSize: 16),
                       fillColor: Colors.white10,
-                      filled: true))
+                      filled: true),
+                  validator: (val) {
+                    val = _passwordControllor.text.toString();
+                    if (val.isEmpty) return 'enter a valid password';
+                  },
+                ),
         ],
       ),
     );
   }
 
-  Widget _submitButton() {
-    AuthenticationBloc authenticationBloc =
-        Provider.of<AuthenticationBloc>(context);
-
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          color: Color.fromRGBO(40, 40, 40, 1),
-        ),
-        child: !authenticationBloc.isWaiting
-            ? General.buildTxt(
-                txt: "Log In", color: Colors.white, fontSize: 16.0)
-            : General.customThreeBounce(context));
-  }
+//  Widget _submitButton() {
+//    AuthenticationBloc authenticationBloc = Provider.of<AuthenticationBloc>(context);
+//
+//    return Container(
+//        width: MediaQuery.of(context).size.width,
+//        padding: EdgeInsets.symmetric(vertical: 15),
+//        alignment: Alignment.center,
+//        decoration: BoxDecoration(
+//          borderRadius: BorderRadius.all(Radius.circular(5)),
+//          color: Color.fromRGBO(40, 40, 40, 1),
+//        ),
+//        child: !authenticationBloc.isWaiting
+//            ? General.buildTxt(
+//            txt: TranslationBase.of(context)
+//                .getStringLocaledByKey('LOGIN'),
+//            color: Colors.white,
+//            fontSize: 16.0)
+//            : General.customThreeBounce(context)
+//    );
+//
+//  }
 
   Widget _title() {
     return Text(
-      'Welcome back',
+      TranslationBase.of(context).getStringLocaledByKey('Welcome back'),
       textAlign: TextAlign.left,
       style: TextStyle(fontSize: 32, color: Color.fromRGBO(49, 49, 49, 1)),
     );
@@ -187,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _subtitle() {
     return Text(
-      'Sign in to continue',
+      TranslationBase.of(context).getStringLocaledByKey('sign'),
       textAlign: TextAlign.left,
       style: TextStyle(fontSize: 16, color: Color.fromRGBO(155, 155, 155, 1)),
     );
@@ -196,13 +206,15 @@ class _LoginPageState extends State<LoginPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Employee ID"),
-        _entryField("Password", isPassword: true),
+        _entryField(TranslationBase.of(context).getStringLocaledByKey('EID')),
+        _entryField(TranslationBase.of(context).getStringLocaledByKey('pass'),
+            isPassword: true),
       ],
     );
   }
 
   Widget build(BuildContext context) {
+    AuthenticationBloc authenticationBloc = Provider.of<AuthenticationBloc>(context);
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Container(
@@ -246,29 +258,39 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 10),
                   _subtitle(),
                   SizedBox(height: height * 0.03),
-                  _emailPasswordWidget(),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
-                    child: Text('Forgot Password',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(49, 49, 49, 1))),
+                  Form(
+                    key: _formKey,
+                    child: _emailPasswordWidget(),
                   ),
+//                  Container(
+//                    padding: EdgeInsets.symmetric(vertical: 10),
+//                    alignment: Alignment.centerRight,
+//                    child: Text(
+//                        TranslationBase.of(context)
+//                            .getStringLocaledByKey('forg'),
+//                        style: TextStyle(
+//                            fontSize: 18,
+//                            color: Color.fromRGBO(49, 49, 49, 1))),
+//                  ),
                   SizedBox(height: height * .05),
                   InkWell(
-                      onTap: () {
-                        print("jjj${authenticationBloc.isWaiting}");
-                        !authenticationBloc.isWaiting ? _login() : null;
-
-                        // //_login();
-                        //
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => OurRequests()));
-                      },
-                      child: _submitButton()),
+                      onTap: () => !authenticationBloc.isWaiting ? _login() : null,
+                      child:
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Color.fromRGBO(40, 40, 40, 1),
+                          ),
+                          child: !authenticationBloc.isWaiting
+                              ? General.buildTxt(
+                              txt: TranslationBase.of(context).getStringLocaledByKey('LOGIN'),
+                              color: Colors.white,fontSize: 16.0)
+                              : General.customThreeBounce(context,size: 18.0,color: Colors.white)
+                      ),
+                  ),
                 ],
               ),
             ),

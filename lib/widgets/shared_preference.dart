@@ -58,4 +58,25 @@ class SharedPreferenceHandler {
   }
 
 
+  static setLang(String lang) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("lang", lang);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  static getLang() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString('lang') ?? 'en';
+    } catch (e) {
+      print("get lang err :$e");
+    }
+  }
+
+
+
+
 }

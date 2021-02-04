@@ -48,6 +48,13 @@ dependencies:
   flutter_spinkit:
   statusbar: ^1.1.0
 
+  flutter_localizations:
+    sdk: flutter
+  devicelocale: ^0.3.3
+
+  fluttertoast: ^7.1.1
+
+
 
 
 

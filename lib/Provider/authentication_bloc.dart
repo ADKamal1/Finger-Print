@@ -4,6 +4,7 @@ import 'package:my_finger_printer/animations/scale-transation-route.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/services/api.dart';
 import 'package:my_finger_printer/ui/home-page-screen.dart';
+import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:my_finger_printer/widgets/shared_preference.dart';
 import 'package:provider/provider.dart';
 
@@ -15,15 +16,13 @@ class AuthenticationBloc extends GeneralBloc {
   bool get isWaiting => _isWaiting;
   User user;
 
-  loginService(String email, String password, String serial,
-      BuildContext context) async {
+  loginService(String email, String password, String serial, BuildContext context) async {
     UserBloc userBloc = Provider.of<UserBloc>(context, listen: false);
     try {
-      setWaiting();
+      _isWaiting = true;
       notifyListeners();
-      user =
-          await Api().login(email: email, password: password, serial: serial);
-      dismissWaiting();
+      user = await Api().login(email: email, password: password, serial: serial);
+      _isWaiting = false;
       notifyListeners();
       print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
@@ -34,10 +33,13 @@ class AuthenticationBloc extends GeneralBloc {
             (Route<dynamic> route) => false);
         notifyListeners();
         SharedPreferenceHandler.setUserData(user);
+        userBloc.setUser(currentUser: user);
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {
         General.showDialogue(
-            txtWidget: Text("In Valid Login"), context: context);
+            txtWidget:
+                Text(TranslationBase.of(context).getStringLocaledByKey('ivl')),
+            context: context);
       }
       notifyListeners();
       setError(null);

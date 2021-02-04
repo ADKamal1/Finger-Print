@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:my_finger_printer/utils/values.dart';
 
@@ -15,6 +16,16 @@ class General {
     return SizedBox(
       height: space,
     );
+  }
+
+  static showToast({@required txt, Color color}) {
+    return Fluttertoast.showToast(
+        msg: txt,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: color == null ? Colors.black87 : color,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
 //  static showToast({@required txt, Color color}) {
