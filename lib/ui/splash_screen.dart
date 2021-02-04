@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   PageController controller;
   UserBloc userBloc;
   Map<String, dynamic> userData;
-
+  String c;
   void initState() {
     super.initState();
     // startTime();
@@ -158,13 +158,10 @@ class _SplashScreenState extends State<SplashScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: ()=>
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage())
-                                ),
-
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage())),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(120, 10, 120, 20),
@@ -289,7 +286,6 @@ class SlideTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Image.asset(imagePath),
-
           SizedBox(
             height: 20,
           ),
@@ -299,14 +295,12 @@ class SlideTile extends StatelessWidget {
             style:
                 TextStyle(fontSize: 24, color: Color.fromRGBO(49, 49, 49, 1)),
           ),
-
           Text(
             desc,
             textAlign: TextAlign.center,
             style:
                 TextStyle(fontSize: 18, color: Color.fromRGBO(49, 49, 49, 0.8)),
           ),
-
         ],
       ),
     );
