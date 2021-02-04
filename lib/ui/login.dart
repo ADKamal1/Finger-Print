@@ -272,6 +272,11 @@ class _LoginPageState extends State<LoginPage> {
 //                            fontSize: 18,
 //                            color: Color.fromRGBO(49, 49, 49, 1))),
 //                  ),
+
+
+
+
+                ////-Login
                   SizedBox(height: height * .05),
                   InkWell(
                       onTap: () => !authenticationBloc.isWaiting ? _login() : null,
