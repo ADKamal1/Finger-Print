@@ -5,6 +5,8 @@ import 'package:http/http.dart' as httpRequest;
 import 'package:my_finger_printer/models/Calender.dart';
 import 'package:my_finger_printer/models/CheckIn.dart';
 import 'package:my_finger_printer/models/CheckOut.dart';
+import 'package:my_finger_printer/models/GeneralInfo.dart';
+import 'package:my_finger_printer/models/Status.dart';
 import 'package:my_finger_printer/models/request.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/widgets/shared_preference.dart';
@@ -46,6 +48,40 @@ class Api {
     }
   }
 
+  status(
+      {String email,
+      String password,
+      String serial,
+      BuildContext context}) async {
+    try {
+      var url = APIService().createPath('Employee/Status');
+
+      ////- Run
+      Map<String, String> _headers = {
+        'Content-type': 'application/json',
+        //'Cookie': 'session_id=${sharedPreferences.getString('session_id')}'
+      };
+
+      var params = {
+        "email": "amr@sovisions.com",
+        "code": "112233",
+        "serial": "123123",
+      };
+      var body = json.encode(APIService().createPayload(params));
+      final response =
+          await httpRequest.post(url, body: body, headers: _headers);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var statusInfo = json.decode(response.body)['result'];
+        print("status : ${statusInfo}");
+        return Status.fromJson(statusInfo);
+      } else {
+        throw Exception('Failed to load Data');
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
   checkIn({DateTime date, String lat, String lon, BuildContext context}) async {
     try {
       User user = await SharedPreferenceHandler.getuserData();
@@ -60,7 +96,7 @@ class Api {
 
       var params = {
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         "email": user.userData.email,
         "date": date.toIso8601String(),
         "lat": lat,
@@ -75,6 +111,44 @@ class Api {
         print("user : ${userCheckIn}");
         return CheckIn.fromJson(userCheckIn);
       } else {
+        throw Exception('Failed to load Data');
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  GeneralRule(
+      {String email,
+      String password,
+      String massage,
+      String type,
+      BuildContext context}) async {
+    try {
+      var url = APIService().createPath('Employee/Rules');
+
+      ////- Run
+      Map<String, String> _headers = {
+        'Content-type': 'application/json',
+        //'Cookie': 'session_id=${sharedPreferences.getString('session_id')}'
+      };
+
+      var params = {
+        "email": "amr@sovisions.com",
+        "code": "112233",
+        "serial": "123123",
+        "message": "Salary",
+        "type": "Salary"
+      };
+      var body = json.encode(APIService().createPayload(params));
+      final response =
+          await httpRequest.post(url, body: body, headers: _headers);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var rulesInfo = json.decode(response.body)['result'];
+        print("ruels info : ${rulesInfo}");
+        return GeneralInfo.fromJson(rulesInfo);
+      } else {
+        print("xxxxxxxxxxxxxxxxx");
         throw Exception('Failed to load Data');
       }
     } catch (e) {
@@ -97,7 +171,7 @@ class Api {
 
       var params = {
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         //SharedPreferenceHandler.getUserSerial(),
         "email": user.userData.email,
         "date": date.toIso8601String(),
@@ -138,7 +212,7 @@ class Api {
       var params = {
         "email": email,
         "code": password,
-        "serial": "123123",
+        "serial": "54321",
         "message": massage,
         "type": type
       };
@@ -175,7 +249,7 @@ class Api {
       var params = {
         "email": user.userData.email,
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         "date": dateTime.toIso8601String(),
       };
       var body = json.encode(APIService().createPayload(params));

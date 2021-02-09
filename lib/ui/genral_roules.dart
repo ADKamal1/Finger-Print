@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/general_info.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
+import 'package:provider/provider.dart';
 
 class GeneralRules extends StatefulWidget {
   @override
@@ -7,8 +9,16 @@ class GeneralRules extends StatefulWidget {
 }
 
 class _GeneralRulesState extends State<GeneralRules> {
+  GeneralInfo_Bloc generalInfo_Bloc;
+  @override
+  void initState() {
+    // TODO: implement initState
+    //  Gene= Provider.of<GeneralInfo>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
+    generalInfo_Bloc = Provider.of<GeneralInfo_Bloc>(context, listen: false);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -89,9 +99,9 @@ class _GeneralRulesState extends State<GeneralRules> {
           Padding(
             padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
             child: Text(
-              'Lorem Ipsum is simply dummy text of'
-              ' the printing and typesetting industry'
-              ' Lorem Ipsum has been the industrys standard dummy text ever since .',
+              (generalInfo_Bloc.generalInfo.model.rules == null)
+                  ? ""
+                  : generalInfo_Bloc.generalInfo.model.rules,
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.9),
                 fontSize: 14,

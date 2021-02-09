@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_finger_printer/Provider/celander_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
+import 'package:my_finger_printer/Provider/general_info.dart';
 import 'package:my_finger_printer/Provider/reqsest_bloc.dart';
+import 'package:my_finger_printer/Provider/status_block.dart';
 import 'package:my_finger_printer/ui/first-screen.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,12 @@ Widget app(Widget startScreen) {
     providers: [
       ChangeNotifierProvider<GeneralBloc>.value(
         value: GeneralBloc(),
+      ),
+      ChangeNotifierProvider<Status_Bloc>.value(
+        value: Status_Bloc(),
+      ),
+      ChangeNotifierProvider<GeneralInfo_Bloc>.value(
+        value: GeneralInfo_Bloc(),
       ),
       ChangeNotifierProvider<UserBloc>.value(
         value: UserBloc(),

@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
+import 'package:my_finger_printer/Provider/status_block.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
@@ -51,6 +52,24 @@ class _FPPageState extends State<FPPage> {
     //wishlistBloc.getWishlistProduct();
   }
 
+  confirmLocation() async {
+    await Future.delayed(Duration(milliseconds: 150));
+    print("Confirm location");
+    location();
+    setState(() {
+      frist = false;
+      a = false;
+    });
+  }
+
+  Widget checkUrl(String url) {
+    try {
+      return Image.network(url, height: 70.0, width: 70.0, fit: BoxFit.cover);
+    } catch (e) {
+      return Icon(Icons.image);
+    }
+  }
+
   Color colorin = Color.fromRGBO(227, 227, 227, 1);
   Color confirmWrite = Color.fromRGBO(255, 255, 255, 0.9);
   Color confirmColor = Color.fromRGBO(40, 40, 40, 1);
@@ -65,8 +84,11 @@ class _FPPageState extends State<FPPage> {
     CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
     UserBloc userBloc = Provider.of<UserBloc>(context);
     CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
+
+    Status_Bloc status = Provider.of<Status_Bloc>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    print("");
 
     return SafeArea(
       child: Scaffold(
@@ -353,7 +375,7 @@ class _FPPageState extends State<FPPage> {
                                                   null
                                               ? Container()
                                               : Text(
-                                                  userBloc.user.userData.name,
+                                                  status.status.model.status,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Color.fromRGBO(
@@ -382,12 +404,7 @@ class _FPPageState extends State<FPPage> {
                                 Positioned(
                                   left: 18,
                                   top: -7,
-                                  child: CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage('assets/images/avater.png'),
-                                    // backgroundColor: Colors.white,
-                                    radius: 30,
-                                  ),
+                                  child: checkUrl(userBloc.user.userData.logo),
                                 )
                               ],
                             )),
