@@ -404,7 +404,7 @@ class _FPPageState extends State<FPPage> {
                                 Positioned(
                                   left: 18,
                                   top: -7,
-                                  child: checkUrl(userBloc.user.userData.logo),
+                                  child: checkUrl('assets/images/avater.png'),
                                 )
                               ],
                             )),
