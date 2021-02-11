@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_finger_printer/Provider/general_info.dart';
+import 'package:my_finger_printer/Provider/general_info_bloc.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
+import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 
 class GeneralRules extends StatefulWidget {
@@ -9,16 +10,23 @@ class GeneralRules extends StatefulWidget {
 }
 
 class _GeneralRulesState extends State<GeneralRules> {
-  GeneralInfo_Bloc generalInfo_Bloc;
+  GeneralInfoBloc generalInfoBloc;
   @override
   void initState() {
     // TODO: implement initState
-    //  Gene= Provider.of<GeneralInfo>(context, listen: false);
+   _init();
+  }
+
+  _init()async{
+    await Future.delayed(Duration(milliseconds: 150));
+
+    generalInfoBloc = Provider.of<GeneralInfoBloc>(context, listen: false);
+    generalInfoBloc.getGeneralService();
   }
 
   @override
   Widget build(BuildContext context) {
-    generalInfo_Bloc = Provider.of<GeneralInfo_Bloc>(context, listen: false);
+    //generalInfoBloc = Provider.of<GeneralInfoBloc>(context, listen: false);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -98,15 +106,27 @@ class _GeneralRulesState extends State<GeneralRules> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
-            child: Text(
-              (generalInfo_Bloc.generalInfo.model.rules == null)
-                  ? ""
-                  : generalInfo_Bloc.generalInfo.model.rules,
-              style: TextStyle(
-                color: Color.fromRGBO(0, 0, 0, 0.9),
-                fontSize: 14,
-              ),
-            ),
+            child:Consumer<GeneralInfoBloc>(
+                builder: (BuildContext context, state, __) {
+                  if (state.error != null) {
+                    return Center(child: General.buildTxt(txt: state.error));
+                  } else if (state.hasData) {
+                    return Text(
+                      state.generalInfo.modelRules.rules,
+                      style: TextStyle(
+                        color: Color.fromRGBO(0, 0, 0, 0.9),
+                        fontSize: 14,
+                      ),
+                    );
+                  } else {
+                    return Center(
+                        child: General.customThreeBounce(context,
+                            color: Theme.of(context).accentColor, size: 20.0)
+                    );
+                  }
+                }),
+
+
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15, left: 30, right: 30),

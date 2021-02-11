@@ -65,8 +65,8 @@ class _LoginPageState extends State<LoginPage> {
       authenticationBloc.loginService(_emailControllor.text.trim(),
           _passwordControllor.text.trim(), serial.trim(), context);
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('email', _emailControllor.text.trim());
+      //SharedPreferences prefs = await SharedPreferences.getInstance();
+      //prefs.setString('email', _emailControllor.text.trim());
     }
   }
 

@@ -14,7 +14,7 @@ class TranslationBase {
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
-      "CONFIRM_LOCATION":
+      "CONFIRM_LOCATION_TEXT":
           "Confirm your location to have to option to check in or out.",
       "Check Out": "Check Out",
       "Account": "Account",
@@ -38,8 +38,8 @@ class TranslationBase {
       "EID": "Employee ID",
       "pass": "PassWord",
       "forg": "Forgot Password",
-      "clf": "Confirm location first",
-      "cif": "Check in first",
+      "CONFIRM_LOCATION_FIRST": "Confirm location first",
+      "DIALOG_FIRST_LOGIN": "Check in first",
       "dep": "Department",
       "job": "Job Title",
       "gr": "General Rules & Information",
@@ -77,15 +77,15 @@ class TranslationBase {
       "job": "المسمى الوظيفى",
       "gr": "المعلومات والقواعد العامة",
       "ri": "الطلابات والاستفسارات",
-      "cif": "سجل دخولك اولا",
-      "clf": "أكد موقعك اولا",
+      "DIALOG_FIRST_LOGIN": "سجل دخولك اولا",
+      "CONFIRM_LOCATION_FIRST": "أكد موقعك اولا",
       "ivl": "تسجيل دخول خاطئ",
       "forg": "نسيت كلمة المرور",
       "pass": "كلمة المرور",
       "EID": "البريد الالكترونى",
       "sign": "سجل دخولك للاستمرار",
       "Welcome back": 'مرحبا بعودتك',
-      "CONFIRM_LOCATION": "أكد موقعك لتأكيد دخولك وخروك ",
+      "CONFIRM_LOCATION_TEXT": "أكد موقعك لتأكيد دخولك وخروجك ",
       "Day": " اليوم",
       "Month": " الشهر",
       "Settings": " الضبط",

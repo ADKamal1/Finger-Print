@@ -14,7 +14,7 @@ class GlobalFunctions {
 
   static getUserData(context) async {
     UserBloc userBloc = Provider.of<UserBloc>(context, listen: false);
-    User userData = await SharedPreferenceHandler.getuserData();
+    User userData = await SharedPreferenceHandler.getUserData();
     print('init userData :$userData');
     try {
       bool isLogin = userData != null ? true : false;

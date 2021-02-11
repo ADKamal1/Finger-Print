@@ -1,48 +1,44 @@
-//employee_id
+
+import 'dart:convert';
+
+GeneralInfo generalInfoFromJson(String str) => GeneralInfo.fromJson(json.decode(str));
+
+
 class GeneralInfo {
   GeneralInfo({
     this.isSubmitted,
     this.isSubmittedSuccessfully,
     this.errors,
-    this.model,
+    this.modelRules,
   });
 
   bool isSubmitted;
   bool isSubmittedSuccessfully;
   List<dynamic> errors;
-  Model model;
+  ModelRules modelRules;
 
   factory GeneralInfo.fromJson(Map<String, dynamic> json) => GeneralInfo(
-        isSubmitted: json["isSubmitted"],
-        isSubmittedSuccessfully: json["isSubmittedSuccessfully"],
-        errors: List<dynamic>.from(json["errors"].map((x) => x)),
-        model: Model.fromJson(json["model"]),
-      );
+    isSubmitted: json["isSubmitted"] == null ? null : json["isSubmitted"],
+    isSubmittedSuccessfully: json["isSubmittedSuccessfully"] == null ? null : json["isSubmittedSuccessfully"],
+    errors: json["errors"] == null ? null : List<dynamic>.from(json["errors"].map((x) => x)),
+    modelRules: json["model"] == null ? null : ModelRules.fromJson(json["model"]),
+  );
 
-  Map<String, dynamic> toJson() => {
-        "isSubmitted": isSubmitted,
-        "isSubmittedSuccessfully": isSubmittedSuccessfully,
-        "errors": List<dynamic>.from(errors.map((x) => x)),
-        "model": model.toJson(),
-      };
+
 }
 
-class Model {
-  Model({
-    this.employee_id,
+class ModelRules {
+  ModelRules({
+    this.employeeId,
     this.rules,
   });
 
-  int employee_id;
+  int employeeId;
   String rules;
 
-  factory Model.fromJson(Map<String, dynamic> json) => Model(
-        employee_id: json["employee_id"],
-        rules: json["rules"],
-      );
+  factory ModelRules.fromJson(Map<String, dynamic> json) => ModelRules(
+    employeeId: json["employee_id"] == null ? null : json["employee_id"],
+    rules: json["rules"] == null ? null : json["rules"],
+  );
 
-  Map<String, dynamic> toJson() => {
-        "employee_id": employee_id,
-        "rules": rules,
-      };
 }

@@ -111,7 +111,6 @@ class AccountPage extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
                             userBloc.user.userData.job,
-//                        authenticationBloc.user.userData.job,
                             style: TextStyle(
                                 color: Color.fromRGBO(116, 116, 116, 0.9),
                                 fontSize: 15),

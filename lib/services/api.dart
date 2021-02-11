@@ -14,6 +14,16 @@ import 'package:my_finger_printer/widgets/shared_preference.dart';
 import 'api_service.dart';
 
 class Api {
+  String email;
+  String code;
+  String serial;
+  User user;
+
+  getUserInfo()async {
+    user = await SharedPreferenceHandler.getUserData();
+    serial = await SharedPreferenceHandler.getUserSerial();
+  }
+
   login(
       {String email,
       String password,
@@ -21,40 +31,6 @@ class Api {
       BuildContext context}) async {
     try {
       var url = APIService().createPath('Employee/Login');
-
-      ////- Run
-      Map<String, String> _headers = {
-        'Content-type': 'application/json',
-        //'Cookie': 'session_id=${sharedPreferences.getString('session_id')}'
-      };
-
-      var params = {
-        "email": email,
-        "code": password,
-        "serial": "54321",
-      };
-      var body = json.encode(APIService().createPayload(params));
-      final response =
-          await httpRequest.post(url, body: body, headers: _headers);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var userInfo = json.decode(response.body)['result'];
-        print("user : ${userInfo}");
-        return User.fromJson(userInfo);
-      } else {
-        throw Exception('Failed to load Data');
-      }
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  status(
-      {String email,
-      String password,
-      String serial,
-      BuildContext context}) async {
-    try {
-      var url = APIService().createPath('Employee/Status');
 
       ////- Run
       Map<String, String> _headers = {
@@ -71,6 +47,43 @@ class Api {
       final response =
           await httpRequest.post(url, body: body, headers: _headers);
       if (response.statusCode == 200 || response.statusCode == 201) {
+        var userInfo = json.decode(response.body)['result'];
+        print("user : ${userInfo}");
+        return User.fromJson(userInfo);
+      } else {
+        throw Exception('Failed to load Data');
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  getUserStatus(
+      {
+      BuildContext context}) async {
+    try {
+      await getUserInfo();
+      var url = APIService().createPath('Employee/Status');
+
+      ////- Run
+      Map<String, String> _headers = {
+        'Content-type': 'application/json',
+        //'Cookie': 'session_id=${sharedPreferences.getString('session_id')}'
+      };
+
+      print("\nApi ${user.userData.code}");
+      print("\nApi ${serial}");
+      print("\nApi ${user.userData.email}");
+      var params = {
+        "code": user.userData.code,
+        "serial": "123123",
+        //"serial": serial,
+        "email": user.userData.email,
+      };
+      print("\n Params : ${params}");
+      var body = json.encode(APIService().createPayload(params));
+      final response = await httpRequest.post(url, body: body, headers: _headers);
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var statusInfo = json.decode(response.body)['result'];
         print("status : ${statusInfo}");
         return Status.fromJson(statusInfo);
@@ -82,9 +95,13 @@ class Api {
     }
   }
 
-  checkIn({DateTime date, String lat, String lon, BuildContext context}) async {
+  checkIn({
+//    String email,
+//    String password,
+//    String serial,
+    DateTime date, String lat, String lon, BuildContext context}) async {
     try {
-      User user = await SharedPreferenceHandler.getuserData();
+      await getUserInfo();
 
       var url = APIService().createPath('Employee/CheckIn');
 
@@ -96,7 +113,8 @@ class Api {
 
       var params = {
         "code": user.userData.code,
-        "serial": "54321",
+        "serial": "123123",
+        //"serial": serial,
         "email": user.userData.email,
         "date": date.toIso8601String(),
         "lat": lat,
@@ -118,12 +136,7 @@ class Api {
     }
   }
 
-  GeneralRule(
-      {String email,
-      String password,
-      String massage,
-      String type,
-      BuildContext context}) async {
+  GeneralRule({String massage, String type, BuildContext context}) async {
     try {
       var url = APIService().createPath('Employee/Rules');
 
@@ -157,10 +170,10 @@ class Api {
   }
 
   checkOut(
-      {DateTime date, String lat, String lon, BuildContext context}) async {
+      {
+        DateTime date, String lat, String lon, BuildContext context}) async {
     try {
-      User user = await SharedPreferenceHandler.getuserData();
-
+      await getUserInfo();
       var url = APIService().createPath('Employee/CheckOut');
 
       ////- Run
@@ -171,9 +184,10 @@ class Api {
 
       var params = {
         "code": user.userData.code,
-        "serial": "54321",
-        //SharedPreferenceHandler.getUserSerial(),
+        "serial": "123123",
+        //"serial": serial,
         "email": user.userData.email,
+        //"serial": serial,
         "date": date.toIso8601String(),
         "lat": lat,
         "lon": lon
@@ -212,7 +226,7 @@ class Api {
       var params = {
         "email": email,
         "code": password,
-        "serial": "54321",
+        "serial": "123123",
         "message": massage,
         "type": type
       };
@@ -239,7 +253,7 @@ class Api {
     try {
       var url = APIService().createPath('Employee/Calender');
 
-      User user = await SharedPreferenceHandler.getuserData();
+      User user = await SharedPreferenceHandler.getUserData();
       ////- Run
       Map<String, String> _headers = {
         'Content-type': 'application/json',
@@ -249,7 +263,7 @@ class Api {
       var params = {
         "email": user.userData.email,
         "code": user.userData.code,
-        "serial": "54321",
+        "serial": "123123",
         "date": dateTime.toIso8601String(),
       };
       var body = json.encode(APIService().createPayload(params));

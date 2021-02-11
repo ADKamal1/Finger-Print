@@ -4,21 +4,19 @@ import 'package:my_finger_printer/services/api.dart';
 
 import 'general_bloc.dart';
 
-class Status_Bloc extends GeneralBloc {
+class StatusBloc extends GeneralBloc {
   bool _isWaiting = false;
   bool get isWaiting => _isWaiting;
   Status status;
 
-  statusService(String email, String password, String serial,
-      BuildContext context) async {
+  getUserState() async {
     try {
       setWaiting();
       notifyListeners();
-      status =
-          await Api().status(email: email, password: password, serial: serial);
+      status = await Api().getUserStatus();
       dismissWaiting();
       notifyListeners();
-      print("hhh:${status.errors}");
+      print("\nstatueError:${status.errors}");
       setError(null);
     } catch (e) {
       waiting = false;
