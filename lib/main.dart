@@ -21,7 +21,7 @@ import 'Provider/user_bloc.dart';
 import 'package:device_preview/device_preview.dart' hide DeviceOrientation ;
 
 void main() async {
-  Widget _defaultHome = LoginPage();
+  Widget _defaultHome = FirstScreen();
   WidgetsFlutterBinding.ensureInitialized();
 //  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
 //    statusBarColor: Colors.grey.shade600, // Color for Android
