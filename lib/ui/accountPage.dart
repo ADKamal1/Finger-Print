@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
-import 'package:my_finger_printer/Provider/user_bloc.dart';
 import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/ui/genral_roules.dart';
 import 'package:my_finger_printer/ui/inquires.dart';
@@ -19,7 +18,6 @@ class _AccountPageState extends State<AccountPage> {
   AuthenticationBloc authenticationBloc;
   User user;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -27,12 +25,10 @@ class _AccountPageState extends State<AccountPage> {
     _init();
   }
 
-  _init()async{
+  _init() async {
     await Future.delayed(Duration(milliseconds: 150));
     user = await SharedPreferenceHandler.getUserData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -42,25 +38,18 @@ class _AccountPageState extends State<AccountPage> {
     // AuthenticationBloc authenticationBloc =
     //     Provider.of<AuthenticationBloc>(context);
     // authenticationBloc.user.userData;
-    return SafeArea(
-      bottom: true,
-      child: Scaffold(
-        // resizeToAvoidBottomPadding: true,
-        body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: Colors.grey,
+      ),
+      // resizeToAvoidBottomPadding: true,
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Stack(
               overflow: Overflow.visible,
               children: [
-                Container(
-                    height: height * .1,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      color: Color.fromRGBO(60, 60, 60, 1),
-                    )),
                 Positioned(
                   top: height * 0.02,
                   left: width * 0.29,
@@ -108,17 +97,20 @@ class _AccountPageState extends State<AccountPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        user==null?Container():Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 10),
-                          child: Text(
-                            user.userData.department,
-                            style: TextStyle(
-                                color: Color.fromRGBO(116, 116, 116, 0.9),
-                                fontSize: 15),
-                          ),
-                        ),
+                        user == null
+                            ? Container()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, left: 10),
+                                child: Text(
+                                  user.userData.department,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(116, 116, 116, 0.9),
+                                      fontSize: 15),
+                                ),
+                              ),
                         Padding(
-                          padding:EdgeInsets.only(top: height * 0.02, left: 5),
+                          padding: EdgeInsets.only(top: height * 0.02, left: 5),
                           child: Text(
                             TranslationBase.of(context)
                                 .getStringLocaledByKey('job'),
@@ -128,16 +120,18 @@ class _AccountPageState extends State<AccountPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        user==null?Container():Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 10),
-                          child: Text(
-                            user.userData.job,
-                            style: TextStyle(
-                                color: Color.fromRGBO(116, 116, 116, 0.9),
-                                fontSize: 15),
-                          ),
-                        ),
-
+                        user == null
+                            ? Container()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, left: 10),
+                                child: Text(
+                                  user.userData.job,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(116, 116, 116, 0.9),
+                                      fontSize: 15),
+                                ),
+                              ),
                         SizedBox(
                           height: height * 0.05,
                         ),
@@ -179,12 +173,14 @@ class _AccountPageState extends State<AccountPage> {
                   top: -20,
                   left: 20,
                   right: 20,
-                  child: user==null?Container():DrawContainer(
-                    // authenticationBloc.user.userData.name,
-                      user.userData.name,
-                      30,
-                      backg,
-                      write),
+                  child: user == null
+                      ? Container()
+                      : DrawContainer(
+                          // authenticationBloc.user.userData.name,
+                          user.userData.name,
+                          30,
+                          backg,
+                          write),
                 ),
               ],
             ),
@@ -215,8 +211,4 @@ class _AccountPageState extends State<AccountPage> {
       ),
     );
   }
-
-
 }
-
-

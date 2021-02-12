@@ -40,7 +40,7 @@ class _OurRequestsState extends State<OurRequests> {
         appBar: AppBar(
           toolbarHeight: 0,
           brightness: Brightness.light,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Color.fromRGBO(60, 60, 60, 1),
           elevation: 0.0,
         ),
         backgroundColor: Colors.white,
@@ -50,15 +50,6 @@ class _OurRequestsState extends State<OurRequests> {
               overflow: Overflow.visible,
               children: [
                 Container(
-                    height: height * 0.17,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      color: Color.fromRGBO(60, 60, 60, 1),
-                    )),
-                Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: <Widget>[
@@ -67,17 +58,19 @@ class _OurRequestsState extends State<OurRequests> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          padding: EdgeInsets.only(left: 10,right:10, top: 45, bottom: 10),
-                          child: TranslationBase.of(context).locale=='en'?
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                          size: 30,
-                        ):Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 30,
-                        ),
+                          padding: EdgeInsets.only(
+                              left: 10, right: 10, top: 45, bottom: 10),
+                          child: TranslationBase.of(context).locale == 'en'
+                              ? Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: 30,
+                                )
+                              : Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
                         ),
                       ),
                     ],

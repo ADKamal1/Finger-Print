@@ -14,10 +14,10 @@ class _GeneralRulesState extends State<GeneralRules> {
   @override
   void initState() {
     // TODO: implement initState
-   _init();
+    _init();
   }
 
-  _init()async{
+  _init() async {
     await Future.delayed(Duration(milliseconds: 150));
 
     generalInfoBloc = Provider.of<GeneralInfoBloc>(context, listen: false);
@@ -32,9 +32,8 @@ class _GeneralRulesState extends State<GeneralRules> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 0,
         brightness: Brightness.light,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color.fromRGBO(60, 60, 60, 1),
         elevation: 0.0,
       ),
       body: Container(
@@ -112,76 +111,73 @@ class _GeneralRulesState extends State<GeneralRules> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
-            child:Consumer<GeneralInfoBloc>(
+            child: Consumer<GeneralInfoBloc>(
                 builder: (BuildContext context, state, __) {
-                  if (state.error != null) {
-                    return Center(child: General.buildTxt(txt: state.error));
-                  } else if (state.hasData) {
-                    return Text(
-                      state.generalInfo.modelRules.rules,
-                      style: TextStyle(
-                        color: Color.fromRGBO(0, 0, 0, 0.9),
-                        fontSize: 14,
-                      ),
-                    );
-                  } else {
-                    return Center(
-                        child: General.customThreeBounce(context,
-                            color: Theme.of(context).accentColor, size: 20.0)
-                    );
-                  }
-                }),
-
-
+              if (state.error != null) {
+                return Center(child: General.buildTxt(txt: state.error));
+              } else if (state.hasData) {
+                return Text(
+                  state.generalInfo.modelRules.rules,
+                  style: TextStyle(
+                    color: Color.fromRGBO(0, 0, 0, 0.9),
+                    fontSize: 14,
+                  ),
+                );
+              } else {
+                return Center(
+                    child: General.customThreeBounce(context,
+                        color: Theme.of(context).accentColor, size: 20.0));
+              }
+            }),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15, left: 30, right: 30),
-            child: Text(
-              TranslationBase.of(context).getStringLocaledByKey('s2'),
-              style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 0.9),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
-            child: Text(
-              'Lorem Ipsum is simply dummy text of the printing and typesetting industry '
-              's standard dummy text ever since . Lorem Ipsum is simply dummy text '
-              'of the printing and typesetting industry Lorem Ipsum has been the industry'
-              's standard dummy text ever since . '
-              'of the printing and typesetting industry Lorem Ipsum has been the industry'
-              's standard dummy text ever since .'
-              'Lorem Ipsum is simply dummy text of the printing and typesetting',
-              style: TextStyle(
-                color: Color.fromRGBO(0, 0, 0, 0.9),
-                fontSize: 14,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15, left: 30, right: 15),
-            child: Text(
-              TranslationBase.of(context).getStringLocaledByKey('s3'),
-              style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 0.9),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8, left: 30, right: 15),
-            child: Text(
-              'Lorem Ipsum is simply dummy text of'
-              ' the printing and typesetting industry'
-              ' Lorem Ipsum has been the industrys standard dummy text ever since .',
-              style: TextStyle(
-                color: Color.fromRGBO(0, 0, 0, 0.9),
-                fontSize: 14,
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 15, left: 30, right: 30),
+          //   child: Text(
+          //     TranslationBase.of(context).getStringLocaledByKey('s2'),
+          //     style: TextStyle(
+          //         color: Color.fromRGBO(0, 0, 0, 0.9),
+          //         fontSize: 16,
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
+          //   child: Text(
+          //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry '
+          //     's standard dummy text ever since . Lorem Ipsum is simply dummy text '
+          //     'of the printing and typesetting industry Lorem Ipsum has been the industry'
+          //     's standard dummy text ever since . '
+          //     'of the printing and typesetting industry Lorem Ipsum has been the industry'
+          //     's standard dummy text ever since .'
+          //     'Lorem Ipsum is simply dummy text of the printing and typesetting',
+          //     style: TextStyle(
+          //       color: Color.fromRGBO(0, 0, 0, 0.9),
+          //       fontSize: 14,
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 15, left: 30, right: 15),
+          //   child: Text(
+          //     TranslationBase.of(context).getStringLocaledByKey('s3'),
+          //     style: TextStyle(
+          //         color: Color.fromRGBO(0, 0, 0, 0.9),
+          //         fontSize: 16,
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 8, left: 30, right: 15),
+          //   child: Text(
+          //     'Lorem Ipsum is simply dummy text of'
+          //     ' the printing and typesetting industry'
+          //     ' Lorem Ipsum has been the industrys standard dummy text ever since .',
+          //     style: TextStyle(
+          //       color: Color.fromRGBO(0, 0, 0, 0.9),
+          //       fontSize: 14,
+          //     ),
+          //   ),
+          // ),
         ]),
       ),
     );

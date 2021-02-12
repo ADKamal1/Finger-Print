@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/ui/our_requests.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
-import 'package:statusbar/statusbar.dart';
 
 class RequestsAndInq extends StatefulWidget {
   @override
@@ -23,7 +22,7 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
       appBar: AppBar(
         toolbarHeight: 0,
         brightness: Brightness.light,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color.fromRGBO(60, 60, 60, 1),
         elevation: 0.0,
       ),
       body: Container(
@@ -33,16 +32,6 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
           Stack(
             overflow: Overflow.visible,
             children: [
-              Container(
-                  height: height * .17,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                    color: Color.fromRGBO(60, 60, 60, 1),
-                  )),
               InkWell(
                 onTap: () {
                   Navigator.pop(context);
