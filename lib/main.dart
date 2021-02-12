@@ -30,8 +30,8 @@ void main() async {
 //        ? Colors.black
 //        : Colors.white70, // Dark == white status bar -- for IOS.
 //  ));
-  //runApp(app(_defaultHome));
-  runApp(DevicePreview(builder:(context)=> app(_defaultHome)));
+  runApp(app(_defaultHome));
+  //runApp(DevicePreview(builder:(context)=> app(_defaultHome)));
 
   //runApp(MyApp());
 }
