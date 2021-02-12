@@ -12,7 +12,7 @@ class SharedPreferenceHandler {
     }
   }
 
-  static getuserData() async {
+  static getUserData() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getString('userData') != null) {

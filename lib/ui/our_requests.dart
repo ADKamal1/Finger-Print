@@ -37,6 +37,12 @@ class _OurRequestsState extends State<OurRequests> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          brightness: Brightness.light,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          elevation: 0.0,
+        ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(children: [
@@ -61,13 +67,17 @@ class _OurRequestsState extends State<OurRequests> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          padding:
-                              EdgeInsets.only(left: 0, top: 45, bottom: 10),
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 40,
-                          ),
+                          padding: EdgeInsets.only(left: 10,right:10, top: 45, bottom: 10),
+                          child: TranslationBase.of(context).locale=='en'?
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 30,
+                        ):Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                         ),
                       ),
                     ],

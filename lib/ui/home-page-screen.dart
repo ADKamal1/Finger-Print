@@ -19,40 +19,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyPageState extends State<HomePage> {
-  _changeLang(BuildContext context) {
-    LocalizationBloc localizationBloc =
-        Provider.of<LocalizationBloc>(context, listen: false);
-    localizationBloc.changeDirection();
-    General.showToast(
-      txt: TranslationBase.of(context)
-          .getStringLocaledByKey('LANGUAGE_HAS_CHANGED'),
-    );
-  }
+
 
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
     CalenderPage(),
     SettingScreen(),
-//    Center(
-//      child: Column(
-//        children: [
-//          Text(
-//            'Index 3: Settings',
-//            style: optionStyle,
-//          ),
-//          InkWell(
-//            onTap: (){
-//              _changeLang(c)
-//            },
-//              child:Text(
-//            'Language',
-//            style: optionStyle,
-//          )
-//          ),
-//        ],
-//      ),
-//    ),
   ];
 
   @override
@@ -125,16 +98,14 @@ class _MyPageState extends State<HomePage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0.0,
       ),
-      body: SafeArea(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
+
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: Colors.green,
         backgroundColor: Color.fromRGBO(243, 243, 243, 1),
         elevation: 0.0,
         iconSize: 25,
-        selectedIconTheme:
-            IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 30),
+        selectedIconTheme: IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
 
         items: [
           BottomNavigationBarItem(

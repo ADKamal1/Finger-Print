@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_finger_printer/Provider/status_block.dart';
 import 'package:my_finger_printer/models/CheckIn.dart';
 import 'package:my_finger_printer/services/api.dart';
 import 'package:my_finger_printer/widgets/general.dart';
@@ -10,9 +11,9 @@ class CheckInBloc extends GeneralBloc {
   bool _isWaiting = false;
   bool get isWaiting => _isWaiting;
   CheckIn checkIn;
+  StatusBloc statusBloc;
 
-  userCheckIn(
-      {DateTime date, String lat, String lon, BuildContext context}) async {
+  userCheckIn({DateTime date, String lat, String lon, BuildContext context}) async {
     try {
       setWaiting();
       notifyListeners();
@@ -24,6 +25,9 @@ class CheckInBloc extends GeneralBloc {
         General.showDialogue(
             txtWidget: Text(TranslationBase.of(context).getStringLocaledByKey('UIAC')), context: context);
       }
+//      else{
+//        await statusBloc.getUserState();
+//      }
       setError(null);
     } catch (e) {
       waiting = false;

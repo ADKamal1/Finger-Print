@@ -33,6 +33,7 @@ class AuthenticationBloc extends GeneralBloc {
             (Route<dynamic> route) => false);
         notifyListeners();
         SharedPreferenceHandler.setUserData(user);
+        SharedPreferenceHandler.setUserSerial(serial);
         userBloc.setUser(currentUser: user);
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {

@@ -53,6 +53,9 @@ dependencies:
   devicelocale: ^0.3.3
 
   fluttertoast: ^7.1.1
+  #For Review Design on screen
+  #and handle responsive for design in all screens type
+  device_simulator: ^0.9.6
 
 
 
