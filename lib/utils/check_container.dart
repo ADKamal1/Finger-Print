@@ -7,10 +7,13 @@ class DrawCheckContainer extends StatelessWidget {
   DrawCheckContainer(this.text, this.color, this.write);
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       child: Container(
-        height: 50,
-        width: 145,
+        height: 42,
+        width: width*.4,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: color,

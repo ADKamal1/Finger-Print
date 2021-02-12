@@ -31,6 +31,12 @@ class _GeneralRulesState extends State<GeneralRules> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        brightness: Brightness.light,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0.0,
+      ),
       body: Container(
         height: height,
         color: Colors.white,
@@ -61,7 +67,7 @@ class _GeneralRulesState extends State<GeneralRules> {
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: Colors.white,
-                          size: 40,
+                          size: 30,
                         ),
                       ),
                     ],

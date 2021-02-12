@@ -21,17 +21,17 @@ import 'Provider/user_bloc.dart';
 import 'package:device_preview/device_preview.dart' hide DeviceOrientation ;
 
 void main() async {
-  Widget _defaultHome = FirstScreen();
+  Widget _defaultHome = LoginPage();
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-    statusBarColor: Colors.grey.shade600, // Color for Android
-    statusBarBrightness: Brightness.dark,
-    systemNavigationBarColor: (Platform.isIOS)
-        ? Colors.black
-        : Colors.white70, // Dark == white status bar -- for IOS.
-  ));
-  runApp(app(_defaultHome));
-  //runApp(DevicePreview(builder:(context)=> app(_defaultHome)));
+//  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+//    statusBarColor: Colors.grey.shade600, // Color for Android
+//    statusBarBrightness: Brightness.dark,
+//    systemNavigationBarColor: (Platform.isIOS)
+//        ? Colors.black
+//        : Colors.white70, // Dark == white status bar -- for IOS.
+//  ));
+  //runApp(app(_defaultHome));
+  runApp(DevicePreview(builder:(context)=> app(_defaultHome)));
 
   //runApp(MyApp());
 }

@@ -13,7 +13,6 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StatusBar.color(Colors.grey);
   }
 
   @override
@@ -21,6 +20,12 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        brightness: Brightness.light,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0.0,
+      ),
       body: Container(
         height: height,
         color: Colors.white,
@@ -51,7 +56,7 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: Colors.white,
-                          size: 40,
+                          size: 30,
                         ),
                       ),
                     ],

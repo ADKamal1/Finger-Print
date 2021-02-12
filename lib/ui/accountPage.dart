@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
+import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/ui/genral_roules.dart';
 import 'package:my_finger_printer/ui/inquires.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
-import 'package:provider/provider.dart';
+import 'package:my_finger_printer/widgets/shared_preference.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   final Color backg = Color.fromRGBO(20, 20, 20, 0.9);
   final Color write = Colors.white;
   AuthenticationBloc authenticationBloc;
+  User user;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _init();
+  }
+
+  _init()async{
+    await Future.delayed(Duration(milliseconds: 150));
+    user = await SharedPreferenceHandler.getUserData();
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    UserBloc userBloc = Provider.of<UserBloc>(context);
     // AuthenticationBloc authenticationBloc =
     //     Provider.of<AuthenticationBloc>(context);
     // authenticationBloc.user.userData;
@@ -64,7 +86,7 @@ class AccountPage extends StatelessWidget {
                   ),
                   color: Colors.white,
                   child: Container(
-                    height: height * 0.45,
+                    height: height * 0.48,
                     width: width * 0.8,
                     padding: EdgeInsets.only(right: 15, left: 15),
                     decoration: BoxDecoration(
@@ -76,7 +98,7 @@ class AccountPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 40, left: 5),
+                          padding: EdgeInsets.only(top: height * 0.03, left: 5),
                           child: Text(
                             TranslationBase.of(context)
                                 .getStringLocaledByKey('dep'),
@@ -86,18 +108,17 @@ class AccountPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        userBloc.user.userData.department==null?Container():Padding(
+                        user==null?Container():Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
-                            userBloc.user.userData.department,
-                            //                   authenticationBloc.user.userData.department,
+                            user.userData.department,
                             style: TextStyle(
                                 color: Color.fromRGBO(116, 116, 116, 0.9),
                                 fontSize: 15),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 20, left: 5),
+                          padding:EdgeInsets.only(top: height * 0.02, left: 5),
                           child: Text(
                             TranslationBase.of(context)
                                 .getStringLocaledByKey('job'),
@@ -107,36 +128,18 @@ class AccountPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        userBloc.user.userData.job==null?Container():Padding(
+                        user==null?Container():Padding(
                           padding: const EdgeInsets.only(top: 5, left: 10),
                           child: Text(
-                            userBloc.user.userData.job,
+                            user.userData.job,
                             style: TextStyle(
                                 color: Color.fromRGBO(116, 116, 116, 0.9),
                                 fontSize: 15),
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(top: 20, left: 5),
-                        //   child: Text(
-                        //     'Job Title',
-                        //     style: TextStyle(
-                        //         color: Color.fromRGBO(60, 60, 60, 0.9),
-                        //         fontSize: 22,
-                        //         fontWeight: FontWeight.bold),
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(top: 5, left: 10),
-                        //   child: Text(
-                        //     authenticationBloc.user.userData.job,
-                        //     style: TextStyle(
-                        //         color: Color.fromRGBO(116, 116, 116, 0.9),
-                        //         fontSize: 15),
-                        //   ),
-                        // ),
+
                         SizedBox(
-                          height: height * 0.06,
+                          height: height * 0.05,
                         ),
                         InkWell(
                             onTap: () {
@@ -152,7 +155,7 @@ class AccountPage extends StatelessWidget {
                                 backg,
                                 write)),
                         SizedBox(
-                          height: 11,
+                          height: 8,
                         ),
                         InkWell(
                             onTap: () {
@@ -176,9 +179,9 @@ class AccountPage extends StatelessWidget {
                   top: -20,
                   left: 20,
                   right: 20,
-                  child: DrawContainer(
-                      // authenticationBloc.user.userData.name,
-                      userBloc.user.userData.name,
+                  child: user==null?Container():DrawContainer(
+                    // authenticationBloc.user.userData.name,
+                      user.userData.name,
                       30,
                       backg,
                       write),
@@ -186,7 +189,7 @@ class AccountPage extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+              padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: Row(
                 children: [
                   Text(
@@ -200,7 +203,7 @@ class AccountPage extends StatelessWidget {
                     child: Image.asset(
                       "assets/images/component.png",
                       fit: BoxFit.cover,
-                      height: 70,
+                      height: height * 0.08,
                       width: 70,
                     ),
                   )
@@ -214,5 +217,6 @@ class AccountPage extends StatelessWidget {
   }
 
 
-
 }
+
+
