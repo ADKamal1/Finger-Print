@@ -13,7 +13,7 @@ class DrawCheckContainer extends StatelessWidget {
     return GestureDetector(
       child: Container(
         height: 42,
-        width: width*.4,
+        width: width*.3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: color,
@@ -22,7 +22,9 @@ class DrawCheckContainer extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-                color: write, fontSize: 12, fontWeight: FontWeight.bold),
+                color: write, fontSize: 12, fontWeight: FontWeight.bold,
+              fontFamily: "Montserrat",
+            ),
           ),
         ),
       ),

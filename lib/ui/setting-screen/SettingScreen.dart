@@ -36,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 title: Text(
                   TranslationBase.of(context).getStringLocaledByKey('CL'),
                   style: TextStyle(
-                      inherit: false, fontSize: 20, color: Colors.black),
+                      inherit: false, fontSize: 20, color: Colors.black,fontFamily: "Montserrat",),
                 ),
                 onTap: () {
                   _changeLang(context);
@@ -54,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 title: Text(
                   TranslationBase.of(context).getStringLocaledByKey('Logout'),
                   style: TextStyle(
-                      inherit: false, fontSize: 20, color: Colors.black),
+                      inherit: false, fontSize: 20, color: Colors.black,fontFamily: "Montserrat",),
                 ),
                 onTap: () {
                   _logout(context);

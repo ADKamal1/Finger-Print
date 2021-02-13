@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
     return Text(
       TranslationBase.of(context).getStringLocaledByKey('Welcome back'),
       textAlign: TextAlign.left,
-      style: TextStyle(fontSize: 32, color: Color.fromRGBO(49, 49, 49, 1)),
+      style: TextStyle(fontSize: 32, color: Color.fromRGBO(49, 49, 49, 1),fontFamily: "Montserrat"),
     );
   }
 
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
     return Text(
       TranslationBase.of(context).getStringLocaledByKey('sign'),
       textAlign: TextAlign.left,
-      style: TextStyle(fontSize: 16, color: Color.fromRGBO(155, 155, 155, 1)),
+      style: TextStyle(fontSize: 16, color: Color.fromRGBO(155, 155, 155, 1),fontFamily: "Montserrat"),
     );
   }
 

@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:my_finger_printer/Provider/authentication_bloc.dart';
 import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
-import 'package:my_finger_printer/Provider/localization_bloc.dart';
 import 'package:my_finger_printer/ui/fp_page.dart';
 import 'package:my_finger_printer/ui/mainCalender.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
-import 'package:my_finger_printer/widgets/general.dart';
 import 'package:provider/provider.dart';
 
 import '../ui/accountPage.dart';
@@ -62,7 +60,7 @@ class _MyPageState extends State<HomePage> {
           color: _getBgColor(index),
           child: InkWell(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Icon(
                   iconData,
@@ -71,7 +69,7 @@ class _MyPageState extends State<HomePage> {
                     ? Text(text,
                         style: TextStyle(
                             fontSize: 12,
-                            color: Color.fromRGBO(40, 40, 40, 0.9)))
+                            color: Color.fromRGBO(40, 40, 40, 0.9),fontFamily: "Montserrat"))
                     : Container(),
               ],
             ),
@@ -92,8 +90,8 @@ class _MyPageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
-        brightness: Brightness.light,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        brightness: Brightness.dark,
+        backgroundColor: Color.fromRGBO(60, 60, 60, 1),
         elevation: 0.0,
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
@@ -107,20 +105,19 @@ class _MyPageState extends State<HomePage> {
 
         items: [
           BottomNavigationBarItem(
-            //
-            title: SizedBox.shrink(),
+            title: SizedBox(),
             icon: _buildIcon(Icons.fingerprint,
                 TranslationBase.of(context).getStringLocaledByKey('FP'), 0),
           ),
           BottomNavigationBarItem(
-            title: SizedBox.shrink(),
+            title: SizedBox(),
             icon: _buildIcon(
                 Icons.person,
                 TranslationBase.of(context).getStringLocaledByKey('Account'),
                 1),
           ),
           BottomNavigationBarItem(
-            title: SizedBox.shrink(),
+            title: SizedBox(),
             icon: _buildIcon(
                 Icons.calendar_today,
                 TranslationBase.of(context).getStringLocaledByKey('Calender'),
@@ -128,11 +125,10 @@ class _MyPageState extends State<HomePage> {
             //label: 'Calendar'
           ),
           BottomNavigationBarItem(
-            title: SizedBox.shrink(),
+            title: SizedBox(),
             icon: _buildIcon(
                 Icons.settings,
-                TranslationBase.of(context).getStringLocaledByKey('Settings'),
-                3),
+                TranslationBase.of(context).getStringLocaledByKey('Settings'), 3),
             // label: 'Settings',
           ),
         ],

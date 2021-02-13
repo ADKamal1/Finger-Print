@@ -152,7 +152,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(49, 49, 49, 1),
-                                        fontSize: 18),
+                                        fontSize: 18,fontFamily: "Montserrat"),
                                   ),
                                 ),
                               ),
@@ -171,7 +171,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                         .getStringLocaledByKey('LOGIN'),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        //  fontStyle: FontStyle,
+                                        fontFamily: "Montserrat",
                                         fontSize: 18,
                                         color:
                                             Color.fromRGBO(255, 255, 255, 1)),
@@ -219,7 +219,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Color.fromRGBO(113, 113, 113, 1),
-                                    fontSize: 18),
+                                    fontSize: 18,fontFamily: "Montserrat"),
                               ),
                             ),
                           ),
@@ -293,13 +293,13 @@ class SlideTile extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style:
-                TextStyle(fontSize: 24, color: Color.fromRGBO(49, 49, 49, 1)),
+                TextStyle(fontSize: 24, color: Color.fromRGBO(49, 49, 49, 1),fontFamily: "Montserrat"),
           ),
           Text(
             desc,
             textAlign: TextAlign.center,
             style:
-                TextStyle(fontSize: 18, color: Color.fromRGBO(49, 49, 49, 0.8)),
+                TextStyle(fontSize: 18, color: Color.fromRGBO(49, 49, 49, 0.8),fontFamily: "Montserrat"),
           ),
         ],
       ),

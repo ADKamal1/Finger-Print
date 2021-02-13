@@ -19,7 +19,6 @@ class _AccountPageState extends State<AccountPage> {
   AuthenticationBloc authenticationBloc;
   User user;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -27,52 +26,52 @@ class _AccountPageState extends State<AccountPage> {
     _init();
   }
 
-  _init()async{
+  _init() async {
     await Future.delayed(Duration(milliseconds: 150));
     user = await SharedPreferenceHandler.getUserData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    // AuthenticationBloc authenticationBloc =
-    //     Provider.of<AuthenticationBloc>(context);
-    // authenticationBloc.user.userData;
-    return SafeArea(
-      bottom: true,
-      child: Scaffold(
-        // resizeToAvoidBottomPadding: true,
-        body: Column(
+    return Scaffold(
+      backgroundColor: Colors.white,
+
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: Color.fromRGBO(60, 60, 60, 1),
+        elevation: 0.0,
+
+      ),
+        body: ListView(
           children: [
-            Stack(
-              overflow: Overflow.visible,
-              children: [
-                Container(
-                    height: height * .1,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      color: Color.fromRGBO(60, 60, 60, 1),
-                    )),
-                Positioned(
-                  top: height * 0.02,
-                  left: width * 0.29,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/avater.png'),
-                    radius: 70,
+            SizedBox(
+              height: height * .02,
+            ),
+
+
+            Positioned(
+              top: height * 0.02,
+              left: width * 0.29,
+              child: CircleAvatar(
+                radius: 45,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(45),
+                  child: Image.asset('assets/images/avater.png'
                   ),
                 ),
-              ],
+              ),
+
+
+//              CircleAvatar(
+//                backgroundImage: Image.asset('assets/images/avater.png'),
+//                radius: 50,
+//              ),
             ),
             SizedBox(
-              height: height * .15,
+              height: height * .05,
             ),
             Stack(
               alignment: Alignment.center,
@@ -86,7 +85,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   color: Colors.white,
                   child: Container(
-                    height: height * 0.48,
+                    height: height * 0.50,
                     width: width * 0.8,
                     padding: EdgeInsets.only(right: 15, left: 15),
                     decoration: BoxDecoration(
@@ -94,52 +93,61 @@ class _AccountPageState extends State<AccountPage> {
                       color: Colors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: height * 0.03, left: 5),
+                          padding: EdgeInsets.only(top: height * 0.05, left: 5),
                           child: Text(
                             TranslationBase.of(context)
                                 .getStringLocaledByKey('dep'),
                             style: TextStyle(
                                 color: Color.fromRGBO(60, 60, 60, 0.9),
-                                fontSize: 22,
+                                fontSize: 16,
+                                fontFamily: "Montserrat",
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        user==null?Container():Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 10),
-                          child: Text(
-                            user.userData.department,
-                            style: TextStyle(
-                                color: Color.fromRGBO(116, 116, 116, 0.9),
-                                fontSize: 15),
-                          ),
-                        ),
+                        user == null
+                            ? Container()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, left: 10),
+                                child: Text(
+                                  user.userData.department,
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      color: Color.fromRGBO(116, 116, 116, 0.9),
+                                      fontSize: 14),
+                                ),
+                              ),
                         Padding(
-                          padding:EdgeInsets.only(top: height * 0.02, left: 5),
+                          padding: EdgeInsets.only(top: height * 0.02, left: 5),
                           child: Text(
                             TranslationBase.of(context)
                                 .getStringLocaledByKey('job'),
                             style: TextStyle(
                                 color: Color.fromRGBO(60, 60, 60, 0.9),
-                                fontSize: 22,
+                                fontSize: 16,
+                                fontFamily: "Montserrat",
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        user==null?Container():Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 10),
-                          child: Text(
-                            user.userData.job,
-                            style: TextStyle(
-                                color: Color.fromRGBO(116, 116, 116, 0.9),
-                                fontSize: 15),
-                          ),
-                        ),
-
+                        user == null
+                            ? Container()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, left: 10),
+                                child: Text(
+                                  user.userData.job,
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      color: Color.fromRGBO(116, 116, 116, 0.9),
+                                      fontSize: 14),
+                                ),
+                              ),
                         SizedBox(
-                          height: height * 0.05,
+                          height: height * 0.03,
                         ),
                         InkWell(
                             onTap: () {
@@ -159,7 +167,6 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         InkWell(
                             onTap: () {
-                              print("zzzzzzzzzzzzzzz");
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -167,10 +174,8 @@ class _AccountPageState extends State<AccountPage> {
                             },
                             child: DrawContainer(
                                 TranslationBase.of(context)
-                                    .getStringLocaledByKey('ri'),
-                                15,
-                                backg,
-                                write))
+                                    .getStringLocaledByKey('ri'),15,backg,write)
+                        )
                       ],
                     ),
                   ),
@@ -179,17 +184,19 @@ class _AccountPageState extends State<AccountPage> {
                   top: -20,
                   left: 20,
                   right: 20,
-                  child: user==null?Container():DrawContainer(
-                    // authenticationBloc.user.userData.name,
-                      user.userData.name,
-                      30,
-                      backg,
-                      write),
+                  child: user == null
+                      ? Container()
+                      : DrawContainer(
+                          // authenticationBloc.user.userData.name,
+                          user.userData.name,
+                          30,
+                          backg,
+                          write),
                 ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+              padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
               child: Row(
                 children: [
                   Text(
@@ -212,11 +219,6 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
-
-
 }
-
-
