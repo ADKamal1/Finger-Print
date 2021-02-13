@@ -11,6 +11,7 @@ class GeneralRules extends StatefulWidget {
 
 class _GeneralRulesState extends State<GeneralRules> {
   GeneralInfoBloc generalInfoBloc;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -32,61 +33,46 @@ class _GeneralRulesState extends State<GeneralRules> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        brightness: Brightness.light,
-        backgroundColor: Color.fromRGBO(60, 60, 60, 1),
-        elevation: 0.0,
+          brightness: Brightness.dark,
+          backgroundColor: Color.fromRGBO(60, 60, 60, 1),
+          elevation: 0.0,
+          leading: GestureDetector(
+            onTap: ()=> Navigator.of(context).pop(),
+            child:TranslationBase.of(context).locale == 'en'
+              ? Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 25,
+                )
+              : Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 25,
+                ),),
       ),
       body: Container(
         height: height,
         color: Colors.white,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Stack(
-            overflow: Overflow.visible,
-            children: [
-              Container(
-                  height: height * .15,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                    color: Color.fromRGBO(60, 60, 60, 1),
-                  )),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(left: 0, top: 45, bottom: 10),
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          SizedBox(
+            height: height * .03,
+          ),
+
+          Center(
+            child: Positioned(
+              top: height * 0.02,
+              left: width * 0.29,
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/avater.png'),
+                radius: 50,
               ),
-              Positioned(
-                top: height * 0.05,
-                left: width * 0.29,
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/avater.png'),
-                  radius: 70,
-                ),
-              ),
-            ],
+            ),
           ),
           SizedBox(
-            height: height * 0.1,
+            height: height * .05,
           ),
-          Center(
+          Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
             child: Text(
               TranslationBase.of(context).getStringLocaledByKey('gr'),
               style: TextStyle(
@@ -96,11 +82,12 @@ class _GeneralRulesState extends State<GeneralRules> {
               ),
             ),
           ),
+
           SizedBox(
             height: height * 0.045,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Text(
               TranslationBase.of(context).getStringLocaledByKey('s1'),
               style: TextStyle(
@@ -110,7 +97,7 @@ class _GeneralRulesState extends State<GeneralRules> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
+            padding: const EdgeInsets.only(top: 8, left: 20, right: 20),
             child: Consumer<GeneralInfoBloc>(
                 builder: (BuildContext context, state, __) {
               if (state.error != null) {
@@ -190,6 +177,7 @@ class MyContainer extends StatelessWidget {
   final Color color;
 
   MyContainer(this.data, this.radius, this.color);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

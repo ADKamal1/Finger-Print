@@ -16,7 +16,6 @@ class _CalenderPageState extends State<CalenderPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // StatusBar.color(Colors.black);
   }
 
   @override
@@ -28,6 +27,7 @@ class _CalenderPageState extends State<CalenderPage> {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
+            brightness: Brightness.dark,
             backgroundColor: Color.fromRGBO(60, 60, 60, 1),
             toolbarHeight: MediaQuery.of(context).size.height * 0.13,
             bottom: TabBar(
@@ -39,7 +39,7 @@ class _CalenderPageState extends State<CalenderPage> {
                 Tab(
                   child: Text(
                     TranslationBase.of(context).getStringLocaledByKey('Day'),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,fontFamily: "Montserrat",),
                   ),
                 ),
                 Tab(
@@ -47,7 +47,7 @@ class _CalenderPageState extends State<CalenderPage> {
                       TranslationBase.of(context)
                           .getStringLocaledByKey('Month'),
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18,fontFamily: "Montserrat",)),
                 ),
               ],
             ),

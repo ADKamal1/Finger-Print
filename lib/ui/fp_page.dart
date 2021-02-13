@@ -26,15 +26,13 @@ class _FPPageState extends State<FPPage> {
   StatusBloc userStateBloc;
 
   location() async {
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
       setState(() {
         current = position;
       });
 
-      print("lat:" + position.latitude.toString().substring(0, 7));
-
-      print("long:" + position.longitude.toString().substring(0, 7));
+      print("fffffffffff" + position.longitude.toString());
     }).catchError((e) {
       print(e);
     });
@@ -52,7 +50,7 @@ class _FPPageState extends State<FPPage> {
     await Future.delayed(Duration(milliseconds: 150));
 
     userBloc = Provider.of<UserBloc>(context, listen: false);
-    userStateBloc = Provider.of<StatusBloc>(context, listen: false);
+    userStateBloc = Provider.of<StatusBloc>(context,listen: false);
     await userStateBloc.getUserState();
   }
 
@@ -65,6 +63,8 @@ class _FPPageState extends State<FPPage> {
       a = false;
     });
   }
+
+
 
   Color colorin = Color.fromRGBO(227, 227, 227, 1);
   Color colorout = Color.fromRGBO(227, 227, 227, 1);
@@ -81,7 +81,8 @@ class _FPPageState extends State<FPPage> {
     CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
     UserBloc userBloc = Provider.of<UserBloc>(context);
     CheckOutBloc checkOutBlock = Provider.of<CheckOutBloc>(context);
-    userStateBloc = Provider.of<StatusBloc>(context, listen: true);
+    userStateBloc = Provider.of<StatusBloc>(context,listen: true);
+
 
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -90,10 +91,11 @@ class _FPPageState extends State<FPPage> {
       body: Stack(children: [
         Column(
           children: [
+
             /// Top image
             Center(
               child: Padding(
-                padding: EdgeInsets.only(bottom: height * .01),
+                padding: EdgeInsets.only(bottom: height*.01),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: height * 0.15,
@@ -104,6 +106,8 @@ class _FPPageState extends State<FPPage> {
                 ),
               ),
             ),
+
+
 
             //////--Ckeck in - out
             Padding(
@@ -138,7 +142,8 @@ class _FPPageState extends State<FPPage> {
                           Center(
                             child: Container(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.2,
+                              height:
+                              MediaQuery.of(context).size.height * 0.2,
                               child: Image.asset(
                                 "assets/images/fp.png",
                                 fit: BoxFit.contain,
@@ -160,14 +165,15 @@ class _FPPageState extends State<FPPage> {
                           ////-- Confirm Location tEXT
                           Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10),
                               child: Text(
                                 TranslationBase.of(context)
                                     .getStringLocaledByKey(
-                                        'CONFIRM_LOCATION_TEXT'),
+                                    'CONFIRM_LOCATION_TEXT'),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
+                                    fontFamily: "Montserrat",
                                     color: Color.fromRGBO(40, 40, 40, 0.8),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
@@ -181,92 +187,88 @@ class _FPPageState extends State<FPPage> {
 
                           ///// confirm Location Button
                           InkWell(
-                              onTap: ((a == true && b == false && c == false) &&
-                                      userBloc.user.userData.is_located ==
-                                          false)
+                              onTap:
+                              ((a == true && b == false && c == false))
                                   ? () async {
-                                      await Future.delayed(
-                                          Duration(milliseconds: 150));
-                                      print("Confirm location");
-                                      location();
-                                      setState(() {
-                                        frist = false;
-                                        a = false;
-                                      });
-                                    }
+                                await Future.delayed(Duration(milliseconds: 150));
+                                print("Confirm location");
+                                location();
+                                setState(() {
+                                  frist = false;
+                                  a = false;
+                                });
+                              }
                                   : () {},
                               child: DrawContainer(
                                   TranslationBase.of(context)
                                       .getStringLocaledByKey(
-                                          'Confirm Location'),
+                                      'Confirm Location'),
                                   15,
                                   (frist)
                                       ? confirmColor
                                       : Color.fromRGBO(227, 227, 227, 1),
                                   (frist)
                                       ? confirmWrite
-                                      : Color.fromRGBO(100, 100, 100, 0.9))),
+                                      : Color.fromRGBO(
+                                      100, 100, 100, 0.9))),
 
                           SizedBox(
                             height: 10,
                           ),
 
+
                           //// CheckInAnd Out Button
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Consumer<StatusBloc>(
-                                  builder: (BuildContext context, state, __) {
-                                if (state.error != null) {
-                                  return Center(
-                                      child:
-                                          General.buildTxt(txt: state.error));
-                                } else if (state.hasData) {
-                                  return GestureDetector(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: DrawCheckContainer(
-                                          TranslationBase.of(context)
-                                              .getStringLocaledByKey(
-                                                  'Check In'),
-                                          userStateBloc.status.model.status ==
-                                                  "checked_in"
-                                              //frist
-                                              ? colorin
-                                              : Color.fromRGBO(36, 200, 139, 1),
-                                          frist
-                                              ? writein
-                                              : Color.fromRGBO(
-                                                  255, 255, 255, 0.9)),
-                                    ),
-                                    onTap: (a == false && c == false)
-                                        ? () async {
+                          Container(
+                            margin: EdgeInsets.only(left: 15,right:15),
+                            child:Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Consumer<StatusBloc>(
+                                    builder: (BuildContext context, state, __) {
+                                      if (state.error != null) {
+                                        return Center(child: General.buildTxt(txt: state.error));
+                                      } else if (state.hasData) {
+                                        return GestureDetector(
+                                          child: DrawCheckContainer(
+                                                TranslationBase.of(context)
+                                                    .getStringLocaledByKey(
+                                                    'Check In'),
+                                                userStateBloc.status.model.status=="checked_in"
+                                                //frist
+                                                    ? colorin
+                                                    : Color.fromRGBO(36, 200, 139, 1),
+                                                frist
+                                                    ? writein
+                                                    : Color.fromRGBO(
+                                                    255, 255, 255, 0.9)),
+
+                                          onTap: (a == false && c == false)
+                                              ? () async {
                                             Future.delayed(Duration(seconds: 2))
                                                 .then((value) => () {
-                                                      setState(() {
-                                                        second = false;
-                                                        frist = true;
-                                                        b = false;
+                                              setState(() {
+                                                second = false;
+                                                frist = true;
+                                                b = false;
 
-                                                        confirmColor = colorin;
-                                                        confirmWrite =
-                                                            Color.fromRGBO(100,
-                                                                100, 100, 0.9);
-                                                      });
-                                                    });
+                                                confirmColor = colorin;
+                                                confirmWrite =
+                                                    Color.fromRGBO(100,
+                                                        100, 100, 0.9);
+                                              });
+                                            });
 
                                             formatStringWithTimeFromDate(
                                                 DateTime date) {
                                               //DateTime myDate = DateTime.parse(date);
                                               return new DateFormat(
-                                                      'yyyy-MM-dd hh:mm:ss')
+                                                  'yyyy-MM-dd hh:mm:ss')
                                                   .format(date);
                                             }
 
                                             var a =
-                                                formatStringWithTimeFromDate(
-                                                    DateTime.now());
+                                            formatStringWithTimeFromDate(
+                                                DateTime.now());
 
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
@@ -282,7 +284,9 @@ class _FPPageState extends State<FPPage> {
                                                     .toString()
                                                     .trim());
                                             userStateBloc.getUserState();
-                                            setState(() {});
+                                            setState(() {
+
+                                            });
                                             // setState(() {
                                             //   if (checkInBlock.checkIn
                                             //           .isSubmittedSuccessfully ==
@@ -292,40 +296,41 @@ class _FPPageState extends State<FPPage> {
                                             //   }
                                             // });
                                           }
-                                        : (a == true && c == false)
-                                            ? () {
-                                                print("a ${a}..b${c}");
-                                                General.showDialogue(
-                                                    txtWidget: Text(TranslationBase
-                                                            .of(context)
+                                              :(a == true && c == false)
+                                              ? () {
+                                            print("a ${a}..b${c}");
+                                            General.showDialogue(
+                                                txtWidget: Text(
+                                                    TranslationBase.of(context)
                                                         .getStringLocaledByKey(
-                                                            'CONFIRM_LOCATION_FIRST')),
-                                                    context: context);
-                                              }
-                                            : () {
-                                                print("a ${a}..c${c}");
-                                              },
-                                  );
-                                } else {
-                                  return Center(
-                                      child: General.customThreeBounce(context,
-                                          color: Theme.of(context).accentColor,
-                                          size: 20.0));
-                                }
-                              }),
-                              Center(
-                                child: Consumer<StatusBloc>(
-                                    builder: (BuildContext context, state, __) {
-                                  if (state.error != null) {
-                                    return Center(
-                                        child:
-                                            General.buildTxt(txt: state.error));
-                                  } else if (state.hasData) {
-                                    return GestureDetector(
-                                      onTap: (state.status.model.status ==
-                                                  "checked_in" &&
-                                              a == false)
-                                          ? () async {
+                                                        'CONFIRM_LOCATION_FIRST')),
+                                                context: context);
+                                          }:(){
+                                            print("a ${a}..c${c}");
+                                          },
+
+                                        );
+                                      } else {
+                                        return Center(
+                                            child: General.customThreeBounce(context,
+                                                color: Theme.of(context).accentColor, size: 20.0));
+                                      }
+                                    }),
+
+
+                                Center(
+                                  child: Consumer<StatusBloc>(
+                                      builder: (BuildContext context, state, __) {
+                                        if (state.error != null) {
+                                          return Center(child: General.buildTxt(txt: state.error));
+                                        } else if (state.hasData) {
+                                          return GestureDetector(
+
+                                            onTap: (
+                                                state.status.model.status=="checked_in"
+                                                    && a == false)
+                                                ? () async {
+
                                               print("000000000000");
                                               setState(() {
                                                 second = true;
@@ -335,8 +340,7 @@ class _FPPageState extends State<FPPage> {
                                                     100, 100, 100, 0.9);
                                               });
                                               FocusScope.of(context)
-                                                  .requestFocus(
-                                                      new FocusNode());
+                                                  .requestFocus(new FocusNode());
                                               await checkOutBlock.userCheckOut(
                                                   context: context,
                                                   date: DateTime.now(),
@@ -347,59 +351,61 @@ class _FPPageState extends State<FPPage> {
                                                       .toString()
                                                       .trim());
                                               await state.getUserState();
-                                              setState(() {});
+                                              setState(() {
+
+                                              });
                                             }
-                                          : (a == true && b == false)
-                                              ? () {
-                                                  print("Out1:${a}:${b}");
-                                                  General.showDialogue(
-                                                      txtWidget: Text(
-                                                        TranslationBase.of(
-                                                                context)
-                                                            .getStringLocaledByKey(
-                                                                'CONFIRM_LOCATION_FIRST'),
-                                                      ),
-                                                      context: context);
-                                                }
-                                              : () {
-                                                  print("Out2:${a}:${b}");
-                                                  General.showDialogue(
-                                                      txtWidget: Text(
-                                                        TranslationBase.of(
-                                                                context)
-                                                            .getStringLocaledByKey(
-                                                                'DIALOG_FIRST_LOGIN'),
-                                                      ),
-                                                      context: context);
-                                                },
-                                      child: DrawCheckContainer(
-                                          TranslationBase.of(context)
-                                              .getStringLocaledByKey(
-                                                  'Check Out'),
-                                          userStateBloc.status.model.status ==
-                                                  "checked_out"
-                                              ? colorout
-                                              : Color.fromRGBO(249, 96, 96, 1),
-                                          second
-                                              ? writein
-                                              : Color.fromRGBO(
-                                                  255, 255, 255, 0.9)),
-                                    );
-                                  } else {
-                                    return Center(
-                                        child: General.customThreeBounce(
-                                            context,
-                                            color:
-                                                Theme.of(context).accentColor,
-                                            size: 20.0));
-                                  }
-                                }),
-                              )
-                            ],
+                                                : (a == true && b == false)
+                                                ? () {
+                                              print("Out1:${a}:${b}");
+                                              General.showDialogue(
+                                                  txtWidget: Text(
+                                                    TranslationBase.of(
+                                                        context)
+                                                        .getStringLocaledByKey(
+                                                        'CONFIRM_LOCATION_FIRST'),
+                                                  ),
+                                                  context: context);
+                                            }
+                                                : () {
+                                              print("Out2:${a}:${b}");
+                                              General.showDialogue(
+                                                  txtWidget: Text(
+                                                    TranslationBase.of(
+                                                        context)
+                                                        .getStringLocaledByKey(
+                                                        'DIALOG_FIRST_LOGIN'),
+                                                  ),
+                                                  context: context);
+                                            },
+
+                                            child: DrawCheckContainer(
+                                                TranslationBase.of(context)
+                                                    .getStringLocaledByKey('Check Out'),
+                                                userStateBloc.status.model.status=="checked_out"
+                                                    ? colorout
+                                                    : Color.fromRGBO(249, 96, 96, 1),
+                                                second
+                                                    ? writein
+                                                    : Color.fromRGBO(
+                                                    255, 255, 255, 0.9)),
+                                          );
+                                        } else {
+                                          return Center(
+                                              child: General.customThreeBounce(context,
+                                                  color: Theme.of(context).accentColor, size: 20.0)
+                                          );
+                                        }
+                                      }),
+                                )
+
+                              ],
+                            )
                           )
                         ],
                       ),
                     ),
+
                     Positioned(
                         top: -20,
                         left: 15,
@@ -408,7 +414,7 @@ class _FPPageState extends State<FPPage> {
                           overflow: Overflow.visible,
                           children: [
                             Container(
-                              height: 45,
+                              height: 50,
                               width: 300,
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(40, 40, 40, 1),
@@ -416,46 +422,53 @@ class _FPPageState extends State<FPPage> {
                               ),
                               child: Center(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
                                         top: 3,
                                       ),
-                                      child: userBloc.user == null
+                                      child: userBloc.user ==
+                                          null
                                           ? Container()
                                           : Text(
-                                              userBloc.user.userData.name,
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      255, 255, 255, 0.8)),
-                                            ),
+                                        userBloc.user.userData.name,
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: "Montserrat",
+                                            color: Color.fromRGBO(
+                                                255, 255, 255, 0.8)),
+                                      ),
+
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(),
-                                      child: userBloc.user == null
+                                      child: userBloc.user ==
+                                          null
                                           ? Container()
                                           : Text(
-                                              'ID:  ${userBloc.user.userData.id}',
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      255, 255, 255, 0.8)),
-                                            ),
+                                        'ID:  ${userBloc.user.userData.id}',
+                                        style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 12,
+                                            color: Color.fromRGBO(
+                                                255, 255, 255, 0.8)),
+                                      ),
                                     )
                                   ],
                                 ),
                               ),
                             ),
+
                             Positioned(
                               left: 18,
                               top: -7,
                               child: FadeInImage.assetNetwork(
                                   placeholder: 'assets/images/avater.png',
-                                  height: 70.0,
-                                  width: 70.0,
-                                  fit: BoxFit.cover,
-                                  image:
-                                      "http://159.65.227.64:8069/web/image/hr.employee/21/image"),
+                                  height: 70.0, width: 70.0, fit: BoxFit.cover,
+                                  image:userBloc.user.userData.logo,
+                              ),
                               //checkUrl('http://159.65.227.64:8069/web/image/hr.employee/21/image'),
                             )
                           ],
@@ -481,7 +494,7 @@ class _FPPageState extends State<FPPage> {
                     child: Image.asset(
                       "assets/images/component.png",
                       fit: BoxFit.cover,
-                      height: height * .1,
+                      height: height*.1,
                       width: 70,
                     ),
                   )
@@ -493,4 +506,8 @@ class _FPPageState extends State<FPPage> {
       ]),
     );
   }
+
+
+
+
 }

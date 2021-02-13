@@ -24,6 +24,7 @@ class EventWidget extends StatelessWidget {
         title: Text(
           title,
           style: TextStyle(
+              fontFamily: "Montserrat",
               decoration: lineThrough
                   ? TextDecoration.lineThrough
                   : TextDecoration.none),

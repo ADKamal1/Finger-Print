@@ -109,8 +109,6 @@ flutter:
   fonts:
      - family: Montserrat
        fonts:
-         - asset: fonts/Schyler-Regular.ttf
-         - asset: fonts/Schyler-Italic.ttf
          - asset: assets/fonts/1.ttf
          - asset: assets/fonts/2.ttf
          - asset: assets/fonts/3.ttf

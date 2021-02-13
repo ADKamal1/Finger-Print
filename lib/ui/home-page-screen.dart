@@ -60,7 +60,7 @@ class _MyPageState extends State<HomePage> {
           color: _getBgColor(index),
           child: InkWell(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Icon(
                   iconData,
@@ -69,7 +69,7 @@ class _MyPageState extends State<HomePage> {
                     ? Text(text,
                         style: TextStyle(
                             fontSize: 12,
-                            color: Color.fromRGBO(40, 40, 40, 0.9)))
+                            color: Color.fromRGBO(40, 40, 40, 0.9),fontFamily: "Montserrat"))
                     : Container(),
               ],
             ),
@@ -90,8 +90,8 @@ class _MyPageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
-        brightness: Brightness.light,
-        backgroundColor: Colors.grey,
+        brightness: Brightness.dark,
+        backgroundColor: Color.fromRGBO(60, 60, 60, 1),
         elevation: 0.0,
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
@@ -100,8 +100,7 @@ class _MyPageState extends State<HomePage> {
         backgroundColor: Color.fromRGBO(243, 243, 243, 1),
         elevation: 0.0,
         iconSize: 25,
-        selectedIconTheme:
-            IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
+        selectedIconTheme: IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
 
         items: [
           BottomNavigationBarItem(
@@ -128,8 +127,7 @@ class _MyPageState extends State<HomePage> {
             title: SizedBox(),
             icon: _buildIcon(
                 Icons.settings,
-                TranslationBase.of(context).getStringLocaledByKey('Settings'),
-                3),
+                TranslationBase.of(context).getStringLocaledByKey('Settings'), 3),
             // label: 'Settings',
           ),
         ],

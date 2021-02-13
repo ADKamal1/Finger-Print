@@ -23,9 +23,7 @@ class _CalenderState extends State<Calender> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-//    StatusBar.color(Colors.black);
     _init();
   }
 
@@ -49,13 +47,11 @@ class _CalenderState extends State<Calender> {
           weekDays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
           events: calenderBloc.events,
           onDateSelected: (date) {
-            //FocusScope.of(context).requestFocus(new FocusNode());
             calenderBloc.getCalenderData(
                 email: userBloc.user.userData.email,
                 dateTime: date,
                 context: context,
                 password: userBloc.user.userData.code);
-            print("${date}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
           },
           isExpandable: true,
           isExpanded: widget.expanded,

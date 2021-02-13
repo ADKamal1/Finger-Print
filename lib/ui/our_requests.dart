@@ -38,56 +38,42 @@ class _OurRequestsState extends State<OurRequests> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 0,
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
           backgroundColor: Color.fromRGBO(60, 60, 60, 1),
           elevation: 0.0,
+          leading: GestureDetector(
+            onTap: ()=> Navigator.of(context).pop(),
+            child:TranslationBase.of(context).locale == 'en'
+                ? Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+              size: 25,
+            )
+                : Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 25,
+            ),),
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(children: [
-            Stack(
-              overflow: Overflow.visible,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: 10, right: 10, top: 45, bottom: 10),
-                          child: TranslationBase.of(context).locale == 'en'
-                              ? Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              : Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                        ),
-                      ),
-                    ],
-                  ),
+            SizedBox(
+              height: height * .03,
+            ),
+
+            Center(
+              child: Positioned(
+                top: height * 0.02,
+                left: width * 0.29,
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/avater.png'),
+                  radius: 50,
                 ),
-                Positioned(
-                  top: height * 0.05,
-                  left: width * 0.29,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/avater.png'),
-                    radius: 70,
-                  ),
-                ),
-              ],
+              ),
             ),
             SizedBox(
-              height: height * 0.08,
+              height: height * .08,
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(40, 0, 40, 10),

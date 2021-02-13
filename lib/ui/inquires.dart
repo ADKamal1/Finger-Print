@@ -20,51 +20,45 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         backgroundColor: Color.fromRGBO(60, 60, 60, 1),
         elevation: 0.0,
+        leading: GestureDetector(
+          onTap: ()=> Navigator.of(context).pop(),
+          child:TranslationBase.of(context).locale == 'en'
+              ? Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.white,
+            size: 25,
+          )
+              : Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 25,
+          ),),
       ),
       body: Container(
         height: height,
         color: Colors.white,
         child: Column(children: [
-          Stack(
-            overflow: Overflow.visible,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(left: 0, top: 45, bottom: 10),
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          SizedBox(
+            height: height * .03,
+          ),
+
+          Center(
+            child: Positioned(
+              top: height * 0.02,
+              left: width * 0.29,
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/avater.png'),
+                radius: 50,
               ),
-              Positioned(
-                top: height * 0.05,
-                left: width * 0.29,
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/avater.png'),
-                  radius: 70,
-                ),
-              ),
-            ],
+            ),
           ),
           SizedBox(
-            height: height * 0.15,
+            height: height * .03,
           ),
+
           MyContainer(
               TranslationBase.of(context).getStringLocaledByKey('leave'),
               30,
@@ -97,7 +91,8 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
                   style: TextStyle(
                       color: Color.fromRGBO(41, 41, 41, 1),
                       fontSize: 12,
-                      inherit: false),
+                      inherit: false,
+                  ),
                 ),
                 Container(
                   child: Image.asset(
@@ -136,7 +131,7 @@ class MyContainer extends StatelessWidget {
                     )));
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.09,
+        height: MediaQuery.of(context).size.height * 0.07,
         width: MediaQuery.of(context).size.width * 0.8,
         decoration: BoxDecoration(
           color: color,
@@ -148,7 +143,8 @@ class MyContainer extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Color.fromRGBO(228, 228, 228, 1),
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.bold
+                ,fontFamily: "Montserrat",
                 fontSize: 24,
                 inherit: false),
           ),

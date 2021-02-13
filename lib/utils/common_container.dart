@@ -16,6 +16,7 @@ class DrawContainer extends StatelessWidget {
       child: Container(
         height: 43,
        // width: width*.65,
+        margin: EdgeInsets.only(left: 15,right: 15),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(radius),
@@ -28,6 +29,7 @@ class DrawContainer extends StatelessWidget {
               color: writeColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
+                fontFamily: "Montserrat"
             ),
           ),
         ),
