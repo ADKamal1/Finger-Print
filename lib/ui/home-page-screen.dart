@@ -19,8 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyPageState extends State<HomePage> {
-
-
   static List<Widget> _widgetOptions = <Widget>[
     FPPage(),
     AccountPage(),
@@ -99,13 +97,13 @@ class _MyPageState extends State<HomePage> {
         elevation: 0.0,
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
-
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: Colors.green,
         backgroundColor: Color.fromRGBO(243, 243, 243, 1),
         elevation: 0.0,
         iconSize: 25,
-        selectedIconTheme: IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
+        selectedIconTheme:
+            IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
 
         items: [
           BottomNavigationBarItem(
