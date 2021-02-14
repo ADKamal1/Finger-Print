@@ -103,7 +103,8 @@ class _MyPageState extends State<HomePage> {
         backgroundColor: Color.fromRGBO(243, 243, 243, 1),
         elevation: 0.0,
         iconSize: 25,
-        selectedIconTheme: IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
+        selectedIconTheme:
+            IconThemeData(color: Color.fromRGBO(40, 40, 40, 1), size: 25),
 
         items: [
           BottomNavigationBarItem(
