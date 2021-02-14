@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _emailControllor = new TextEditingController();
   TextEditingController _passwordControllor = new TextEditingController();
-  String serial = "123123";
+  String serial = "54321";
   User user;
 
   @override
@@ -60,13 +60,9 @@ class _LoginPageState extends State<LoginPage> {
   _login() async {
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_formKey.currentState.validate()) {
-      print("\nkkk:-");
       print(serial);
       authenticationBloc.loginService(_emailControllor.text.trim(),
           _passwordControllor.text.trim(), serial.trim(), context);
-
-      //SharedPreferences prefs = await SharedPreferences.getInstance();
-      //prefs.setString('email', _emailControllor.text.trim());
     }
   }
 

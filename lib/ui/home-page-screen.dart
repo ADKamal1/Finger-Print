@@ -70,7 +70,10 @@ class _MyPageState extends State<HomePage> {
                         style: TextStyle(
                             fontSize: 12,
                             color: Color.fromRGBO(40, 40, 40, 0.9),fontFamily: "Montserrat"))
-                    : Container(),
+                    : Text(text,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Color.fromRGBO(40, 40, 40, 0.9),fontFamily: "Montserrat",fontWeight: FontWeight.bold)),
               ],
             ),
             onTap: () => _onTapped(index),

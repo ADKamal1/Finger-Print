@@ -15,7 +15,7 @@ class DrawCheckContainer extends StatelessWidget {
         height: 42,
         width: width*.3,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           color: color,
         ),
         child: Center(

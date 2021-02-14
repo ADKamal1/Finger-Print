@@ -113,7 +113,13 @@ class _AccountPageState extends State<AccountPage> {
                             : Padding(
                                 padding:
                                     const EdgeInsets.only(top: 5, left: 10),
-                                child: Text(
+                                child: user.userData.department==null?Text(
+                                  "",
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      color: Color.fromRGBO(116, 116, 116, 0.9),
+                                      fontSize: 14),
+                                ):Text(
                                   user.userData.department,
                                   style: TextStyle(
                                       fontFamily: "Montserrat",
@@ -138,7 +144,13 @@ class _AccountPageState extends State<AccountPage> {
                             : Padding(
                                 padding:
                                     const EdgeInsets.only(top: 5, left: 10),
-                                child: Text(
+                                child: user.userData.job == null? Text(
+                                  "",
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      color: Color.fromRGBO(116, 116, 116, 0.9),
+                                      fontSize: 14),
+                                ):Text(
                                   user.userData.job,
                                   style: TextStyle(
                                       fontFamily: "Montserrat",

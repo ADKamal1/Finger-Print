@@ -26,7 +26,6 @@ class AuthenticationBloc extends GeneralBloc {
       notifyListeners();
       print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
-        // Navigator.push(context, ScaleTransationRoute(page: HomePage()));
         Navigator.pushAndRemoveUntil(
             context,
             ScaleTransationRoute(page: HomePage()),

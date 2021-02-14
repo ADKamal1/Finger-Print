@@ -24,6 +24,7 @@ class _FPPageState extends State<FPPage> {
   UserBloc userBloc;
   Position current;
   StatusBloc userStateBloc;
+  double distanceInMeters;
 
   location() async {
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
@@ -32,11 +33,32 @@ class _FPPageState extends State<FPPage> {
         current = position;
       });
 
-      print("fffffffffff" + position.longitude.toString());
+      if (userBloc.user.userData.is_located == true) {
+        if (distanceInMeters < 500) {
+          setState(() {
+            userBloc.user.userData.is_located = false;
+          });
+        }
+      }
+      print("lat" + position.latitude.toString());
+      print("long" + position.longitude.toString());
     }).catchError((e) {
       print(e);
     });
   }
+
+//  location() async {
+//    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+//        .then((Position position) {
+//      setState(() {
+//        current = position;
+//      });
+//
+//      print("fffffffffff" + position.longitude.toString());
+//    }).catchError((e) {
+//      print(e);
+//    });
+//  }
 
   @override
   void initState() {
@@ -51,7 +73,11 @@ class _FPPageState extends State<FPPage> {
 
     userBloc = Provider.of<UserBloc>(context, listen: false);
     userStateBloc = Provider.of<StatusBloc>(context,listen: false);
-    await userStateBloc.getUserState();
+    userStateBloc.getUserState();
+    setState(() {
+
+    });
+
   }
 
   confirmLocation() async {
@@ -76,6 +102,8 @@ class _FPPageState extends State<FPPage> {
   bool frist = true;
   bool second = true;
   bool a = true, b = false, c = false;
+  bool checkOutProgressFlag = false;
+  bool checkInProgressFlag = false;
   @override
   Widget build(BuildContext context) {
     CheckInBloc checkInBlock = Provider.of<CheckInBloc>(context);
@@ -187,23 +215,12 @@ class _FPPageState extends State<FPPage> {
 
                           ///// confirm Location Button
                           InkWell(
-                              onTap:
-                              ((a == true && b == false && c == false))
-                                  ? () async {
-                                await Future.delayed(Duration(milliseconds: 150));
-                                print("Confirm location");
-                                location();
-                                setState(() {
-                                  frist = false;
-                                  a = false;
-                                });
-                              }
-                                  : () {},
+                              onTap:_confirmLocation,
                               child: DrawContainer(
                                   TranslationBase.of(context)
                                       .getStringLocaledByKey(
                                       'Confirm Location'),
-                                  15,
+                                  10,
                                   (frist)
                                       ? confirmColor
                                       : Color.fromRGBO(227, 227, 227, 1),
@@ -221,186 +238,191 @@ class _FPPageState extends State<FPPage> {
 
 
                           //// CheckInAnd Out Button
-                          Container(
-                            margin: EdgeInsets.only(left: 15,right:15),
+                          //// CheckInAnd Out Button
+                          Padding(
+                            padding: EdgeInsets.only(left: 15,right: 15),
                             child:Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Consumer<StatusBloc>(
-                                    builder: (BuildContext context, state, __) {
-                                      if (state.error != null) {
-                                        return Center(child: General.buildTxt(txt: state.error));
-                                      } else if (state.hasData) {
-                                        return GestureDetector(
-                                          child: DrawCheckContainer(
-                                                TranslationBase.of(context)
-                                                    .getStringLocaledByKey(
-                                                    'Check In'),
-                                                userStateBloc.status.model.status=="checked_in"
-                                                //frist
-                                                    ? colorin
-                                                    : Color.fromRGBO(36, 200, 139, 1),
-                                                frist
-                                                    ? writein
-                                                    : Color.fromRGBO(
-                                                    255, 255, 255, 0.9)),
 
-                                          onTap: (a == false && c == false)
-                                              ? () async {
-                                            Future.delayed(Duration(seconds: 2))
-                                                .then((value) => () {
-                                              setState(() {
-                                                second = false;
-                                                frist = true;
-                                                b = false;
+                                //// CheckIn Button
 
-                                                confirmColor = colorin;
-                                                confirmWrite =
-                                                    Color.fromRGBO(100,
-                                                        100, 100, 0.9);
-                                              });
-                                            });
+                                GestureDetector(
+                                    child: checkInProgressFlag==true?
+                                    Center(
+                                      child: General.customThreeBounce(context,
+                                          color: Colors.black, size: 20.0),)
+                                        :
+                                        DrawCheckContainer(
+                                        TranslationBase.of(context)
+                                            .getStringLocaledByKey(
+                                            'Check In'),
+                                        userStateBloc.status==null?Colors.white:
+                                        userStateBloc.status.model.status=="checked_in"
+                                        //frist
+                                            ? colorin
+                                            : Color.fromRGBO(36, 200, 139, 1),
+                                        frist
+                                            ? writein
+                                            : Color.fromRGBO(
+                                            255, 255, 255, 0.9)),
 
+                                  onTap: (a == false && c == false)
+                                      ? () async {
+                                    checkInProgressFlag = true;
+                                    Future.delayed(Duration(seconds: 2))
+                                        .then((value) => () {
+                                      setState(() {
+                                        second = false;
+                                        frist = true;
+                                        b = false;
+
+                                        confirmColor = colorin;
+                                        confirmWrite =
+                                            Color.fromRGBO(100,
+                                                100, 100, 0.9);
+                                      });
+                                    });
+
+                                    formatStringWithTimeFromDate(
+                                        DateTime date) {
+                                      //DateTime myDate = DateTime.parse(date);
+                                      return new DateFormat(
+                                          'yyyy-MM-dd hh:mm:ss')
+                                          .format(date);
+                                    }
+
+                                    var a =
+                                    formatStringWithTimeFromDate(
+                                        DateTime.now());
+
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    await checkInBlock.userCheckIn(
+                                        context: context,
+                                        date: DateTime.parse(
                                             formatStringWithTimeFromDate(
-                                                DateTime date) {
-                                              //DateTime myDate = DateTime.parse(date);
-                                              return new DateFormat(
-                                                  'yyyy-MM-dd hh:mm:ss')
-                                                  .format(date);
-                                            }
+                                                DateTime.now())),
+                                        lat: current.latitude
+                                            .toString()
+                                            .trim(),
+                                        lon: current.longitude
+                                            .toString()
+                                            .trim());
+                                    userStateBloc.getUserState();
+                                    checkInProgressFlag = false;
+                                    setState(() {
 
-                                            var a =
-                                            formatStringWithTimeFromDate(
-                                                DateTime.now());
+                                    });
+                                    // setState(() {
+                                    //   if (checkInBlock.checkIn
+                                    //           .isSubmittedSuccessfully ==
+                                    //       false) {
+                                    //     second = true;
+                                    //     frist = false;
+                                    //   }
+                                    // });
+                                  }
+                                      :(a == true && c == false)
+                                      ? () {
+                                      checkInProgressFlag = true;
+                                      setState(() {
 
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            await checkInBlock.userCheckIn(
-                                                context: context,
-                                                date: DateTime.parse(
-                                                    formatStringWithTimeFromDate(
-                                                        DateTime.now())),
-                                                lat: current.latitude
-                                                    .toString()
-                                                    .trim(),
-                                                lon: current.longitude
-                                                    .toString()
-                                                    .trim());
-                                            userStateBloc.getUserState();
-                                            setState(() {
+                                      });
+                                    print("a ${a}..b${c}");
+                                    General.showDialogue(
+                                        txtWidget: Text(
+                                            TranslationBase.of(context)
+                                                .getStringLocaledByKey(
+                                                'CONFIRM_LOCATION_FIRST')),
+                                        context: context);
+                                      checkInProgressFlag = false;
+                                  }:(){
+                                    print("a ${a}..c${c}");
+                                  },
 
-                                            });
-                                            // setState(() {
-                                            //   if (checkInBlock.checkIn
-                                            //           .isSubmittedSuccessfully ==
-                                            //       false) {
-                                            //     second = true;
-                                            //     frist = false;
-                                            //   }
-                                            // });
-                                          }
-                                              :(a == true && c == false)
-                                              ? () {
-                                            print("a ${a}..b${c}");
-                                            General.showDialogue(
-                                                txtWidget: Text(
-                                                    TranslationBase.of(context)
-                                                        .getStringLocaledByKey(
-                                                        'CONFIRM_LOCATION_FIRST')),
-                                                context: context);
-                                          }:(){
-                                            print("a ${a}..c${c}");
-                                          },
+                                ),
+                                GestureDetector(
 
-                                        );
-                                      } else {
-                                        return Center(
-                                            child: General.customThreeBounce(context,
-                                                color: Theme.of(context).accentColor, size: 20.0));
-                                      }
-                                    }),
+                                  onTap: (userStateBloc.status==null?false:
+                                  userStateBloc.status.model.status=="checked_in" && a == false)
+                                      ? () async {
+                                    checkOutProgressFlag = true;
+                                    print("000000000000");
+                                    setState(() {
+                                      second = true;
+                                      frist = false;
+                                      confirmColor = colorout;
+                                      confirmWrite = Color.fromRGBO(
+                                          100, 100, 100, 0.9);
+                                    });
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    await checkOutBlock.userCheckOut(
+                                        context: context,
+                                        date: DateTime.now(),
+                                        lat: current.latitude
+                                            .toString()
+                                            .trim(),
+                                        lon: current.longitude
+                                            .toString()
+                                            .trim());
+                                    await userStateBloc.getUserState();
+                                    checkOutProgressFlag = false;
+                                    setState(() {
 
+                                    });
+                                  }
+                                      : (a == true && b == false)
+                                      ? () {
+                                    checkOutProgressFlag = true;
+                                    setState(() {
 
-                                Center(
-                                  child: Consumer<StatusBloc>(
-                                      builder: (BuildContext context, state, __) {
-                                        if (state.error != null) {
-                                          return Center(child: General.buildTxt(txt: state.error));
-                                        } else if (state.hasData) {
-                                          return GestureDetector(
+                                    });
+                                    print("Out1:${a}:${b}");
+                                    General.showDialogue(
+                                        txtWidget: Text(
+                                          TranslationBase.of(
+                                              context)
+                                              .getStringLocaledByKey(
+                                              'CONFIRM_LOCATION_FIRST'),
+                                        ),
+                                        context: context);
+                                    checkOutProgressFlag = false;
+                                  }
+                                      : () {
+                                    checkOutProgressFlag = true;
+                                    setState(() {
 
-                                            onTap: (
-                                                state.status.model.status=="checked_in"
-                                                    && a == false)
-                                                ? () async {
+                                    });
+                                    print("Out2:${a}:${b}");
+                                    General.showDialogue(
+                                        txtWidget: Text(
+                                          TranslationBase.of(
+                                              context)
+                                              .getStringLocaledByKey(
+                                              'DIALOG_FIRST_LOGIN'),
+                                        ),
+                                        context: context);
+                                    checkOutProgressFlag = false;
+                                  },
 
-                                              print("000000000000");
-                                              setState(() {
-                                                second = true;
-                                                frist = false;
-                                                confirmColor = colorout;
-                                                confirmWrite = Color.fromRGBO(
-                                                    100, 100, 100, 0.9);
-                                              });
-                                              FocusScope.of(context)
-                                                  .requestFocus(new FocusNode());
-                                              await checkOutBlock.userCheckOut(
-                                                  context: context,
-                                                  date: DateTime.now(),
-                                                  lat: current.latitude
-                                                      .toString()
-                                                      .trim(),
-                                                  lon: current.longitude
-                                                      .toString()
-                                                      .trim());
-                                              await state.getUserState();
-                                              setState(() {
+                                  child: checkOutProgressFlag==true?
+                                  General.customThreeBounce(context,
+                                      color: Colors.black, size: 20.0):
+                                  DrawCheckContainer(
+                                      TranslationBase.of(context)
+                                          .getStringLocaledByKey('Check Out'),
+                                      userStateBloc.status==null?Colors.white:
+                                      userStateBloc.status.model.status=="checked_out"
+                                          ? colorout
+                                          : Color.fromRGBO(249, 96, 96, 1),
+                                      second
+                                          ? writein
+                                          : Color.fromRGBO(
+                                          255, 255, 255, 0.9)),
+                                ),
 
-                                              });
-                                            }
-                                                : (a == true && b == false)
-                                                ? () {
-                                              print("Out1:${a}:${b}");
-                                              General.showDialogue(
-                                                  txtWidget: Text(
-                                                    TranslationBase.of(
-                                                        context)
-                                                        .getStringLocaledByKey(
-                                                        'CONFIRM_LOCATION_FIRST'),
-                                                  ),
-                                                  context: context);
-                                            }
-                                                : () {
-                                              print("Out2:${a}:${b}");
-                                              General.showDialogue(
-                                                  txtWidget: Text(
-                                                    TranslationBase.of(
-                                                        context)
-                                                        .getStringLocaledByKey(
-                                                        'DIALOG_FIRST_LOGIN'),
-                                                  ),
-                                                  context: context);
-                                            },
-
-                                            child: DrawCheckContainer(
-                                                TranslationBase.of(context)
-                                                    .getStringLocaledByKey('Check Out'),
-                                                userStateBloc.status.model.status=="checked_out"
-                                                    ? colorout
-                                                    : Color.fromRGBO(249, 96, 96, 1),
-                                                second
-                                                    ? writein
-                                                    : Color.fromRGBO(
-                                                    255, 255, 255, 0.9)),
-                                          );
-                                        } else {
-                                          return Center(
-                                              child: General.customThreeBounce(context,
-                                                  color: Theme.of(context).accentColor, size: 20.0)
-                                          );
-                                        }
-                                      }),
-                                )
 
                               ],
                             )
@@ -408,6 +430,8 @@ class _FPPageState extends State<FPPage> {
                         ],
                       ),
                     ),
+
+
 
                     Positioned(
                         top: -20,
@@ -511,6 +535,35 @@ class _FPPageState extends State<FPPage> {
   }
 
 
+_confirmLocation() async {
 
+        if(a == true && b == false && c == false)
+        {
+          if (userBloc.user.userData.is_located == false)
+          {
+            await Future.delayed(Duration(milliseconds: 150));
+            print("Confirm location");
+            location();
+            setState(() {
+              frist = false;
+              a = false;
+            });
+          }
+          else
+            {
+            General.showDialogue(
+                txtWidget: Text(
+                  TranslationBase.of(
+                      context)
+                      .getStringLocaledByKey(
+                      'YOUR_LOCATION_NOT_SUITABLE'),
+                ),
+                context: context);
+            }
+
+        }
+
+
+  }
 
 }

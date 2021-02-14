@@ -39,9 +39,9 @@ class Api {
       };
 
       var params = {
-        "email": "amr@sovisions.com",
-        "code": "112233",
-        "serial": "123123",
+        "code":password,
+        "serial":"54321",
+        "email":email
       };
       var body = json.encode(APIService().createPayload(params));
       final response =
@@ -76,7 +76,7 @@ class Api {
       print("\nApi ${user.userData.email}");
       var params = {
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         //"serial": serial,
         "email": user.userData.email,
       };
@@ -113,13 +113,16 @@ class Api {
 
       var params = {
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         //"serial": serial,
         "email": user.userData.email,
         "date": date.toIso8601String(),
         "lat": lat,
         "lon": lon
       };
+
+      print("params : ${params}");
+
 
       var body = json.encode(APIService().createPayload(params));
       final response =
@@ -149,7 +152,7 @@ class Api {
       var params = {
         "email": "amr@sovisions.com",
         "code": "112233",
-        "serial": "123123",
+        "serial": "54321",
         "message": "Salary",
         "type": "Salary"
       };
@@ -184,7 +187,7 @@ class Api {
 
       var params = {
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         //"serial": serial,
         "email": user.userData.email,
         //"serial": serial,
@@ -192,6 +195,9 @@ class Api {
         "lat": lat,
         "lon": lon
       };
+
+      print("userparams : ${params}");
+
 
       var body = json.encode(APIService().createPayload(params));
       final response =
@@ -226,7 +232,7 @@ class Api {
       var params = {
         "email": email,
         "code": password,
-        "serial": "123123",
+        "serial": "54321",
         "message": massage,
         "type": type
       };
@@ -263,7 +269,7 @@ class Api {
       var params = {
         "email": user.userData.email,
         "code": user.userData.code,
-        "serial": "123123",
+        "serial": "54321",
         "date": dateTime.toIso8601String(),
       };
       var body = json.encode(APIService().createPayload(params));
