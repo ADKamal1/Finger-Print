@@ -74,7 +74,8 @@ class _CalenderState extends State<Calender> {
                               child: Column(
                                 children: [
                                   EventWidget(
-                                    title: 'Check in',
+                                    title: TranslationBase.of(context)
+                                        .getStringLocaledByKey('Check In'),
                                     color: Color.fromRGBO(36, 200, 139, 1),
                                     icon: Icon(
                                       Icons.remove_circle_outline,
@@ -85,14 +86,15 @@ class _CalenderState extends State<Calender> {
                                     lineThrough: false,
                                   ),
                                   EventWidget(
-                                    title: 'Check out',
+                                    title: TranslationBase.of(context)
+                                        .getStringLocaledByKey('Check Out'),
                                     color: Color.fromRGBO(249, 96, 96, 1),
                                     icon: Icon(
                                       Icons.check_circle,
                                       color: Color.fromRGBO(249, 96, 96, 1),
                                     ),
                                     dateFormatted:
-                                        '${DateFormat.jm().format(e.startTime)}',
+                                        '${DateFormat.jm().format(e.endTime)}',
                                     lineThrough: true,
                                   ),
                                 ],
@@ -114,14 +116,6 @@ class _CalenderState extends State<Calender> {
     );
   }
 
-//  ////- To Build List Of Courses list
-//  buildEvents(CalenderBloc state, BuildContext context) {
-//    return state.events.isNotEmpty
-//        ?
-//        : Container(child: Center(child: General.buildTxt(
-//      txt: ('THERE_IS_NO_Events'),
-//    )),
-//    );
-//  }
+
 
 }

@@ -24,17 +24,21 @@ class CalenderBloc extends GeneralBloc {
     try {
       events = {};
       neatCleanCalendarEventList = [];
-      setWaiting();
-      notifyListeners();
+      //setWaiting();
+      //notifyListeners();
       calender = await Api().getCalenderEvents(
           dateTime: dateTime, password: password, context: context);
 
       for (int i = 0; i < calender.calenderData.length; i++) {
+        print("year:${DateTime(dateTime.year)}");
         neatCleanCalendarEvent = NeatCleanCalendarEvent('Check in',
-            startTime: DateTime(dateTime.year, dateTime.month, dateTime.day,
-                dateTime.hour, dateTime.minute),
-            endTime: DateTime(dateTime.year, dateTime.month, dateTime.day,
-                dateTime.hour, dateTime.minute),
+            startTime: DateTime(calender.calenderData[i].checkIn.year,
+                calender.calenderData[i].checkIn.month, calender.calenderData[i].checkIn.day,
+                calender.calenderData[i].checkIn.hour, calender.calenderData[i].checkIn.minute),
+            endTime: DateTime(
+                calender.calenderData[i].checkOut.year, calender.calenderData[i].checkOut.month,
+                calender.calenderData[i].checkOut.day,
+                calender.calenderData[i].checkOut.hour, calender.calenderData[i].checkOut.minute),
             description: 'A special event',
             color: Colors.blue[700]);
 
@@ -42,11 +46,12 @@ class CalenderBloc extends GeneralBloc {
       }
 
       events = {
-        DateTime(dateTime.year, dateTime.month, dateTime.day):
-            neatCleanCalendarEventList
+        DateTime(dateTime.year, dateTime.month, dateTime.day): neatCleanCalendarEventList
       };
 
-      //print("Events in Bloc : ${events.values}");
+
+      print("Events in Bloc : ${neatCleanCalendarEventList[0].endTime}");
+      print("Events in Bloc : ${neatCleanCalendarEventList[1].startTime}");
       dismissWaiting();
       notifyListeners();
       setError(null);

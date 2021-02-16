@@ -45,17 +45,14 @@ class _AccountPageState extends State<AccountPage> {
         elevation: 0.0,
 
       ),
-        body: ListView(
+      body: ListView(
           children: [
             SizedBox(
               height: height * .02,
             ),
 
 
-            Positioned(
-              top: height * 0.02,
-              left: width * 0.29,
-              child: CircleAvatar(
+            CircleAvatar(
                 radius: 45,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(45),
@@ -65,11 +62,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
 
 
-//              CircleAvatar(
-//                backgroundImage: Image.asset('assets/images/avater.png'),
-//                radius: 50,
-//              ),
-            ),
+
             SizedBox(
               height: height * .05,
             ),
@@ -231,6 +224,6 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ],
         ),
-      );
+    );
   }
 }
