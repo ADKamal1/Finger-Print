@@ -16,6 +16,8 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   UserBloc userBloc;
   User userData;
+  bool _firstTime = true;
+
 
   init() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -23,8 +25,9 @@ class _FirstScreenState extends State<FirstScreen> {
     userBloc = Provider.of<UserBloc>(context, listen: false);
 
     if (userData != null) {
+      print("ggggggggg: ${userData.userData.name.toString()}");
       userBloc.setUser(currentUser: userData);
-      print("\nuserDataInFirstScreen: ${userData.userData.name}");
+      //print("\nuserDataInFirstScreen: ${userData.userData.name}");
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePage()));
 //          context, MaterialPageRoute(builder: (context) => LoginPage()));
@@ -38,12 +41,19 @@ class _FirstScreenState extends State<FirstScreen> {
     }
   }
 
-  void initState() {
+  void initState()  {
     super.initState();
-    // startTime();
-    init();
+     //init();
   }
 
+  @override
+  void didChangeDependencies() async {
+    if (_firstTime){
+      await init();
+      _firstTime = false;
+    }
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     return Container();

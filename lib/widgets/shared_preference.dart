@@ -18,6 +18,7 @@ class SharedPreferenceHandler {
       if (prefs.getString('userData') != null) {
         Map<String, dynamic> data = json.decode(prefs.getString('userData'));
         User user = User.fromJson(data);
+        print("-------------> ${user.userData.is_located}");
         return user;
       } else {
         return null;

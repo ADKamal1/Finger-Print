@@ -85,7 +85,7 @@ class _CalenderState extends State<Calender> {
                                         '${DateFormat.jm().format(e.startTime)}',
                                     lineThrough: false,
                                   ),
-                                  EventWidget(
+                                  e.endTime==e.startTime?Container():EventWidget(
                                     title: TranslationBase.of(context)
                                         .getStringLocaledByKey('Check Out'),
                                     color: Color.fromRGBO(249, 96, 96, 1),
@@ -93,8 +93,7 @@ class _CalenderState extends State<Calender> {
                                       Icons.check_circle,
                                       color: Color.fromRGBO(249, 96, 96, 1),
                                     ),
-                                    dateFormatted:
-                                        '${DateFormat.jm().format(e.endTime)}',
+                                    dateFormatted: '${DateFormat.jm().format(e.endTime)}',
                                     lineThrough: true,
                                   ),
                                 ],

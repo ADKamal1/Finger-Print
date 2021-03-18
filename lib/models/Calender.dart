@@ -59,7 +59,7 @@ class CalenderData {
     id: json["id"] == null ? null : json["id"],
     name: json["name"] == null ? null : json["name"],
     checkIn: json["check_in"] == null ? DateTime.now() : DateTime.parse(json["check_in"]),
-    checkOut: json["check_out"] == null ? DateTime.now() : DateTime.parse(json["check_out"]),
+    checkOut: json["check_out"] == null ? DateTime.parse(json["check_in"] ): DateTime.parse(json["check_out"]),
     code: json["code"] == null ? null : json["code"],
     email: json["email"] == null ? null : json["email"],
     serial: json["serial"] == null ? null : json["serial"],

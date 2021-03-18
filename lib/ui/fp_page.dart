@@ -6,6 +6,7 @@ import 'package:my_finger_printer/Provider/checkIn_bloc.dart';
 import 'package:my_finger_printer/Provider/checkOut_bloc.dart';
 import 'package:my_finger_printer/Provider/status_block.dart';
 import 'package:my_finger_printer/Provider/user_bloc.dart';
+import 'package:my_finger_printer/models/user.dart';
 import 'package:my_finger_printer/utils/check_container.dart';
 import 'package:my_finger_printer/utils/common_container.dart';
 import 'package:my_finger_printer/utils/languages/translations_delegate_base.dart';
@@ -25,13 +26,24 @@ class _FPPageState extends State<FPPage> {
   Position current;
   StatusBloc userStateBloc;
   double distanceInMeters;
+  User user;
 
   location() async {
+    userBloc = Provider.of<UserBloc>(context, listen: false);
+    user = userBloc.user;
+
+//    if(true){
+//      //todo print("true");
+//    }
+
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
       setState(() {
         current = position;
       });
+
+      print("hhhhhhhhhhhhhhh ${userBloc.user.userData.is_located}");
+      print("hhhhhhhhhhhhhhh ${user.userData.is_located}");
 
       if (userBloc.user.userData.is_located == true) {
         if (distanceInMeters < 500) {
@@ -63,12 +75,14 @@ class _FPPageState extends State<FPPage> {
   @override
   void initState() {
     super.initState();
-    //StatusBar.color(Colors.black);
     location();
     init();
   }
 
   init() async {
+
+    _confirmLocation();
+
     await Future.delayed(Duration(milliseconds: 150));
 
     userBloc = Provider.of<UserBloc>(context, listen: false);
@@ -116,12 +130,13 @@ class _FPPageState extends State<FPPage> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Stack(children: [
-        Column(
+      body: Stack(
           children: [
+            Column(
+              children: [
 
-            /// Top image
-            Center(
+                /// Top image
+             Center(
               child: Padding(
                 padding: EdgeInsets.only(bottom: height*.01),
                 child: Container(
@@ -133,12 +148,12 @@ class _FPPageState extends State<FPPage> {
                   ),
                 ),
               ),
-            ),
+             ),
 
 
 
-            //////--Ckeck in - out
-            Padding(
+            //////--Check in - out
+             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(
                 shadowColor: Color.fromRGBO(0, 0, 0, 0.16),
@@ -214,20 +229,21 @@ class _FPPageState extends State<FPPage> {
                           ),
 
                           ///// confirm Location Button
-                          InkWell(
-                              onTap:_confirmLocation,
-                              child: DrawContainer(
-                                  TranslationBase.of(context)
-                                      .getStringLocaledByKey(
-                                      'Confirm Location'),
-                                  10,
-                                  (frist)
-                                      ? confirmColor
-                                      : Color.fromRGBO(227, 227, 227, 1),
-                                  (frist)
-                                      ? confirmWrite
-                                      : Color.fromRGBO(
-                                      100, 100, 100, 0.9))),
+//                          InkWell(
+//                              onTap:_confirmLocation,
+//                              child: DrawContainer(
+//                                  TranslationBase.of(context)
+//                                      .getStringLocaledByKey(
+//                                      'Confirm Location'),
+//                                  10,
+//                                  (frist)
+//                                      ? confirmColor
+//                                      : Color.fromRGBO(227, 227, 227, 1),
+//                                  (frist)
+//                                      ? confirmWrite
+//                                      : Color.fromRGBO(
+//                                      100, 100, 100, 0.9))
+//                          ),
 
                           SizedBox(
                             height: 10,
@@ -342,6 +358,8 @@ class _FPPageState extends State<FPPage> {
                                   },
 
                                 ),
+
+
                                 GestureDetector(
 
                                   onTap: (userStateBloc.status==null?false:
@@ -431,8 +449,6 @@ class _FPPageState extends State<FPPage> {
                       ),
                     ),
 
-
-
                     Positioned(
                         top: -20,
                         left: 15,
@@ -506,7 +522,7 @@ class _FPPageState extends State<FPPage> {
             ),
 
             /// developed by
-            Padding(
+             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Row(
                 children: [
@@ -528,6 +544,7 @@ class _FPPageState extends State<FPPage> {
                 ],
               ),
             ),
+
           ],
         ),
       ]),
@@ -535,13 +552,16 @@ class _FPPageState extends State<FPPage> {
   }
 
 
-_confirmLocation() async {
+  _confirmLocation() async {
 
         if(a == true && b == false && c == false)
         {
+          print("Location false ${userBloc.user.userData.is_located}");
           if (userBloc.user.userData.is_located == false)
           {
-            await Future.delayed(Duration(milliseconds: 150));
+            await Future.delayed(
+                Duration(milliseconds: 150)
+            );
             print("Confirm location");
             location();
             setState(() {
@@ -551,10 +571,10 @@ _confirmLocation() async {
           }
           else
             {
-            General.showDialogue(
-                txtWidget: Text(
-                  TranslationBase.of(
-                      context)
+              General.showDialogue(
+                txtWidget:
+                Text(
+                  TranslationBase.of(context)
                       .getStringLocaledByKey(
                       'YOUR_LOCATION_NOT_SUITABLE'),
                 ),

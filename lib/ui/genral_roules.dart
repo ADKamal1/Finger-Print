@@ -59,14 +59,11 @@ class _GeneralRulesState extends State<GeneralRules> {
           ),
 
           Center(
-            child: Positioned(
-              top: height * 0.02,
-              left: width * 0.29,
-              child: CircleAvatar(
+            child: CircleAvatar(
                 backgroundImage: AssetImage('assets/images/avater.png'),
                 radius: 50,
               ),
-            ),
+
           ),
           SizedBox(
             height: height * .05,

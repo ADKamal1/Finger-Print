@@ -30,7 +30,7 @@ class CalenderBloc extends GeneralBloc {
           dateTime: dateTime, password: password, context: context);
 
       for (int i = 0; i < calender.calenderData.length; i++) {
-        print("year:${DateTime(dateTime.year)}");
+        print("year:${calender.calenderData[i].checkOut}");
         neatCleanCalendarEvent = NeatCleanCalendarEvent('Check in',
             startTime: DateTime(calender.calenderData[i].checkIn.year,
                 calender.calenderData[i].checkIn.month, calender.calenderData[i].checkIn.day,
@@ -50,8 +50,8 @@ class CalenderBloc extends GeneralBloc {
       };
 
 
-      print("Events in Bloc : ${neatCleanCalendarEventList[0].endTime}");
-      print("Events in Bloc : ${neatCleanCalendarEventList[1].startTime}");
+      print("Events in Bloc1 : ${neatCleanCalendarEventList[0].endTime}");
+      print("Events in Bloc2 : ${neatCleanCalendarEventList[1].startTime}");
       dismissWaiting();
       notifyListeners();
       setError(null);

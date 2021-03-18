@@ -46,14 +46,11 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
           ),
 
           Center(
-            child: Positioned(
-              top: height * 0.02,
-              left: width * 0.29,
-              child: CircleAvatar(
+            child:  CircleAvatar(
                 backgroundImage: AssetImage('assets/images/avater.png'),
                 radius: 50,
               ),
-            ),
+
           ),
           SizedBox(
             height: height * .03,
@@ -89,9 +86,9 @@ class _RequestsAndInqState extends State<RequestsAndInq> {
                 Text(
                   "Developed By",
                   style: TextStyle(
-                      color: Color.fromRGBO(41, 41, 41, 1),
-                      fontSize: 12,
-                      inherit: false,
+                    color: Color.fromRGBO(41, 41, 41, 1),
+                    fontSize: 12,
+                    inherit: false,
                   ),
                 ),
                 Container(

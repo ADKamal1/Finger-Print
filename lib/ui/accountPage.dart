@@ -21,7 +21,6 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _init();
   }

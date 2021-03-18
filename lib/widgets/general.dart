@@ -126,7 +126,7 @@ class General {
 
   static formatStringWithTimeFromDate(DateTime date) {
     //DateTime myDate = DateTime.parse(date);
-    return new DateFormat('yyyy/MM/dd hh:mm').format(date);
+    return new DateFormat('yyyy/MM/dd').format(date);
   }
 
   static Future<void> showMakeSureDialogue(

@@ -21,6 +21,7 @@ class UserBloc extends GeneralBlocState {
     notifyListeners();
   }
 
+
   logout(BuildContext context) async {
     try {
       _isLogin = false;

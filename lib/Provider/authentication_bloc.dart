@@ -24,7 +24,6 @@ class AuthenticationBloc extends GeneralBloc {
       user = await Api().login(email: email, password: password, serial: serial);
       _isWaiting = false;
       notifyListeners();
-      print("hhh:${user.errors}");
       if (user.errors.isEmpty) {
         Navigator.pushAndRemoveUntil(
             context,
@@ -33,6 +32,7 @@ class AuthenticationBloc extends GeneralBloc {
         notifyListeners();
         SharedPreferenceHandler.setUserData(user);
         SharedPreferenceHandler.setUserSerial(serial);
+        print("hhh:${user.userData.is_located}");
         userBloc.setUser(currentUser: user);
         Navigator.push(context, ScaleTransationRoute(page: HomePage()));
       } else {
